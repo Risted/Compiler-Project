@@ -1,4 +1,4 @@
-#include "symbol.h"
+#include "../headers/symbol.h"
 #include <stdio.h>
 
 
@@ -7,7 +7,7 @@ int Hash(char *str){
 }
 
 SymbolTable *initSymbolTable(){
-  
+
 }
 
 SymbolTable *scopeSymbolTable(SymbolTable *t){

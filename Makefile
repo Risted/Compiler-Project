@@ -1,31 +1,18 @@
-CC	  = gcc #Compiler
+CC	=	gcc
+CFLAGS	+=	-std=c11
+CFLAGS	+=	-Wall
+CFLAGS	+=	-Wextra
+CFLAGS	+=	-pedantic
 
-CFLAGS   += -I headers#
-CFLAGS   += -std=c11#
-CFLAGS   += -Wall#
-CFLAGS   += -Wextra#
-CFLAGS   += -pedentic#
+SOURCES	+= main.c
+SOURCES	+= sources/symbol.c
+SOURCES	+= sources/memory.c
 
-# Main
-SOURCES   = sources/main.c#
+default: main.c
+	$(CC) -o main $(SOURCES) $(FLAGS)
 
-# Functions
-SOURCES  += sources/memory.c#
-SOURCES  += sources/symbol.c#
+run:
+	./main
 
-OOBJECTS  = $(SOURCES:.c=.o)#Object files
-OBJECTS = $(OOBJECTS:sources/=objects/)
-
-EXECUTEABLE= a.out #Output name
-
-all: $(SOURCES) $(EXECUTEABLE)
-
-$(EXECUTEABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXECUTEABLE)
-
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
-
-clean:  ; rm $(OBJECTS) $(EXECUTEABLE)
-
-run:	; ./$(EXECUTEABLE)
+clean:
+	rm -f main.o main
