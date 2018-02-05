@@ -1,7 +1,9 @@
 #include "symbol.h"
+#include <stdio.h>
+
 
 int Hash(char *str){
-
+  
 }
 
 SymbolTable *initSymbolTable(){
@@ -21,5 +23,5 @@ SYMBOL *getSymbol(SymbolTable *t, char *name){
 }
 
 void dumpSymbolTable(SymbolTable *t){
-  
+
 }
