@@ -1,4 +1,4 @@
-#include "symbol.h"
+#include "../headers/symbol.h"
 #include <stdio.h>
 #include <string.h>
 #include <memory.h>
@@ -7,6 +7,7 @@
 int convertBinaryToDecimal(long long n);
 
 int Hash(char *str){
+
   int sum = 0;
   for(i = 0;i<len(str);i++){
     sum = sum*2+str[i]; //we use decimal operaters since these are natively defined in c
