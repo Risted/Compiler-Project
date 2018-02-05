@@ -4,7 +4,7 @@ CFLAGS   += -I headers#
 CFLAGS   += -std=c11#
 CFLAGS   += -Wall#
 CFLAGS   += -Wextra#
-CFLAGS   += -pedentic#
+CFLAGS   += -pedantic#
 
 # Main
 SOURCES   = sources/main.c#
