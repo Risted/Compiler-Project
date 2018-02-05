@@ -7,8 +7,9 @@
 int convertBinaryToDecimal(long long n);
 
 int Hash(char *str){
-
   int sum = 0;
+  int i;
+
   for(i = 0;i<len(str);i++){
     sum = sum*2+str[i]; //we use decimal operaters since these are natively defined in c
   }
@@ -33,7 +34,7 @@ SymbolTable *scopeSymbolTable(SymbolTable *t){
 }
 
 SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
-  
+
 }
 
 SYMBOL *getSymbol(SymbolTable *t, char *name){
