@@ -4,8 +4,6 @@
 #include <memory.h>
 #include <math.h>
 
-int convertBinaryToDecimal(long long n);
-
 int Hash(char *str){
 
   int sum = 0;
