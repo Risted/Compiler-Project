@@ -1,3 +1,5 @@
+#ifndef SYMBOL_H
+#define SYMBOL_H
 
 #define HashSize 317
 
@@ -27,3 +29,5 @@ SYMBOL *putSymbol(SymbolTable *t, char *name, int value);
 SYMBOL *getSymbol(SymbolTable *t, char *name);
 
 void dumpSymbolTable(SymbolTable *t);
+
+#endif
