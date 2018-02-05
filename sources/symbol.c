@@ -3,11 +3,11 @@
 
 
 int Hash(char *str){
-  
+
 }
 
 SymbolTable *initSymbolTable(){
-
+  
 }
 
 SymbolTable *scopeSymbolTable(SymbolTable *t){
