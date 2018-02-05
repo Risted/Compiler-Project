@@ -1,1 +1,3 @@
 Hvorfor skal vi bruge memory.c og memory.h - hvad gør de?
+Kan vi ændre i funktions navne?
+Kan vi bruge calloc?

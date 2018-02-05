@@ -1,15 +1,25 @@
 #include <stdio.h>
+#include "headers/symbol.h"
 
 int main(int argc, char const *argv[]) {
-  char c;
-    printf("Enter a character: ");
 
-    // Reads character input from the user
-    scanf("%c", &c);
+  char *string = "kitty";
+  int value = 21;
 
-    // %d displays the integer value of a character
-    // %c displays the actual character
-    printf("ASCII value of %c = %d\n", c, c);
-    return 0;
+  // int result = Hash(string);
+  // printf("String hash value: %i\n", result);
+
+  SymbolTable* newTable;
+
+  newTable = initSymbolTable();
+
+  // printf("Size of table: %li\n", sizeof(newTable->table));
+
+  SYMBOL *newSymbol;
+
+  newSymbol = putSymbol(newTable, string, value);
+
+  printf("Index kitty: %d\n", (newTable->table[199]->value));
+
   return 0;
 }
