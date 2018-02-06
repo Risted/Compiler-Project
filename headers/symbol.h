@@ -14,7 +14,7 @@ typedef struct SYMBOL {
 } SYMBOL;
 
 typedef struct SymbolTable {
-    SYMBOL *table[HashSize * sizeof(SYMBOL)];
+    SYMBOL *table[HashSize];
     struct SymbolTable *next;
 } SymbolTable;
 

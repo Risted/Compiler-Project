@@ -19,7 +19,5 @@ int main(int argc, char const *argv[]) {
 
   newSymbol = putSymbol(newTable, string, value);
 
-  printf("Index kitty: %d\n", (newTable->table[199]->value));
-
   return 0;
 }
