@@ -12,18 +12,19 @@ int HashMod(int hash, int mod){
 int Hash(char *str){
   int sum = 0;
   int i=0;
-  for(i; i < strlen(str) ;i++ ){
+  for(i; i < strlen(str) ;i++ ){//iterating over the whole string
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-  //sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
-
   return sum;
 }
 
-int Hashing(char *str, int mod){
+int Hashing(char *str, int mod){ //interface for our functions
+  if(mod != HashSize){
+    printf("you are not using the expected size %d\n", mod);
+  }
   int x;
-  x = Hash(str);
-  return(HashMod(x,mod));
+  x = Hash(str); //Calculating the hash value
+  return(HashMod(x,mod));  //returns the
 }
 
 SymbolTable *initSymbolTable(){
