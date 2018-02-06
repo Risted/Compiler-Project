@@ -9,17 +9,19 @@ int main(int argc, char const *argv[]) {
   // int result = Hash(string);
   // printf("String hash value: %i\n", result);
 
-  SymbolTable* newTable;
+  SymbolTable *newTable;
+  printf("newTable address: %d\n", newTable);
 
   newTable = initSymbolTable();
 
+  printf("newTable address: %d\n", newTable);
+
+
   // printf("Size of table: %li\n", sizeof(newTable->table));
 
-  SYMBOL *newSymbol;
-
-  newSymbol = putSymbol(newTable, string, value);
-
-  printf("Index kitty: %d\n", (newTable->table[199]->value));
+  // SYMBOL *newSymbol;
+  //
+  // newSymbol = putSymbol(newTable, string, value);
 
   return 0;
 }
