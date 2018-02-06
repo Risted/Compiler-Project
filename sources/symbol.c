@@ -20,24 +20,12 @@ int Hash(char *str){
 
 SymbolTable *initSymbolTable(){
 
-  SymbolTable table = {
-    .table = (struct SYMBOL *) malloc(HashSize * sizeof(SYMBOL *)),
-    .next = NULL //we dont have a next so no need to make space for it.
-  };
+  SymbolTable *table = (SymbolTable*)malloc(sizeof(SymbolTable));
+  table->next = NULL; //we dont have a next so no need to make space for it.
 
-  // SYMBOL symbol = {
-  //   .name = "Kitty",
-  //   .value = 42,
-  //   .next = NULL
-  // };
-  //
-  // table.table[0] = &symbol;
-  //
-  // printf("table[0] name: %s\n", table.table[0]->name);
+  printf("table address: %d\n", table);
 
-  printf("table address: %d\n", &table);
-
-  return &table;
+  return table;
 }
 
 SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
@@ -58,11 +46,11 @@ SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
     .next = NULL
   };
 
-  printf("---------> %s\n", symbol.name);
-  printf("---------> %d\n", symbol.value);
-
-  printf("Hash value: %i\n", hashValue);
-  printf("address: %i\n", &symbol);
+  // printf("---------> %s\n", symbol.name);
+  // printf("---------> %d\n", symbol.value);
+  //
+  // printf("Hash value: %i\n", hashValue);
+  // printf("address: %i\n", &symbol);
 
   // printf("table value: %dS\n", (int *)*t.table[hashValue]);
 
@@ -85,7 +73,6 @@ SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
   //   printf("%d\n", __LINE__);
   //   t->table[hashValue] = &symbol;
   // }
-  printf("%d\n", __LINE__);
 
   return &symbol;
 
