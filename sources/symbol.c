@@ -4,6 +4,12 @@
 #include <string.h>
 #include <math.h>
 
+int HashMod(int hash, int mod){
+  hash = hash % mod;
+  return hash
+}
+
+
 int Hash(char *str){
   int sum = 0;
 
@@ -11,11 +17,16 @@ int Hash(char *str){
   for(i = 0; i < strlen(str) ;i++ ){
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-  sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
+  //sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
 
   return sum;
 }
 
+int Hashing(char *str, int mod){
+  int x;
+  x = Hash(str);
+  return(HashMod(x,mod));
+}
 
 SymbolTable *initSymbolTable(){
   SymbolTable table = {
