@@ -7,7 +7,7 @@
 
 int HashMod(int hash, int mod){
   hash = hash % mod;
-  return hash
+  return hash;
 }
 
 int Hash(char *str){
