@@ -9,7 +9,6 @@ int HashMod(int hash, int mod){
   return hash
 }
 
-
 int Hash(char *str){
   int sum = 0;
 
