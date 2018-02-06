@@ -11,9 +11,8 @@ int HashMod(int hash, int mod){
 
 int Hash(char *str){
   int sum = 0;
-
-  int i;
-  for(i = 0; i < strlen(str) ;i++ ){
+  int i=0;
+  for(i; i < strlen(str) ;i++ ){
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
   //sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
