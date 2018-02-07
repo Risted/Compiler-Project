@@ -22,7 +22,6 @@ int main(int argc, char const *argv[]) {
   //alsoNewSymbol = putSymbol(newTable, string1, value1);
 
   Symbol *gitSymbol;
-  printf("hej!\n");
   gitSymbol = getSymbol(newTable,"bla");
   if(gitSymbol != NULL){
     printf("%s %d\n", gitSymbol->name,gitSymbol->value);

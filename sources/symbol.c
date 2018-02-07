@@ -51,11 +51,15 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   return table;
 }
 
+Symbol *getNextSymbol(Symbol *symbol){
+
+}
+
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
 
   // putSymbol takes a hash table and a string, name, as arguments and inserts
   // name into the hash table together with the associated value value. A pointer
-  // to the SYMBOL value which stores name is returned.
+  // to the Symbol value which stores name is returned.
 
   int hashValue;
   hashValue = Hash(name);
@@ -65,18 +69,24 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   symbol->value = value;
   symbol->next = NULL;
 
-  if(t->table[hashValue] != NULL){
-    Symbol *current = t->table[hashValue];
-    while(current->next != NULL){
-      if (current)
-      current = current->next;
-    }
-    current->next = symbol;
+  if (t->table[hashValue] == NULL){
+    t->table[hashValue] = symbol;
+
+    return symbol;
   }
   else {
-    t->table[hashValue] = symbol;
+    Symbol *currentSymbol;
+    currentSymbol = t->table[hashValue];
+    while(currentSymbol != NULL){
+      if(currentSymbol->name == name){
+        currentSymbol->value = value;
+
+        free(symbol);
+        return currentSymbol;
+      }
+    currentSymbol = currentSymbol->next;
+    }
   }
-  return symbol;
 }
 
 Symbol *getSymbol(SymbolTable *t, char *name){
@@ -88,6 +98,7 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
+
   int hashed;
   Symbol *s;
 
