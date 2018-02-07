@@ -15,13 +15,7 @@ int Hash(char *str){
   for(i; i < strlen(str) ;i++ ){//iterating over the whole string
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-<<<<<<< HEAD
-  sum = sum % HashSize; //takes the modulo of the sum and the hash table size.
-
-  return sum;
-=======
   return sum % HashSize;
->>>>>>> 5dcadb4558d9d611c3218b066f8731efc455c110
 }
 
 /*int Hashing(char *str, int mod){ //interface for our functions

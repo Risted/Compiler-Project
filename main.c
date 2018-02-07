@@ -13,8 +13,11 @@ int main(int argc, char const *argv[]) {
   // printf("String hash value: %i\n", result);
 
   SymbolTable *newTable;
-  newTable = initSymbolTable();
+  SymbolTable *scopeTable;
 
+  newTable = initSymbolTable();
+  scopeTable=scopeSymbolTable(newTable);
+  printf("old:%d  new:%d\n",newTable, scopeTable->next);
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
 
@@ -22,7 +25,7 @@ int main(int argc, char const *argv[]) {
   //alsoNewSymbol = putSymbol(newTable, string1, value1);
 
   Symbol *gitSymbol;
-  printf("hej!\n");
+  //printf("hej!\n");
   gitSymbol = getSymbol(newTable,"bla");
   if(gitSymbol != NULL){
     printf("%s %d\n", gitSymbol->name,gitSymbol->value);
