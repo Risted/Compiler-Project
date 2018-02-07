@@ -73,8 +73,23 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
     }
     current->next = symbol;
   }
+<<<<<<< HEAD
   else {
     t->table[hashValue] = symbol;
+=======
+  else {  //Collision, we check if the name matches any of the linked symbols
+    Symbol *currentSymbol;
+    currentSymbol = t->table[hashValue];
+    while(currentSymbol != NULL){
+      if(currentSymbol->name == name){
+        currentSymbol->value = value;
+
+        free(symbol);
+        return currentSymbol;
+      }
+    currentSymbol = currentSymbol->next;
+    }
+>>>>>>> da3418049b904674d125e9c22c624c5fa588fce0
   }
   return symbol;
 }

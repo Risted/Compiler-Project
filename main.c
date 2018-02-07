@@ -20,9 +20,11 @@ int main(int argc, char const *argv[]) {
   //printf("old:%d  new:%d\n",newTable, scopeTable->next);
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
+  printf("Value in newTable-table[199] before new symbol: %i\n", newTable->table[199]->value);
 
-  //Symbol *alsoNewSymbol;
-  //alsoNewSymbol = putSymbol(newTable, string1, value1);
+  Symbol *alsoNewSymbol;
+  alsoNewSymbol = putSymbol(newTable, string1, value1);
+
 
   Symbol *gitSymbol;
   gitSymbol = getSymbol(newTable,string);
@@ -31,6 +33,17 @@ int main(int argc, char const *argv[]) {
   }else{
     printf("No symbol found\n");
   }
+
+  printf("Value in newTable-table[199] after new symbol: %i\n", newTable->table[199]->value);
+
+  // Symbol *gitSymbol;
+  // gitSymbol = getSymbol(newTable,"bla");
+  // if(gitSymbol != NULL){
+  //   printf("%s %d\n", gitSymbol->name,gitSymbol->value);
+  // }else{
+  //   printf("mipmap\n");
+  // }
+>>>>>>> da3418049b904674d125e9c22c624c5fa588fce0
 
   return 0;
 }
