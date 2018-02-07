@@ -79,7 +79,7 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   return symbol;
 }
 
-Symbol *getSymbol(SymbolTable *t, char *name){
+Symbol *getSymbol(SymbolTable *table, char *name){
 
   // getSymbol takes a hash table and a string name as arguments and searches for
   // name in the following manner: First search for name in the hash table which
@@ -89,51 +89,51 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
   int hashed;
-  Symbol *s;
+  Symbol *symbol;
   //printf("hej1\n");
-  if(t->next !=NULL){
+  if(table->next !=NULL){
 
     //printf("hej2\n");
-    s = getSymbol(t->next, name);
-    if (s != NULL){
-      return s;
+    symbol = getSymbol(table->next, name);
+    if (symbol != NULL){
+      return symbol;
     }
   }
 
   //printf("hej3\n");
   hashed = Hash(name);
 
-  if(t->table[hashed] == NULL){
+  if(table->table[hashed] == NULL){
 
     //printf("hej4\n");
     return NULL;
   }else{
 
     //printf("hej5\n");
-    s = t->table[hashed];
-    while(s != NULL){
+    symbol = table->table[hashed];
+    while(symbol != NULL){
 
       //printf("hej6\n");
-      if(s->name == name){
-        return s;
+      if(symbol->name == name){
+        return symbol;
       }
-      s = s->next;
+      symbol = symbol->next;
     }
     return NULL;
   }
-  if(t->next !=NULL){
+  if(table->next !=NULL){
 
     //printf("hej2\n");
-    s = getSymbol(t->next, name);
-    if (s != NULL){
-      return s;
+    symbol = getSymbol(table->next, name);
+    if (symbol != NULL){
+      return symbol;
     }
   }
   return NULL;
 
 }
 
-void dumpSymbolTable(SymbolTable *t){
+void dumpSymbolTable(SymbolTable *table){//DOES NOT WORK!
   // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
@@ -149,19 +149,19 @@ void dumpSymbolTable(SymbolTable *t){
   // }
 
   int i = 0;
-  if (t->next != NULL) {
-    dumpSymbolTable(t->next);
+  if (table->next != NULL) {
+    dumpSymbolTable(table->next);
   }
   for(i;i<HashSize;i++){
-    Symbol* s;
+    Symbol* symbol;
     Symbol* temp;
     if(t->table[i] != NULL){
-        s = t->table[i];
-        while(s->next != NULL){
-          temp = s->next;
-          printf("found symbol%s %d at %d\n",s->name, s->value, i);
+        symbol = table->table[i];
+        while(symbol->next != NULL){
+          temp = symbol->next;
+          printf("found symbol%s %d at %d\n",symbol->name, symbol->value, i);
           //free(s);
-          s = temp;
+          symbol = temp;
         }
     }
   }

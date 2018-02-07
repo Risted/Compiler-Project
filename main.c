@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
 
   newTable = initSymbolTable();
   scopeTable=scopeSymbolTable(newTable);
-  printf("old:%d  new:%d\n",newTable, scopeTable->next);
+  //printf("old:%d  new:%d\n",newTable, scopeTable->next);
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
 
@@ -25,12 +25,11 @@ int main(int argc, char const *argv[]) {
   //alsoNewSymbol = putSymbol(newTable, string1, value1);
 
   Symbol *gitSymbol;
-  //printf("hej!\n");
-  gitSymbol = getSymbol(newTable,"bla");
+  gitSymbol = getSymbol(newTable,string);
   if(gitSymbol != NULL){
-    printf("%s %d\n", gitSymbol->name,gitSymbol->value);
+    printf("Symbol FOUND!: name: %s value:%d\n", gitSymbol->name,gitSymbol->value);
   }else{
-    printf("mipmap\n");
+    printf("No symbol found\n");
   }
 
   return 0;
