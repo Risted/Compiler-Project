@@ -18,8 +18,12 @@ int main(int argc, char const *argv[]) {
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
 
-  Symbol *alsoNewSymbol;
-  alsoNewSymbol = putSymbol(newTable, string1, value1);
+  //Symbol *alsoNewSymbol;
+  //alsoNewSymbol = putSymbol(newTable, string1, value1);
 
+  Symbol *gitSymbol;
+  printf("hej!\n");
+  gitSymbol = getSymbol(newTable,string);
+  printf("%s %d\n", gitSymbol->name,gitSymbol->value);
   return 0;
 }
