@@ -127,6 +127,14 @@ Symbol *getSymbol(SymbolTable *t, char *name){
     }
     return NULL;
   }
+  if(t->next !=NULL){
+
+    //printf("hej2\n");
+    s = getSymbol(t->next, name);
+    if (s != NULL){
+      return s;
+    }
+  }
   return NULL;
 
 }
