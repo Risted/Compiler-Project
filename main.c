@@ -23,7 +23,12 @@ int main(int argc, char const *argv[]) {
 
   Symbol *gitSymbol;
   printf("hej!\n");
-  gitSymbol = getSymbol(newTable,string);
-  printf("%s %d\n", gitSymbol->name,gitSymbol->value);
+  gitSymbol = getSymbol(newTable,"bla");
+  if(gitSymbol != NULL){
+    printf("%s %d\n", gitSymbol->name,gitSymbol->value);
+  }else{
+    printf("mipmap\n");
+  }
+
   return 0;
 }
