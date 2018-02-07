@@ -10,8 +10,11 @@ int main(int argc, char const *argv[]) {
   int value1 = 9000;
 
   SymbolTable *newTable;
-  newTable = initSymbolTable();
+  SymbolTable *scopeTable;
 
+  newTable = initSymbolTable();
+  scopeTable=scopeSymbolTable(newTable);
+  //printf("old:%d  new:%d\n",newTable, scopeTable->next);
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
   printf("Value in newTable-table[199] before new symbol: %i\n", newTable->table[199]->value);
@@ -20,12 +23,13 @@ int main(int argc, char const *argv[]) {
   alsoNewSymbol = putSymbol(newTable, string1, value1);
   printf("Value in newTable-table[199] after new symbol: %i\n", newTable->table[199]->value);
 
-  Symbol *getSymbol;
-  getSymbol = getSymbol(newTable,"bla");
-  if(getSymbol != NULL){
-    printf("%s %d\n", getSymbol->name,getSymbol->value);
+
+  Symbol *gitSymbol;
+  gitSymbol = getSymbol(newTable,string);
+  if(gitSymbol != NULL){
+    printf("Symbol FOUND!: name: %s value:%d\n", gitSymbol->name,gitSymbol->value);
   }else{
-    printf("Symbol not in tables\n");
+    printf("No symbol found\n");
   }
 
   return 0;
