@@ -15,7 +15,7 @@ int Hash(char *str){
   for(i; i < strlen(str) ;i++ ){//iterating over the whole string
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-  sum = sum % HashSize; //takes the modulo of the sum and the hash table size.
+  return sum % HashSize;
 }
 
 /*int Hashing(char *str, int mod){ //interface for our functions
@@ -51,15 +51,11 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   return table;
 }
 
-Symbol *getNextSymbol(Symbol *symbol){
-
-}
-
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
 
   // putSymbol takes a hash table and a string, name, as arguments and inserts
   // name into the hash table together with the associated value value. A pointer
-  // to the Symbol value which stores name is returned.
+  // to the SYMBOL value which stores name is returned.
 
   int hashValue;
   hashValue = Hash(name);
@@ -69,27 +65,21 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   symbol->value = value;
   symbol->next = NULL;
 
-  if (t->table[hashValue] == NULL){
-    t->table[hashValue] = symbol;
-
-    return symbol;
+  if(t->table[hashValue] != NULL){
+    Symbol *current = t->table[hashValue];
+    while(current->next != NULL){
+      if (current)
+      current = current->next;
+    }
+    current->next = symbol;
   }
   else {
-    Symbol *currentSymbol;
-    currentSymbol = t->table[hashValue];
-    while(currentSymbol != NULL){
-      if(currentSymbol->name == name){
-        currentSymbol->value = value;
-
-        free(symbol);
-        return currentSymbol;
-      }
-    currentSymbol = currentSymbol->next;
-    }
+    t->table[hashValue] = symbol;
   }
+  return symbol;
 }
 
-Symbol *getSymbol(SymbolTable *t, char *name){
+Symbol *getSymbol(SymbolTable *table, char *name){
 
   // getSymbol takes a hash table and a string name as arguments and searches for
   // name in the following manner: First search for name in the hash table which
@@ -98,40 +88,52 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
-
   int hashed;
-  Symbol *s;
+  Symbol *symbol;
+  //printf("hej1\n");
+  if(table->next !=NULL){
 
-  if(t->next !=NULL){
-
-    s = getSymbol(t->next, name);
-    if (s != NULL){
-      return s;
+    //printf("hej2\n");
+    symbol = getSymbol(table->next, name);
+    if (symbol != NULL){
+      return symbol;
     }
   }
 
+  //printf("hej3\n");
   hashed = Hash(name);
 
-  if(t->table[hashed] == NULL){
+  if(table->table[hashed] == NULL){
 
+    //printf("hej4\n");
     return NULL;
   }else{
 
-    s = t->table[hashed];
-    while(s != NULL){
+    //printf("hej5\n");
+    symbol = table->table[hashed];
+    while(symbol != NULL){
 
-      if(s->name == name){
-        return s;
+      //printf("hej6\n");
+      if(symbol->name == name){
+        return symbol;
       }
-      s = s->next;
+      symbol = symbol->next;
     }
     return NULL;
+  }
+  if(table->next !=NULL){
+
+    //printf("hej2\n");
+    symbol = getSymbol(table->next, name);
+    if (symbol != NULL){
+      return symbol;
+    }
   }
   return NULL;
 
 }
 
-void dumpSymbolTable(SymbolTable *t){
+void dumpSymbolTable(SymbolTable *table){//DOES NOT WORK!
   // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
@@ -147,19 +149,19 @@ void dumpSymbolTable(SymbolTable *t){
   // }
 
   int i = 0;
-  if (t->next != NULL) {
-    dumpSymbolTable(t->next);
+  if (table->next != NULL) {
+    dumpSymbolTable(table->next);
   }
   for(i;i<HashSize;i++){
-    Symbol* s;
+    Symbol* symbol;
     Symbol* temp;
     if(t->table[i] != NULL){
-        s = t->table[i];
-        while(s->next != NULL){
-          temp = s->next;
-          printf("found symbol%s %d at %d\n",s->name, s->value, i);
+        symbol = table->table[i];
+        while(symbol->next != NULL){
+          temp = symbol->next;
+          printf("found symbol%s %d at %d\n",symbol->name, symbol->value, i);
           //free(s);
-          s = temp;
+          symbol = temp;
         }
     }
   }
