@@ -65,7 +65,7 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   // to the SYMBOL value which stores name is returned.
 
   int hashValue;
-  hashValue = Hash(name);
+  hashValue = Hashing(name,HashSize);
 
   Symbol *symbol = (Symbol *) malloc(sizeof(Symbol));
   symbol->name = name;
@@ -82,25 +82,18 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
 
   if(t->table[hashValue] != NULL){
     printf("%d\n", __LINE__);
-
     Symbol *current = t->table[hashValue];
-
     while(current->next != NULL){
       current = current->next;
     }
-
     current->next = symbol;
-
   }
   else {
     printf("%d\n", __LINE__);
     t->table[hashValue] = symbol;
   }
-
   return symbol;
-
 }
-
 Symbol *getSymbol(SymbolTable *t, char *name){
 
   // getSymbol takes a hash table and a string name as arguments and searches for
@@ -110,34 +103,51 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
-  int i = 0;
+  int hashed;
   Symbol *s;
-  while(t->next != NULL){
-    s = t->table[Hashing(name, HashSize)];
-    if(s != NULL){
-      if(s == name){
-        return s;
-      }if(s->next !=NULL){
-        while (s->next !=NULL){
-          s = s->next;
-          if(s->name == name){
-            return s;
-          }
-        }
-      }
+  printf("hej1\n");
+  if(t->next !=NULL){
+
+    printf("hej2\n");
+    s = getSymbol(t->next, name);
+    if (s != NULL){
+      return s;
     }
-    t = t->next;
   }
-  return NULL;
+
+  printf("hej3\n");
+  hashed = Hashing(name,HashSize);
+
+  if(t->table[hashed] == NULL){
+
+    printf("hej4\n");
+    return NULL;
+  }else{
+
+    printf("hej5\n");
+    s = t->table[hashed];
+    while(s != NULL){
+
+      printf("hej6\n");
+      if(s->name == name){
+        return s;
+      }
+      s = s->next;
+    }
+    return NULL;
+  }
+
+
+
 
 }
 
 void dumpSymbolTable(SymbolTable *t){
-  int i = 0;
   // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
+  int i = 0;
   if (t->next != NULL) {
     dumpSymbolTable(t->next);
   }
@@ -147,10 +157,10 @@ void dumpSymbolTable(SymbolTable *t){
     if(t->table[i] != NULL){
         s = t->table[i];
         while(s->next != NULL){
-          t = s->next;
-          printf("deleted symbol%c %d\n",s->name, s->value);
-          free(s);
-          s = t;
+          temp = s->next;
+          printf("found symbol%s %d at %d\n",s->name, s->value, i);
+          //free(s);
+          s = temp;
         }
     }
   }
