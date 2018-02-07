@@ -1,8 +1,8 @@
 #include "../headers/symbol.h"
 #include "../headers/memory.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 int HashMod(int hash, int mod){
@@ -30,78 +30,84 @@ int Hashing(char *str, int mod){ //interface for our functions
 
 SymbolTable *initSymbolTable(){
 
-  SymbolTable table = {
-    .table = (struct SYMBOL *) malloc(HashSize * sizeof(SYMBOL *)),
-    .next = NULL //we dont have a next so no need to make space for it.
-  };
+  SymbolTable *table = (SymbolTable*)malloc(sizeof(SymbolTable));
+  table->next = NULL; //we dont have a next so no need to make space for it.
 
-  // SYMBOL symbol = {
-  //   .name = "Kitty",
-  //   .value = 42,
-  //   .next = NULL
-  // };
-  //
-  // table.table[0] = &symbol;
-  //
-  // printf("table[0] name: %s\n", table.table[0]->name);
+  int i;
+  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
+    table->table[i] = NULL;
+  }
 
-  printf("table address: %d\n", &table);
-
-  return &table;
+  return table;
 }
 
 SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
-  SymbolTable table = {
-    .table = Malloc(HashSize * sizeof(SYMBOL)),
-    .next = oldTable
-  };
-  return &table;
+
+  // scopeSymbolTable takes a pointer to a hash table t as argument and returns
+  // a new hash table with a pointer to t in its next field
+
+  SymbolTable *table = (SymbolTable *) malloc(sizeof(SymbolTable));
+
+  table->next = oldTable;
+
+  int i;
+  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
+    table->table[i] = NULL;
+  }
+
+  return table;
+
+  // SymbolTable table = {
+  //   .table = Malloc(HashSize * sizeof(Symbol)),
+  //   .next = oldTable
+  // };
+  // return &table;
 }
 
-SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
+Symbol *putSymbol(SymbolTable *t, char *name, int value){
+
+  // putSymbol takes a hash table and a string, name, as arguments and inserts
+  // name into the hash table together with the associated value value. A pointer
+  // to the SYMBOL value which stores name is returned.
+
   int hashValue;
   hashValue = Hash(name);
 
-  SYMBOL symbol = {
-    .name = name,
-    .value = value,
-    .next = NULL
-  };
+  Symbol *symbol = (Symbol *) malloc(sizeof(Symbol));
+  symbol->name = name;
+  symbol->value = value;
+  symbol->next = NULL;
 
-  printf("---------> %s\n", symbol.name);
-  printf("---------> %d\n", symbol.value);
+  printf("Value in symbol: %i\n", symbol->value);
 
-  printf("Hash value: %i\n", hashValue);
-  printf("address: %i\n", &symbol);
+  // Symbol symbol = {
+  //   .name = name,
+  //   .value = value,
+  //   .next = NULL
+  // };
 
-  // printf("table value: %dS\n", (int *)*t.table[hashValue]);
+  if(t->table[hashValue] != NULL){
+    printf("%d\n", __LINE__);
 
-  // *t.table[hashValue] = &symbol;
+    Symbol *current = t->table[hashValue];
 
-  // if(t->table[hashValue] != NULL){
-  //   printf("%d\n", __LINE__);
-  //
-  //   SYMBOL *current = t->table[hashValue];
-  //
-  //   while(current->next != NULL){
-  //     printf("%d\n", __LINE__);
-  //     current = current->next;
-  //   }
-  //
-  //   current->next = &symbol;
-  //
-  // }
-  // else {
-  //   printf("%d\n", __LINE__);
-  //   t->table[hashValue] = &symbol;
-  // }
-  printf("%d\n", __LINE__);
+    while(current->next != NULL){
+      current = current->next;
+    }
 
-  return &symbol;
+    current->next = symbol;
+
+  }
+  else {
+    printf("%d\n", __LINE__);
+    t->table[hashValue] = symbol;
+  }
+
+  return symbol;
 
 }
 
-SYMBOL *getSymbol(SymbolTable *t, char *name){
+Symbol *getSymbol(SymbolTable *t, char *name){
 
   // getSymbol takes a hash table and a string name as arguments and searches for
   // name in the following manner: First search for name in the hash table which
@@ -110,6 +116,10 @@ SYMBOL *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
+
+  
+
+  return NULL;
 
 }
 
