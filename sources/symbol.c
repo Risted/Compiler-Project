@@ -1,8 +1,8 @@
 #include "../headers/symbol.h"
 #include "../headers/memory.h"
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 int Hash(char *str){
@@ -23,62 +23,81 @@ SymbolTable *initSymbolTable(){
   SymbolTable *table = (SymbolTable*)malloc(sizeof(SymbolTable));
   table->next = NULL; //we dont have a next so no need to make space for it.
 
-  printf("table address: %d\n", table);
+  int i;
+  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
+    table->table[i] = NULL;
+  }
 
   return table;
 }
 
 SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
-  SymbolTable table = {
-    .table = Malloc(HashSize * sizeof(SYMBOL)),
-    .next = oldTable
-  };
-  return &table;
+
+  // scopeSymbolTable takes a pointer to a hash table t as argument and returns
+  // a new hash table with a pointer to t in its next field
+
+  SymbolTable *table = (SymbolTable *) malloc(sizeof(SymbolTable));
+
+  table->next = oldTable;
+
+  int i;
+  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
+    table->table[i] = NULL;
+  }
+
+  return table;
+
+  // SymbolTable table = {
+  //   .table = Malloc(HashSize * sizeof(Symbol)),
+  //   .next = oldTable
+  // };
+  // return &table;
 }
 
-SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
+Symbol *putSymbol(SymbolTable *t, char *name, int value){
+
+  // putSymbol takes a hash table and a string, name, as arguments and inserts
+  // name into the hash table together with the associated value value. A pointer
+  // to the SYMBOL value which stores name is returned.
+
   int hashValue;
   hashValue = Hash(name);
 
-  SYMBOL symbol = {
-    .name = name,
-    .value = value,
-    .next = NULL
-  };
+  Symbol *symbol = (Symbol *) malloc(sizeof(Symbol));
+  symbol->name = name;
+  symbol->value = value;
+  symbol->next = NULL;
 
-  // printf("---------> %s\n", symbol.name);
-  // printf("---------> %d\n", symbol.value);
-  //
-  // printf("Hash value: %i\n", hashValue);
-  // printf("address: %i\n", &symbol);
+  printf("Value in symbol: %i\n", symbol->value);
 
-  // printf("table value: %dS\n", (int *)*t.table[hashValue]);
+  // Symbol symbol = {
+  //   .name = name,
+  //   .value = value,
+  //   .next = NULL
+  // };
 
-  // *t.table[hashValue] = &symbol;
+  if(t->table[hashValue] != NULL){
+    printf("%d\n", __LINE__);
 
-  // if(t->table[hashValue] != NULL){
-  //   printf("%d\n", __LINE__);
-  //
-  //   SYMBOL *current = t->table[hashValue];
-  //
-  //   while(current->next != NULL){
-  //     printf("%d\n", __LINE__);
-  //     current = current->next;
-  //   }
-  //
-  //   current->next = &symbol;
-  //
-  // }
-  // else {
-  //   printf("%d\n", __LINE__);
-  //   t->table[hashValue] = &symbol;
-  // }
+    Symbol *current = t->table[hashValue];
 
-  return &symbol;
+    while(current->next != NULL){
+      current = current->next;
+    }
+
+    current->next = symbol;
+
+  }
+  else {
+    printf("%d\n", __LINE__);
+    t->table[hashValue] = symbol;
+  }
+
+  return symbol;
 
 }
 
-SYMBOL *getSymbol(SymbolTable *t, char *name){
+Symbol *getSymbol(SymbolTable *t, char *name){
 
   // getSymbol takes a hash table and a string name as arguments and searches for
   // name in the following manner: First search for name in the hash table which
@@ -87,6 +106,10 @@ SYMBOL *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
+
+  
+
+  return NULL;
 
 }
 
