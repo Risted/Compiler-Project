@@ -1,5 +1,4 @@
 #include "../headers/symbol.h"
-#include "../headers/memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +11,7 @@ int Hash(char *str){
   for(i = 0; i < strlen(str) ;i++ ){
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-  sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
+  sum = sum % HashSize; //takes the modulo of the sum and the hash table size.
 
   return sum;
 }
@@ -46,12 +45,6 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   }
 
   return table;
-
-  // SymbolTable table = {
-  //   .table = Malloc(HashSize * sizeof(Symbol)),
-  //   .next = oldTable
-  // };
-  // return &table;
 }
 
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
@@ -68,34 +61,23 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   symbol->value = value;
   symbol->next = NULL;
 
-  printf("Value in symbol: %i\n", symbol->value);
-
-  // Symbol symbol = {
-  //   .name = name,
-  //   .value = value,
-  //   .next = NULL
-  // };
-
   if(t->table[hashValue] != NULL){
-    printf("%d\n", __LINE__);
 
     Symbol *current = t->table[hashValue];
 
     while(current->next != NULL){
+      if (current)
       current = current->next;
     }
-
     current->next = symbol;
-
   }
   else {
-    printf("%d\n", __LINE__);
     t->table[hashValue] = symbol;
   }
 
   return symbol;
-
 }
+
 
 Symbol *getSymbol(SymbolTable *t, char *name){
 
@@ -107,8 +89,6 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
 
-  
-
   return NULL;
 
 }
@@ -119,5 +99,14 @@ void dumpSymbolTable(SymbolTable *t){
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
+
+  // int i;
+  // for (i = 0; i < HashSize; i++){
+  //   if (t->table[i] != NULL){
+  //     printf("Pair = (%s, %i)\n", t->table[i]->name, t->table[i]->value);
+  //   }
+  //   else {
+  //   }
+  // }
 
 }
