@@ -52,11 +52,6 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
 }
 
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
-
-  // putSymbol takes a hash table and a string, name, as arguments and inserts
-  // name into the hash table together with the associated value value. A pointer
-  // to the SYMBOL value which stores name is returned.
-
   int hashValue;
   hashValue = Hash(name);
 
@@ -65,19 +60,12 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   symbol->value = value;
   symbol->next = NULL;
 
-  if(t->table[hashValue] != NULL){
-    Symbol *current = t->table[hashValue];
-    while(current->next != NULL){
-      if (current)
-      current = current->next;
-    }
-    current->next = symbol;
-  }
-
-  else {
+  if (t->table[hashValue] == NULL){
     t->table[hashValue] = symbol;
 
-  else {  //Collision, we check if the name matches any of the linked symbols
+    return symbol;
+  }
+  else {
     Symbol *currentSymbol;
     currentSymbol = t->table[hashValue];
     while(currentSymbol != NULL){
@@ -87,10 +75,10 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
         free(symbol);
         return currentSymbol;
       }
-    currentSymbol = currentSymbol->next;
+      currentSymbol = currentSymbol->next;
     }
   }
-  return symbol;
+return symbol;
 }
 
 Symbol *getSymbol(SymbolTable *table, char *name){
@@ -104,30 +92,24 @@ Symbol *getSymbol(SymbolTable *table, char *name){
   // which name is stored.
   int hashed;
   Symbol *symbol;
-  //printf("hej1\n");
   if(table->next !=NULL){
 
-    //printf("hej2\n");
     symbol = getSymbol(table->next, name);
     if (symbol != NULL){
       return symbol;
     }
   }
 
-  //printf("hej3\n");
   hashed = Hash(name);
 
   if(table->table[hashed] == NULL){
 
-    //printf("hej4\n");
     return NULL;
   }else{
 
-    //printf("hej5\n");
     symbol = table->table[hashed];
     while(symbol != NULL){
 
-      //printf("hej6\n");
       if(symbol->name == name){
         return symbol;
       }
@@ -137,7 +119,6 @@ Symbol *getSymbol(SymbolTable *table, char *name){
   }
   if(table->next !=NULL){
 
-    //printf("hej2\n");
     symbol = getSymbol(table->next, name);
     if (symbol != NULL){
       return symbol;
@@ -147,11 +128,30 @@ Symbol *getSymbol(SymbolTable *table, char *name){
 
 }
 
-void dumpSymbolTable(SymbolTable *table){//DOES NOT WORK!
+void dumpSymbolTable(SymbolTable *t){
   // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
+
+
+  Symbol *currentSymbol;
+
+  if (t->next == NULL){
+    int i;
+    for (i = 0; i < HashSize; i++){
+
+      currentSymbol = t->table[i];
+      while(currentSymbol != NULL){
+        printf("Pair = (%s, %i) with hashValue %i\n", t->table[i]->name, t->table[i]->value, i);
+      }
+      currentSymbol = currentSymbol->next;
+    }
+  }
+  else {
+    dumpSymbolTable(t->next);
+  }
+
 
   // int i;
   // for (i = 0; i < HashSize; i++){
@@ -162,21 +162,21 @@ void dumpSymbolTable(SymbolTable *table){//DOES NOT WORK!
   //   }
   // }
 
-  int i = 0;
-  if (table->next != NULL) {
-    dumpSymbolTable(table->next);
-  }
-  for(i;i<HashSize;i++){
-    Symbol* symbol;
-    Symbol* temp;
-    if(t->table[i] != NULL){
-        symbol = table->table[i];
-        while(symbol->next != NULL){
-          temp = symbol->next;
-          printf("found symbol%s %d at %d\n",symbol->name, symbol->value, i);
-          //free(s);
-          symbol = temp;
-        }
-    }
-  }
+  // int i = 0;
+  // if (table->next != NULL) {
+  //   dumpSymbolTable(table->next);
+  // }
+  // for(i;i<HashSize;i++){
+  //   Symbol* symbol;
+  //   Symbol* temp;
+  //   if(t->table[i] != NULL){
+  //       symbol = table->table[i];
+  //       while(symbol->next != NULL){
+  //         temp = symbol->next;
+  //         printf("found symbol%s %d at %d\n",symbol->name, symbol->value, i);
+  //         //free(s);
+  //         symbol = temp;
+  //       }
+  //   }
+  // }
 }

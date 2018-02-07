@@ -1,1 +1,18 @@
 
+
+Symbol *currentSymbol;
+
+if (t->next == NULL){
+  int i;
+  for (i = 0; i < HashSize; i++){
+
+    currentSymbol = t->table[i];
+    while(currentSymbol != NULL){
+      printf("Pair = (%s, %i) with hashValue %i\n", t->table[i]->name, t->table[i]->value, i);
+    }
+    currentSymbol = currentSymbol->next;
+  }
+}
+else {
+  dumpSymbolTable(t->next);
+}
