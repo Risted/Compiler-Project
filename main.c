@@ -4,22 +4,22 @@
 int main(int argc, char const *argv[]) {
 
   char *string = "kitty";
-  int value = 21;
+  int value = 42;
+
+  char *string1 = "kitty";
+  int value1 = 9000;
 
   // int result = Hash(string);
   // printf("String hash value: %i\n", result);
 
-  SymbolTable* newTable;
-
+  SymbolTable *newTable;
   newTable = initSymbolTable();
 
-  // printf("Size of table: %li\n", sizeof(newTable->table));
-
-  SYMBOL *newSymbol;
-
+  Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
 
-  printf("Index kitty: %d\n", (newTable->table[199]->value));
+  Symbol *alsoNewSymbol;
+  alsoNewSymbol = putSymbol(newTable, string1, value1);
 
   return 0;
 }
