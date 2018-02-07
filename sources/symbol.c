@@ -96,30 +96,30 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // which name is stored.
   int hashed;
   Symbol *s;
-  printf("hej1\n");
+  //printf("hej1\n");
   if(t->next !=NULL){
 
-    printf("hej2\n");
+    //printf("hej2\n");
     s = getSymbol(t->next, name);
     if (s != NULL){
       return s;
     }
   }
 
-  printf("hej3\n");
+  //printf("hej3\n");
   hashed = Hash(name);
 
   if(t->table[hashed] == NULL){
 
-    printf("hej4\n");
+    //printf("hej4\n");
     return NULL;
   }else{
 
-    printf("hej5\n");
+    //printf("hej5\n");
     s = t->table[hashed];
     while(s != NULL){
 
-      printf("hej6\n");
+      //printf("hej6\n");
       if(s->name == name){
         return s;
       }
