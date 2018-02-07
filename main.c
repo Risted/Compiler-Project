@@ -17,17 +17,20 @@ int main(int argc, char const *argv[]) {
 
   Symbol *newSymbol;
   newSymbol = putSymbol(newTable, string, value);
+  printf("Value in newTable-table[199] before new symbol: %i\n", newTable->table[199]->value);
 
-  //Symbol *alsoNewSymbol;
-  //alsoNewSymbol = putSymbol(newTable, string1, value1);
+  Symbol *alsoNewSymbol;
+  alsoNewSymbol = putSymbol(newTable, string1, value1);
 
-  Symbol *gitSymbol;
-  gitSymbol = getSymbol(newTable,"bla");
-  if(gitSymbol != NULL){
-    printf("%s %d\n", gitSymbol->name,gitSymbol->value);
-  }else{
-    printf("mipmap\n");
-  }
+  printf("Value in newTable-table[199] after new symbol: %i\n", newTable->table[199]->value);
+
+  // Symbol *gitSymbol;
+  // gitSymbol = getSymbol(newTable,"bla");
+  // if(gitSymbol != NULL){
+  //   printf("%s %d\n", gitSymbol->name,gitSymbol->value);
+  // }else{
+  //   printf("mipmap\n");
+  // }
 
   return 0;
 }

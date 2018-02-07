@@ -51,10 +51,6 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   return table;
 }
 
-Symbol *getNextSymbol(Symbol *symbol){
-
-}
-
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
 
   // putSymbol takes a hash table and a string, name, as arguments and inserts
@@ -74,7 +70,7 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
 
     return symbol;
   }
-  else {
+  else {  //Collision, we check if the name matches any of the linked symbols
     Symbol *currentSymbol;
     currentSymbol = t->table[hashValue];
     while(currentSymbol != NULL){
