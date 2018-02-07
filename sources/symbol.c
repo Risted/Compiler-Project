@@ -46,15 +46,9 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   // scopeSymbolTable takes a pointer to a hash table t as argument and returns
   // a new hash table with a pointer to t in its next field
 
-  SymbolTable *table = (SymbolTable *) malloc(sizeof(SymbolTable));
-
+  SymbolTable *table;
+  table = initSymbolTable();
   table->next = oldTable;
-
-  int i;
-  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
-    table->table[i] = NULL;
-  }
-
   return table;
 
   // SymbolTable table = {
