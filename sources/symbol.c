@@ -110,18 +110,48 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
-
-  
-
+  int i = 0;
+  Symbol *s;
+  while(t->next != NULL){
+    s = t->table[Hashing(name, HashSize)];
+    if(s != NULL){
+      if(s == name){
+        return s;
+      }if(s->next !=NULL){
+        while (s->next !=NULL){
+          s = s->next;
+          if(s->name == name){
+            return s;
+          }
+        }
+      }
+    }
+    t = t->next;
+  }
   return NULL;
 
 }
 
 void dumpSymbolTable(SymbolTable *t){
-
+  int i = 0;
   // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
-
+  if (t->next != NULL) {
+    dumpSymbolTable(t->next);
+  }
+  for(i;i<HashSize;i++){
+    Symbol* s;
+    Symbol* temp;
+    if(t->table[i] != NULL){
+        s = t->table[i];
+        while(s->next != NULL){
+          t = s->next;
+          printf("deleted symbol%c %d\n",s->name, s->value);
+          free(s);
+          s = t;
+        }
+    }
+  }
 }
