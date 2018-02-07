@@ -5,10 +5,10 @@
 #include <string.h>
 #include <math.h>
 
-int HashMod(int hash, int mod){
+/*int HashMod(int hash, int mod){
   hash = hash % mod;
   return hash;
-}
+}*/
 
 int Hash(char *str){
   int sum = 0;
@@ -16,17 +16,17 @@ int Hash(char *str){
   for(i; i < strlen(str) ;i++ ){//iterating over the whole string
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
-  return sum;
+  return sum % HashSize;
 }
 
-int Hashing(char *str, int mod){ //interface for our functions
+/*int Hashing(char *str, int mod){ //interface for our functions
   if(mod != HashSize){
     printf("you are not using the expected size %d\n", mod);
   }
   int x;
   x = Hash(str); //Calculating the hash value
   return(HashMod(x,mod));  //returns the
-}
+}*/
 
 SymbolTable *initSymbolTable(){
 
@@ -65,7 +65,7 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   // to the SYMBOL value which stores name is returned.
 
   int hashValue;
-  hashValue = Hashing(name,HashSize);
+  hashValue = Hash(name);
 
   Symbol *symbol = (Symbol *) malloc(sizeof(Symbol));
   symbol->name = name;
@@ -116,7 +116,7 @@ Symbol *getSymbol(SymbolTable *t, char *name){
   }
 
   printf("hej3\n");
-  hashed = Hashing(name,HashSize);
+  hashed = Hash(name);
 
   if(t->table[hashed] == NULL){
 
