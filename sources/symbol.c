@@ -45,7 +45,21 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   };
   return &table;
 }
-
+RecursiveCollisionSolve(SYMBOL symbola, SYMBOL symbolb){
+if(symbola->name == symbolb->name){
+  symbola->value = symbolb->value;
+  Return &symbola;
+  }
+else{
+  if(symbola->next == NULL){
+  symbola->next = symbolb;
+  Return &symbolb;
+  }
+  else{
+  RecursiveCollisionSolve(symbola->next,symbolb);
+}
+}
+}
 SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
   printf("%d\n", __LINE__);
   int hashValue;
@@ -63,13 +77,8 @@ SYMBOL *putSymbol(SymbolTable *t, char *name, int value){
     printf("%d\n", __LINE__);
 
     SYMBOL *current = t->table[hashValue];
-
-    while(current->next != NULL){
-      printf("%d\n", __LINE__);
-      current = current->next;
+    RecursiveCollisionSolve(*current, symbol);
     }
-
-    current->next = &symbol;
 
   }
   else {
