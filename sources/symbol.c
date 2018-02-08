@@ -11,8 +11,8 @@
 
 int Hash(char *str){
   int sum = 0;
-  int i=0;
-  for(i; i < strlen(str) ;i++ ){//iterating over the whole string
+  unsigned int i;
+  for(i = 0; i < strlen(str) ;i++ ){//iterating over the whole string
     sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
   }
   return sum % HashSize;
@@ -83,6 +83,7 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
       currentSymbol = currentSymbol->next;
     }
   }
+  return NULL;
 }
 
 Symbol *getSymbol(SymbolTable *table, char *name){
