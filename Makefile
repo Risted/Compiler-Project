@@ -3,6 +3,8 @@ CFLAGS	+=	-std=c11
 CFLAGS	+=	-Wall
 CFLAGS	+=	-Wextra
 CFLAGS	+=	-pedantic
+CFLAGS	+=	-fsanitize=address
+CFLAGS	+=	-fsanitize=undefined
 
 SOURCES	+= main.c
 SOURCES	+= sources/symbol.c

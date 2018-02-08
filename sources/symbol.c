@@ -69,16 +69,20 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
     Symbol *currentSymbol;
     currentSymbol = t->table[hashValue];
     while(currentSymbol != NULL){
-      if(currentSymbol->name == name){
+      if(strcmp(currentSymbol->name, name) == 0){
         currentSymbol->value = value;
 
         free(symbol);
         return currentSymbol;
       }
+      else {
+        currentSymbol->next = symbol;
+
+        return symbol;
+      }
       currentSymbol = currentSymbol->next;
     }
   }
-return symbol;
 }
 
 Symbol *getSymbol(SymbolTable *table, char *name){
@@ -90,24 +94,17 @@ Symbol *getSymbol(SymbolTable *table, char *name){
   // not been found after the root of the tree (see Fig. 1) has been checked, the result
   // NULL is returned. If name is found, return a pointer to the SYMBOL value in
   // which name is stored.
-  int hashed;
+  int hashValue;
   Symbol *symbol;
-  if(table->next !=NULL){
 
-    symbol = getSymbol(table->next, name);
-    if (symbol != NULL){
-      return symbol;
-    }
-  }
+  hashValue = Hash(name);
 
-  hashed = Hash(name);
-
-  if(table->table[hashed] == NULL){
+  if(table->table[hashValue] == NULL){
 
     return NULL;
   }else{
 
-    symbol = table->table[hashed];
+    symbol = table->table[hashValue];
     while(symbol != NULL){
 
       if(symbol->name == name){
@@ -127,15 +124,13 @@ Symbol *getSymbol(SymbolTable *table, char *name){
   return NULL;
 }
 
-void dropLinkedList(Symbol *symbol){
-  printf("%d\n", __LINE__);
-
+void dropLinkedList(Symbol *symbol, int i){
   Symbol *currentSymbol;
   currentSymbol = symbol;
   while(currentSymbol != NULL){
-    printf("Pair = (%s, %i)\n", currentSymbol->name, currentSymbol->value);
+    printf("Index %i = (%s, %i)\n", i, currentSymbol->name, currentSymbol->value);
+    currentSymbol = currentSymbol->next;
   }
-  currentSymbol = currentSymbol->next;
 }
 
 void dumpSymbolTable(SymbolTable *t){
@@ -143,21 +138,23 @@ void dumpSymbolTable(SymbolTable *t){
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
+  printf("\n");
+  printf("Start of table\n");
+
   int i;
 
   for (i = 0; i < HashSize; i++){
     if (t->table[i] != NULL){
       if (t->table[i]->next == NULL){
-
-        printf("Pair = (%s, %i)\n", t->table[i]->name, t->table[i]->value);
+        printf("Index %i = (%s, %i)\n", i, t->table[i]->name, t->table[i]->value);
       }
       else {
-        dropLinkedList(t->table[i]);
+        dropLinkedList(t->table[i], i);
       }
     }
   }
-
   if (t->next != NULL){
     dumpSymbolTable(t->next);
   }
+
 }
