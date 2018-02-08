@@ -28,6 +28,8 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value);
 
 Symbol *getSymbol(SymbolTable *t, char *name);
 
+void dropLinkedList(Symbol *s);
+
 void dumpSymbolTable(SymbolTable *t);
 
 #endif

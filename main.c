@@ -3,39 +3,37 @@
 
 int main(int argc, char const *argv[]) {
 
-  char *string = "kitty";
+  char *string = "hello";
   int value = 42;
 
   char *string1 = "kitty";
   int value1 = 9000;
 
+  char *string2 = "hello";
+  int value2 = 666;
+
+  char *string3 = "prince";
+  int value3 = 21;
+
+  SymbolTable *table;
+  table = initSymbolTable();
+
   SymbolTable *newTable;
-  newTable = initSymbolTable();
+  newTable = scopeSymbolTable(table);
 
   Symbol *symbol;
-  symbol = putSymbol(newTable, string, value);
-
-  // printf("Symbol name: %s\n", symbol->name);
-  // printf("Symbol value: %i\n", symbol->value);
-
-  // printf("Value in newTable-table[199] before new symbol: %i\n", newTable->table[199]->value);
+  symbol = putSymbol(table, string, value);
 
   Symbol *newSymbol;
-  newSymbol = putSymbol(newTable, string1, value1);
-  // printf("Value in newTable-table[199] after new symbol: %i\n", newTable->table[199]->value);
+  newSymbol = putSymbol(table, string1, value1);
 
   Symbol *alsoNewSymbol;
-  alsoNewSymbol = putSymbol(newTable, string1, value1);
+  alsoNewSymbol = putSymbol(newTable, string2, value2);
 
-  // Symbol *gitSymbol;
-  // gitSymbol = getSymbol(newTable,string);
-  // if(gitSymbol != NULL){
-  //   printf("Symbol FOUND!: name: %s value:%d\n", gitSymbol->name,gitSymbol->value);
-  // }else{
-  //   printf("No symbol found\n");
-  // }
+  Symbol *newNewSymbol;
+  newNewSymbol = putSymbol(newTable, string3, value3);
 
-  // dumpSymbolTable(newTable);
+  dumpSymbolTable(newTable);
 
   return 0;
 }

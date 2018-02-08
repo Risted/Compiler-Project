@@ -125,7 +125,17 @@ Symbol *getSymbol(SymbolTable *table, char *name){
     }
   }
   return NULL;
+}
 
+void dropLinkedList(Symbol *symbol){
+  printf("%d\n", __LINE__);
+
+  Symbol *currentSymbol;
+  currentSymbol = symbol;
+  while(currentSymbol != NULL){
+    printf("Pair = (%s, %i)\n", currentSymbol->name, currentSymbol->value);
+  }
+  currentSymbol = currentSymbol->next;
 }
 
 void dumpSymbolTable(SymbolTable *t){
@@ -133,50 +143,21 @@ void dumpSymbolTable(SymbolTable *t){
   // the (name, value) pairs that are found in the hash tables from t up to the root.
   // Hash tables are printed one at a time. The printing should be formatted in a nice
   // way and is intended to be used for debugging (of other parts of the compiler).
+  int i;
 
+  for (i = 0; i < HashSize; i++){
+    if (t->table[i] != NULL){
+      if (t->table[i]->next == NULL){
 
-  Symbol *currentSymbol;
-
-  if (t->next == NULL){
-    int i;
-    for (i = 0; i < HashSize; i++){
-
-      currentSymbol = t->table[i];
-      while(currentSymbol != NULL){
-        printf("Pair = (%s, %i) with hashValue %i\n", t->table[i]->name, t->table[i]->value, i);
+        printf("Pair = (%s, %i)\n", t->table[i]->name, t->table[i]->value);
       }
-      currentSymbol = currentSymbol->next;
+      else {
+        dropLinkedList(t->table[i]);
+      }
     }
   }
-  else {
+
+  if (t->next != NULL){
     dumpSymbolTable(t->next);
   }
-
-
-  // int i;
-  // for (i = 0; i < HashSize; i++){
-  //   if (t->table[i] != NULL){
-  //     printf("Pair = (%s, %i)\n", t->table[i]->name, t->table[i]->value);
-  //   }
-  //   else {
-  //   }
-  // }
-
-  // int i = 0;
-  // if (table->next != NULL) {
-  //   dumpSymbolTable(table->next);
-  // }
-  // for(i;i<HashSize;i++){
-  //   Symbol* symbol;
-  //   Symbol* temp;
-  //   if(t->table[i] != NULL){
-  //       symbol = table->table[i];
-  //       while(symbol->next != NULL){
-  //         temp = symbol->next;
-  //         printf("found symbol%s %d at %d\n",symbol->name, symbol->value, i);
-  //         //free(s);
-  //         symbol = temp;
-  //       }
-  //   }
-  // }
 }
