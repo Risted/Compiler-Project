@@ -1,18 +1,9 @@
 #ifndef __tree_h
 #define __tree_h
 
-typedef struct STM {
-  int lineno;
-  enum {returnK, ifThenK} kind;
-  union {
-    struct {struct EXP *right;} returnS;
-    struct {struct EXP *left; struct STM *right} ifThenS;
-  } val;
-} STM;
-
 typedef struct EXP {
   int lineno;
-  enum {idK,intconstK,timesK,divK,plusK,minusK} kind;
+  enum {idK,intconstK,timesK,divK,plusK,minusK,moduloK} kind;
   union {
     char *idE;
     int intconstE;
@@ -20,12 +11,9 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} divE;
     struct {struct EXP *left; struct EXP *right;} plusE;
     struct {struct EXP *left; struct EXP *right;} minusE;
+    struct {struct EXP *left; struct EXP *right;} moduloE;
   } val;
 } EXP;
-
-STM *makeSTMreturn(EXP *right);
-
-STM *makeSTMifThen(EXP *left, STM *right);
 
 EXP *makeEXPid(char *id);
 
@@ -39,5 +27,6 @@ EXP *makeEXPplus(EXP *left, EXP *right);
 
 EXP *makeEXPminus(EXP *left, EXP *right);
 
+EXP *makeEXPmodulo(EXP *left, EXP *right);
 
 #endif

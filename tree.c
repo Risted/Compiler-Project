@@ -3,25 +3,6 @@
 
 extern int lineno;
 
-STM *makeSTMreturn(EXP *right){
-  STM *s;
-  s = NEW(STM);
-  s->lineno = lineno;
-  s->kind = returnK;
-  s->val.returnS = right;
-  return s;
-}
-
-STM *makeSTMifThen(EXP *left, STM *right){
-  STM *s;
-  s = NEW(STM);
-  s->lineno = lineno;
-  s->kind = ifThenK;
-  s->val.ifThenS.left = left;
-  s->val.ifThenS.right = right;
-  return s;
-}
-
 EXP *makeEXPid(char *id)
 { EXP *e;
   e = NEW(EXP);
@@ -77,5 +58,15 @@ EXP *makeEXPminus(EXP *left, EXP *right)
   e->kind = minusK;
   e->val.minusE.left = left;
   e->val.minusE.right = right;
+  return e;
+}
+
+EXP *makeEXPmodulo(EXP *left, EXP *right)
+{ EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = moduloK;
+  e->val.moduloE.left = left;
+  e->val.moduloE.right = right;
   return e;
 }

@@ -37,5 +37,12 @@ void prettyEXP(EXP *e)
          prettyEXP(e->val.minusE.right);
          printf(")");
          break;
+    case moduloK:
+         printf("(");
+         prettyEXP(e->val.moduloE.left);
+         printf("%%");
+         prettyEXP(e->val.moduloE.right);
+         printf(")");
+         break;
   }
 }

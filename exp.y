@@ -3,7 +3,6 @@
 #include "tree.h"
 
 extern char *yytext;
-extern STM *thestatement;
 extern EXP *theexpression;
 
 void yyerror() {
@@ -14,31 +13,23 @@ void yyerror() {
 %union {
    int intconst;
    char *stringconst;
-   struct STM *stm;
    struct EXP *exp;
 }
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
 
-%type <stm> program exp
+%type <exp> program exp
 
 %start program
 
 %left '+' '-'
-%left '*' '/'
+%left '*' '/' '%'
 
 %%
-program: stm
-         {thestatement = $1;}
+program: exp
+         { theexpression = $1;}
 ;
-
-stm : exp
-      {theexpression = $1;}
-    | "return" '(' exp ')'
-      {$$ = makeSTMreturn($3);}
-    | "if" '(' exp ')' "then" '(' stm ')'
-      {$$ = makeSTMifThen($3,$7);}
 
 exp : tIDENTIFIER
       {$$ = makeEXPid($1);}
@@ -52,9 +43,10 @@ exp : tIDENTIFIER
       {$$ = makeEXPplus($1,$3);}
     | exp '-' exp
       {$$ = makeEXPminus($1,$3);}
+    | exp '%' exp
+      {$$ = makeEXPmodulo($1,$3);}
     | '(' exp ')'
       {$$ = $2;}
 ;
-
 
 %%
