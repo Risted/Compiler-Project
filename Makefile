@@ -13,4 +13,4 @@ lex.yy.c:         exp.l y.tab.h
 	          flex exp.l
 
 clean:
-	rm -f y.tab.o lex.yy.o main.o tree.o pretty.o memory.o
+	rm -f y.tab.o lex.yy.o main.o tree.o pretty.o memory.o exp lex.yy.c y.tab.c y.tab.h

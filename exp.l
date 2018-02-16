@@ -1,7 +1,7 @@
 %{
 #include "y.tab.h"
 #include <string.h>
- 
+
 extern int lineno;
 extern int fileno();
 %}
@@ -18,11 +18,14 @@ extern int fileno();
 "-"             return '-';
 "("             return '(';
 ")"             return ')';
+"if"            return "if";
+"return"        return "return";
+
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
-                       return tINTCONST; }
+                         return tINTCONST; }
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.stringconst = (char *)malloc(strlen(yytext)+1);
-                         sprintf(yylval.stringconst,"%s",yytext); 
+                         sprintf(yylval.stringconst,"%s",yytext);
                          return tIDENTIFIER; }
 .               /* ignore */;
 %%

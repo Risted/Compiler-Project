@@ -6,10 +6,11 @@ int lineno;
 void yyparse();
 
 EXP *theexpression;
+STM *thestatement;
 
 int main()
 { lineno = 1;
   yyparse();
-  prettyEXP(theexpression);
+  prettySTM(thestatement);
   return 0;
 }

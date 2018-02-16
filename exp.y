@@ -3,33 +3,42 @@
 #include "tree.h"
 
 extern char *yytext;
+extern STM *thestatement;
 extern EXP *theexpression;
 
 void yyerror() {
-   printf("syntax error before %s\n",yytext); 
+   printf("syntax error before %s\n",yytext);
 }
 %}
 
 %union {
    int intconst;
    char *stringconst;
+   struct STM *stm;
    struct EXP *exp;
 }
 
 %token <intconst> tINTCONST
-%token <stringconst> tIDENTIFIER 
+%token <stringconst> tIDENTIFIER
 
-%type <exp> program exp
+%type <stm> program exp
 
 %start program
 
 %left '+' '-'
 %left '*' '/'
 
-%% 
-program: exp
-         { theexpression = $1;}
+%%
+program: stm
+         {thestatement = $1;}
 ;
+
+stm : exp
+      {theexpression = $1;}
+    | "return" '(' exp ')'
+      {$$ = makeSTMreturn($3);}
+    | "if" '(' exp ')' "then" '(' stm ')'
+      {$$ = makeSTMifThen($3,$7);}
 
 exp : tIDENTIFIER
       {$$ = makeEXPid($1);}
@@ -46,5 +55,6 @@ exp : tIDENTIFIER
     | '(' exp ')'
       {$$ = $2;}
 ;
+
 
 %%

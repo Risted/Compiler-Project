@@ -1,7 +1,26 @@
 #include "memory.h"
 #include "tree.h"
- 
+
 extern int lineno;
+
+STM *makeSTMreturn(EXP *right){
+  STM *s;
+  s = NEW(STM);
+  s->lineno = lineno;
+  s->kind = returnK;
+  s->val.returnS = right;
+  return s;
+}
+
+STM *makeSTMifThen(EXP *left, STM *right){
+  STM *s;
+  s = NEW(STM);
+  s->lineno = lineno;
+  s->kind = ifThenK;
+  s->val.ifThenS.left = left;
+  s->val.ifThenS.right = right;
+  return s;
+}
 
 EXP *makeEXPid(char *id)
 { EXP *e;
