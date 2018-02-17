@@ -5,13 +5,13 @@
 int lineno;
 
 void yyparse();
-
-EXP *theexpression;
+STM *thestatement;
+//EXP *theexpression;
 
 int main()
 { lineno = 1;
   yyparse();
-  prettyEXP(theexpression);
+  prettySTM(thestatement);
   printf("\n");
   return 0;
 }

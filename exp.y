@@ -3,7 +3,7 @@
 #include "tree.h"
 
 extern char *yytext;
-extern EXP *theexpression;
+extern STM *thestatement;
 
 void yyerror() {
    printf("syntax error before %s\n",yytext);
@@ -13,32 +13,43 @@ void yyerror() {
 %union {
    int intconst;
    char *stringconst;
-   struct EXP *exp;
-   struct Type type;
-   struct Par_decl_list par_decl_list;
+   struct EXP *expression;
 }
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
 
-%type <exp> program exp
-%type <par_decl_list> par_decl_list
+%type <expression> statement exp
 
-%start program
+%start statement
 
 %left '+' '-'
 %left '*' '/' '%'
-
+%left "return"
 %%
-program: exp
-         { theexpression = $1;}
+
+statement   : exp
+            {thestatement = makeSTMEXP($1);}
+            |
 ;
-exp           :"function id (" par_decl_list "):" type
-              {$$ = makeHead($2,$4);}
-type          :tIDENTIFIER
-              {$$ = makeEXPid($1);}
-par_decl_list : par_decl_list par_decl_list {$$ = makeParList($1,$2)}
-              | par_decl_list
+
+exp : tIDENTIFIER
+      {$$ = makeEXPid($1);}
+    | tINTCONST
+      {$$ = makeEXPintconst($1);}
+    | exp '*' exp
+      {$$ = makeEXPtimes($1,$3);}
+    | exp '/' exp
+      {$$ = makeEXPdiv($1,$3);}
+    | exp '+' exp
+      {$$ = makeEXPplus($1,$3);}
+    | exp '-' exp
+      {$$ = makeEXPminus($1,$3);}
+    | exp '%' exp
+      {$$ = makeEXPmodulo($1,$3);}
+    | '(' exp ')'
+      {$$ = $2;}
+
 ;
 
 %%

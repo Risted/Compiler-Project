@@ -1,12 +1,15 @@
 #ifndef __tree_h
 #define __tree_h
-typedef struct Type{
-  int type;
-}type;
 
-typedef struct Par_decl_list {
-  struct par_decl_list *next;
-}par_decl_list;
+typedef struct STM {
+  int lineno;
+  enum{returnK,writeK,expK}kind;
+  union{
+    struct EXP *returnE;
+    struct EXP *writeE;
+    struct EXP *expE;
+  } val;
+} STM;
 
 typedef struct EXP {
   int lineno;
@@ -22,7 +25,8 @@ typedef struct EXP {
   } val;
 } EXP;
 
-par_decl_list *makeParList();
+STM *makeSTMreturn(EXP *e);
+
 EXP *makeEXPid(char *id);
 
 EXP *makeEXPintconst(int intconst);

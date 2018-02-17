@@ -1,6 +1,19 @@
 #include <stdio.h>
 #include "pretty.h"
-
+void prettySTM(STM *stm) {
+  switch (stm->kind) {
+    case returnK:
+      printf("return( ");
+      prettyEXP(stm->val.returnE);
+      printf(")\n");
+      break;
+    case expK:
+      prettyEXP(stm->val.expE);
+      break;
+    case writeK:
+      break;
+  }
+}
 void prettyEXP(EXP *e)
 { switch (e->kind) {
     case idK:
