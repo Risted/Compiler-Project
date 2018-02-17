@@ -3,11 +3,12 @@
 void prettySTM(STM *stm) {
   switch (stm->kind) {
     case returnK:
-      printf("return( ");
+      printf("return(");
       prettyEXP(stm->val.returnE);
       printf(")\n");
       break;
     case expK:
+      printf("hon hon hon\n");
       prettyEXP(stm->val.expE);
       break;
     case writeK:

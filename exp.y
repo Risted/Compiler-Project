@@ -14,10 +14,12 @@ void yyerror() {
    int intconst;
    char *stringconst;
    struct EXP *expression;
+   struct STM *statement;
 }
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
+%token <statement> tRETURN
 
 %type <expression> statement exp
 
@@ -30,7 +32,9 @@ void yyerror() {
 
 statement   : exp
             {thestatement = makeSTMEXP($1);}
-            |
+            | tRETURN '(' exp ')'
+            {thestatement = makeSTMreturn($3);}
+
 ;
 
 exp : tIDENTIFIER

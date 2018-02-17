@@ -19,7 +19,7 @@ extern int fileno();
 "("             return '(';
 ")"             return ')';
 "%"             return '%';
-return          return 'return';
+return          return tRETURN;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
                        return tINTCONST; }
