@@ -30,7 +30,7 @@ void yyerror() {
 
 statement   : exp
             {thestatement = makeSTMEXP($1);}
-;
+
 
 exp : tIDENTIFIER
       {$$ = makeEXPid($1);}
