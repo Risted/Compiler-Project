@@ -3,7 +3,7 @@
 #include "tree.h"
 
 extern char *yytext;
-extern EXP *theexpression;
+extern STM *thestatement;
 
 void yyerror() {
    printf("syntax error before %s\n",yytext);
@@ -13,22 +13,23 @@ void yyerror() {
 %union {
    int intconst;
    char *stringconst;
-   struct EXP *exp;
+   struct EXP *expression;
 }
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
 
-%type <exp> program exp
+%type <expression> statement exp
 
-%start program
+%start statement
 
 %left '+' '-'
 %left '*' '/' '%'
-
+%left "return"
 %%
-program: exp
-         { theexpression = $1;}
+
+statement   : exp
+            {thestatement = makeSTMEXP($1);}
 ;
 
 exp : tIDENTIFIER
@@ -47,6 +48,7 @@ exp : tIDENTIFIER
       {$$ = makeEXPmodulo($1,$3);}
     | '(' exp ')'
       {$$ = $2;}
+
 ;
 
 %%

@@ -1,8 +1,28 @@
+#include "stdio.h"
 #include "memory.h"
 #include "tree.h"
 
 extern int lineno;
 
+STM *makeSTMreturn(EXP *e){
+  STM *stm;
+  printf("we make a return\n");
+  stm = NEW(STM);
+  stm->lineno = lineno;
+  stm->kind = returnK;
+  stm->val.returnE = e;
+
+  printf("we return a return\n");
+  return stm;
+}
+STM *makeSTMEXP(EXP *e){
+  STM *stm;
+  stm = NEW(STM);
+  stm->lineno = lineno;
+  stm->kind = expK;
+  stm->val.expE = e;
+  return stm;
+}
 EXP *makeEXPid(char *id)
 { EXP *e;
   e = NEW(EXP);

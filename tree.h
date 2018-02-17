@@ -1,6 +1,16 @@
 #ifndef __tree_h
 #define __tree_h
 
+typedef struct STM {
+  int lineno;
+  enum{returnK,writeK,expK}kind;
+  union{
+    struct EXP *returnE;
+    struct EXP *writeE;
+    struct EXP *expE;
+  } val;
+} STM;
+
 typedef struct EXP {
   int lineno;
   enum {idK,intconstK,timesK,divK,plusK,minusK,moduloK} kind;
@@ -14,6 +24,8 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} moduloE;
   } val;
 } EXP;
+
+STM *makeSTMreturn(EXP *e);
 
 EXP *makeEXPid(char *id);
 
