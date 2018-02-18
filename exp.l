@@ -12,6 +12,8 @@ extern int fileno();
 [ \t]+        /* ignore */;
 \n              lineno++;
 
+int             return tTYPEINTEGER;
+string          return tTYPESTRING;
 return          return tRETURN;
 write           return tWRITE;
 allocate        return tALLOCATE;

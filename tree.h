@@ -1,6 +1,22 @@
 #ifndef __tree_h
 #define __tree_h
 
+typedef struct DEC_LIST{
+  int lineno;
+  struct DEC *head;
+}DEC_LIST;
+
+typedef struct DEC{
+  int lineno;
+  enum{integerK, stringK}kind;
+  char *id;
+  union{
+    char *stringE;
+    int integerE;
+  }val;
+  struct DEC *next;
+}DEC;
+
 typedef struct EXP {
   int lineno;
   enum {idK, intconstK, equaltoK, nequaltoK, andK, smallerK, biggerK,
@@ -82,5 +98,13 @@ STM* makeSTMifthen(EXP* expression, STM* statement);
 STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
 
 STM* makeSTMwhile(EXP* expression, STM* statement);
+
+DEC_LIST *makeDEClist(DEC *dec);
+
+DEC *makeDECint(int integer);
+
+DEC *makeDECstring(char *string);
+
+void *addDEC(DEC_LIST *list, DEC *dec);
 
 #endif

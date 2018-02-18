@@ -16,8 +16,9 @@ void yyerror() {
    char *stringconst;
    struct EXP* expression;
    struct STM* statement;
+   struct DEC* declaration;
 }
-
+%token <declaration> tTYPEINTEGER tTYPESTRING
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
 %token <expression> tASSIGN tEQUALTO tNEQUALTO tAND tPIPE
