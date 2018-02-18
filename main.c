@@ -5,8 +5,9 @@
 int lineno;
 
 void yyparse();
-STM *thestatement;
-//EXP *theexpression;
+
+EXP *theexpression;
+STM* thestatement;
 
 int main()
 { lineno = 1;
