@@ -5,11 +5,12 @@
 int lineno;
 
 void yyparse();
-STM *thestatement;
-//EXP *theexpression;
 
-int main()
-{ lineno = 1;
+//EXP *theexpression;
+STM* thestatement;
+
+int main(){
+  lineno = 1;
   yyparse();
   prettySTM(thestatement);
   printf("\n");

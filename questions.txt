@@ -1,0 +1,4 @@
+|| and | not the same, || handled in the parser.
+
+%prec NAME -> define it in association
+in scanner make sure comments gets ignored (* comment *) and # comment
