@@ -1,6 +1,18 @@
 #ifndef __tree_h
 #define __tree_h
 
+typedef struct BODY {
+  int lineno;
+  struct decl_list *decl_list;
+  struct STM_list *statement_list;
+}BODY;
+
+typedef struct STM_list {
+  int lineno;
+  struct STM *statement;
+  struct STM_list *statement_list;
+}STM_list;
+
 typedef struct STM {
   int lineno;
   enum{returnK,writeK,expK}kind;
@@ -24,6 +36,10 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} moduloE;
   } val;
 } EXP;
+
+STM_list *initSTM(STM *head, STM *tail);
+
+STM_list *linkSTM(STM *stm);
 
 STM *makeSTMreturn(EXP *e);
 

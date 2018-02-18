@@ -8,10 +8,12 @@ void prettySTM(STM *stm) {
       printf(")\n");
       break;
     case expK:
-      printf("hon hon hon\n");
       prettyEXP(stm->val.expE);
       break;
     case writeK:
+      printf("write(");
+      prettyEXP(stm->val.returnE);
+      printf(")\n");
       break;
   }
 }

@@ -19,7 +19,7 @@ void yyerror() {
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
-%token <statement> tRETURN
+%token <statement> tRETURN tWRITE
 
 %type <expression> statement exp
 
@@ -34,6 +34,8 @@ statement   : exp
             {thestatement = makeSTMEXP($1);}
             | tRETURN '(' exp ')'
             {thestatement = makeSTMreturn($3);}
+            | tWRITE '(' exp ')'
+            {thestatement = makeSTMwrite($3);}
 
 ;
 
