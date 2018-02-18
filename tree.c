@@ -21,8 +21,88 @@ EXP *makeEXPintconst(int intconst)
   return e;
 }
 
-EXP *makeEXPtimes(EXP *left, EXP *right)
-{ EXP *e;
+EXP *makeEXPequalto(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = equaltoK;
+  e->val.equaltoE.left = left;
+  e->val.equaltoE.right = right;
+  return e;
+}
+
+EXP *makeEXPnoequalto(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = nequaltoK;
+  e->val.nequaltoE.left = left;
+  e->val.nequaltoE.right = right;
+  return e;
+}
+
+EXP *makeEXPand(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = andK;
+  e->val.andE.left = left;
+  e->val.andE.right = right;
+  return e;
+}
+
+EXP *makeEXPsmaller(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = smallerK;
+  e->val.smallerE.left = left;
+  e->val.smallerE.right = right;
+  return e;
+}
+
+EXP *makeEXPbigger(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = biggerK;
+  e->val.biggerE.left = left;
+  e->val.biggerE.right = right;
+  return e;
+}
+
+EXP *makeEXPsmalequal(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = smalequalK;
+  e->val.smalequalE.left = left;
+  e->val.smalequalE.right = right;
+  return e;
+}
+
+EXP *makeEXPbigequal(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = bigequalK;
+  e->val.bigequalE.left = left;
+  e->val.bigequalE.right = right;
+  return e;
+}
+
+EXP *makeEXPmodulo(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = moduloK;
+  e->val.moduloE.left = left;
+  e->val.moduloE.right = right;
+  return e;
+}
+
+EXP *makeEXPtimes(EXP *left, EXP *right){
+  EXP *e;
   e = NEW(EXP);
   e->lineno = lineno;
   e->kind = timesK;
@@ -31,8 +111,8 @@ EXP *makeEXPtimes(EXP *left, EXP *right)
   return e;
 }
 
-EXP *makeEXPdiv(EXP *left, EXP *right)
-{ EXP *e;
+EXP *makeEXPdiv(EXP *left, EXP *right){
+  EXP *e;
   e = NEW(EXP);
   e->lineno = lineno;
   e->kind = divK;
@@ -41,8 +121,8 @@ EXP *makeEXPdiv(EXP *left, EXP *right)
   return e;
 }
 
-EXP *makeEXPplus(EXP *left, EXP *right)
-{ EXP *e;
+EXP *makeEXPplus(EXP *left, EXP *right){
+  EXP *e;
   e = NEW(EXP);
   e->lineno = lineno;
   e->kind = plusK;
@@ -51,8 +131,8 @@ EXP *makeEXPplus(EXP *left, EXP *right)
   return e;
 }
 
-EXP *makeEXPminus(EXP *left, EXP *right)
-{ EXP *e;
+EXP *makeEXPminus(EXP *left, EXP *right){
+  EXP *e;
   e = NEW(EXP);
   e->lineno = lineno;
   e->kind = minusK;
@@ -61,12 +141,11 @@ EXP *makeEXPminus(EXP *left, EXP *right)
   return e;
 }
 
-EXP *makeEXPmodulo(EXP *left, EXP *right)
-{ EXP *e;
-  e = NEW(EXP);
-  e->lineno = lineno;
-  e->kind = moduloK;
-  e->val.moduloE.left = left;
-  e->val.moduloE.right = right;
-  return e;
+STM* makeSTMreturn(EXP* expression){
+  STM *s;
+  s = NEW(STM);
+  s->lineno = lineno;
+  s->kind = returnK;
+  s->val.returnS = expression;
+  return s;
 }
