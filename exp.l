@@ -13,7 +13,16 @@ extern int fileno();
 \n              lineno++;
 
 return          return tRETURN;
-"="             return tEQUAL;
+write           return tWRITE;
+allocate        return tALLOCATE;
+of              return tOF;
+length          return tLENGTH;
+if              return tIF;
+then            return tTHEN;
+else            return tELSE;
+while           return tWHILE;
+do              return tDO;
+"="             return tASSIGN;
 "=="            return tEQUALTO;
 "!="            return tNEQUALTO;
 "&&"            return tAND;
@@ -31,6 +40,7 @@ return          return tRETURN;
 "/"             return tDIV;
 "+"             return tPLUS;
 "-"             return tSUB;
+"!"             return tNOT;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
                        return tINTCONST; }

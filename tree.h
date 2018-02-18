@@ -25,9 +25,17 @@ typedef struct EXP {
 
 typedef struct STM {
   int lineno;
-  enum {returnK} kind;
+  enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
+    ifelseK, whileK} kind;
   union {
     struct EXP* returnS;
+    struct EXP* writeS;
+    struct EXP* allocateS;
+    struct {struct EXP *variable; struct EXP *expression;} allocateoflengthS;
+    struct {struct EXP *variable; struct EXP *expression;} assignS;
+    struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
+    struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState} ifelseS;
+    struct {struct EXP* expression; struct STM* statement;} whileS;
   } val;
 } STM;
 
@@ -60,5 +68,19 @@ EXP *makeEXPplus(EXP *left, EXP *right);
 EXP *makeEXPminus(EXP *left, EXP *right);
 
 STM* makeSTMreturn(EXP* expression);
+
+STM* makeSTMwrite(EXP* expression);
+
+STM* makeSTMallocate(EXP* expression);
+
+STM* makeSTMallocateoflength(EXP* variable, EXP* expression);
+
+STM* makeSTMassign(EXP* variable, EXP* expression);
+
+STM* makeSTMifthen(EXP* expression, STM* statement);
+
+STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
+
+STM* makeSTMwhile(EXP* expression, STM* statement);
 
 #endif

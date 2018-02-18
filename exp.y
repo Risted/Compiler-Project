@@ -20,17 +20,19 @@ void yyerror() {
 
 %token <intconst> tINTCONST
 %token <stringconst> tIDENTIFIER
-%token <expression> tEQUAL tEQUALTO tNEQUALTO tAND tPIPE
+%token <expression> tASSIGN tEQUALTO tNEQUALTO tAND tPIPE
 %token <expression> tLPAREN tRPAREN tLBRACE tRBRACE
 %token <expression> tSMALLER tBIGGER tSMALEQUAL tBIGEQUAL
-%token <expression> tMOD tMULT tDIV tPLUS tSUB
-%token <statement> tRETURN
+%token <expression> tMOD tMULT tDIV tPLUS tSUB tNOT
+%token <statement> tRETURN tWRITE tALLOCATE tOF tLENGTH tIF
+%token <statement> tTHEN tELSE tWHILE tDO
 
 %type <expression> program expression
 %type <statement> statement
 
 %start program
 
+%left tNOT
 %left tEQUALTO tNEQUALTO tSMALLER tBIGGER tSMALEQUAL tBIGEQUAL
 %left tAND tPIPE
 %left tPLUS tSUB
@@ -40,7 +42,14 @@ void yyerror() {
 program    : statement              { thestatement = $1;}
 ;
 
-statement  : tRETURN expression     {$$ = makeSTMreturn($2);}
+statement  : tRETURN expression                               {$$ = makeSTMreturn($2);}
+           | tWRITE expression                                {$$ = makeSTMwrite($2);}
+           | tALLOCATE expression                             {$$ = makeSTMallocate($2);};
+           | tALLOCATE expression tOF tLENGTH expression      {$$ = makeSTMallocateoflength($1, $5);}
+           | expression tASSIGN expression                    {$$ = makeSTMassign($1, $3);}
+           | tIF expression tTHEN statement                   {$$ = makeSTMifthen($2, $4);}
+           | tIF expression tTHEN statement tELSE statement   {$$ = makeSTMifelse($2, $4, $6);}
+           | tWHILE expression tDO statement                  {$$ = makeSTMwhile($2, $4);}
 ;
 
 expression : tIDENTIFIER                        {$$ = makeEXPid($1);}
