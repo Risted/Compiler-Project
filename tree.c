@@ -257,6 +257,14 @@ TERM* makeTERMexpression(EXP* expression){
   t->val.expT = expression;
   return t;
 }
+TERM* makeTERMboolean(int value){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = booleanK;
+  t->val.booleanT = value;
+  return t;
+}
 
 
 TYPE* makeTYPEid(char* id){

@@ -35,12 +35,13 @@ typedef struct STM {
 
 typedef struct EXP {
   int lineno;
-  enum {equaltoK, nequaltoK, andK, smallerK, biggerK, termK,
+  enum {equaltoK, nequaltoK, andK, orK, smallerK, biggerK, termK,
     smalequalK, bigequalK, moduloK, timesK, divK, plusK, minusK} kind;
   union {
     struct {struct EXP *left; struct EXP *right;} equaltoE;
     struct {struct EXP *left; struct EXP *right;} nequaltoE;
     struct {struct EXP *left; struct EXP *right;} andE;
+    struct {struct EXP *left; struct EXP *right;} orE;
     struct {struct EXP *left; struct EXP *right;} smallerE;
     struct {struct EXP *left; struct EXP *right;} biggerE;
     struct {struct EXP *left; struct EXP *right;} smalequalE;
@@ -56,13 +57,14 @@ typedef struct EXP {
 
 typedef struct TERM {
   int lineno;
-  enum {idtypeK, notK, absoluteK, numK, expK} kind;
+  enum {idtypeK, notK, absoluteK, numK, expK,booleanK} kind;
   union {
     struct TERM* notT;
     struct EXP * absoluteT;
     int numT;
     struct {char* id; struct TYPE* type;} idtypeT;
     struct EXP* expT;
+    int booleanT;
   } val;
 } TERM;
 
@@ -126,6 +128,8 @@ TERM* makeTERMnot(TERM* term);
 TERM* makeTERMnum(int num);
 
 TERM* makeTERMexpression(EXP* expression);
+
+TERM* makeTERMboolean(int value);
 
 TYPE* makeTYPEid(char* id);
 

@@ -12,7 +12,9 @@ extern int fileno();
 [ \t]+          /* ignore */;
 \n              lineno++;
 
-
+NULL            return tNULL;
+True            return tTRUE;
+False           return tFALSE;
 int             return tTYPEINTEGER;
 string          return tTYPESTRING;
 return          return tRETURN;

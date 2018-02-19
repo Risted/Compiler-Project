@@ -79,6 +79,12 @@ void prettyTERM(TERM *t){
           printf("|");
           prettyEXP(t->val.absoluteT);
           printf("|");
+    case booleanK:
+          if(t->val.booleanT == 0){
+            printf("True");
+          }else{
+            printf("False");
+          }
   }
 }
 
@@ -95,9 +101,6 @@ void prettyTYPE(TYPE *t){
 void prettyEXP(EXP *e)
 { switch (e->kind) {
     case termK:
-         prettyTERM(e->val.termE);
-         break;
-    case intconstK:
          prettyTERM(e->val.termE);
          break;
     case timesK:
@@ -135,5 +138,45 @@ void prettyEXP(EXP *e)
          prettyEXP(e->val.moduloE.right);
          printf(")");
          break;
+    case biggerK:
+          prettyEXP(e->val.biggerE.left);
+          printf(">");
+          prettyEXP(e->val.biggerE.right);
+          break;
+    case smallerK:
+          prettyEXP(e->val.smallerE.left);
+          printf("<");
+          prettyEXP(e->val.smallerE.right);
+          break;
+    case equaltoK:
+          prettyEXP(e->val.equaltoE.left);
+          printf("==");
+          prettyEXP(e->val.equaltoE.right);
+          break;
+    case nequaltoK:
+          prettyEXP(e->val.nequaltoE.left);
+          printf("!=");
+          prettyEXP(e->val.nequaltoE.right);
+          break;
+    case orK:
+          prettyEXP(e->val.orE.left);
+          printf("||");
+          prettyEXP(e->val.orE.right);
+          break;
+    case andK:
+          prettyEXP(e->val.andE.left);
+          printf("&&");
+          prettyEXP(e->val.andE.right);
+          break;
+    case bigequalK:
+          prettyEXP(e->val.bigequalE.left);
+          printf(">=");
+          prettyEXP(e->val.bigequalE.right);
+          break;
+    case smalequalK:
+          prettyEXP(e->val.smalequalE.left);
+          printf("<=");
+          prettyEXP(e->val.smalequalE.right);
+          break;
   }
 }

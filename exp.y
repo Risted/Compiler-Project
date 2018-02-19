@@ -29,7 +29,7 @@ void yyerror() {
 %token <expression> tMOD tMULT tDIV tPLUS tSUB tSEMI tCOLON
 %token <statement> tRETURN tWRITE tALLOCATE tOF tLENGTH tIF
 %token <statement> tTHEN tELSE tWHILE tDO
-%token <term> tNOT
+%token <term> tNOT tTRUE tFALSE tNULL
 
 %type <statement> statement
 %type <expression> program expression
@@ -81,6 +81,10 @@ term : tIDENTIFIER tCOLON type        {$$ = makeTERMidtype($1, $3);}
      | tNOT term                      {$$ = makeTERMnot($2);}
      | tPIPE expression tPIPE         {$$ = makeTERMabsolute($2);}
      | tINTCONST                      {$$ = makeTERMnum($1);}
+     | tTRUE                          {$$ = makeTERMboolean(0);}
+     | tFALSE                         {$$ = makeTERMboolean(1);}
+     | tNULL                          {$$ = makeTERMboolean(NULL);}
+
 ;
 
 type : tIDENTIFIER        {$$ = makeTYPEid($1);}
