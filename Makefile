@@ -12,12 +12,12 @@ DEPS += headers/tree.h
 OBJ  = y.tab.o
 OBJ += lex.yy.o
 OBJ += main.o
-OBJ += tree.o
-OBJ += prettyEXP.o
-OBJ += prettySTM.o
-OBJ += prettyTERM.o
-OBJ += prettyTYPE.o
-OBJ += memory.o
+OBJ += sources/tree.o
+OBJ += sources/prettyEXP.o
+OBJ += sources/prettySTM.o
+OBJ += sources/prettyTERM.o
+OBJ += sources/prettyTYPE.o
+OBJ += sources/memory.o
 
 main:             $(DEPS) $(OBJ)
 	          $(CC) $(OBJ) -o compiler -lfl

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "headers/pretty.h"
+#include "../headers/pretty.h"
 
 void prettyTERM(TERM *t){
    switch (t->kind) {
