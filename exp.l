@@ -9,18 +9,43 @@ extern int fileno();
 %option noyywrap nounput noinput
 
 %%
-[ \t]+        /* ignore */;
+[ \t]+          /* ignore */;
 \n              lineno++;
 
-"*"             return '*';
-"/"             return '/';
-"+"             return '+';
-"-"             return '-';
-"("             return '(';
-")"             return ')';
-"%"             return '%';
+not             return tNOT;
+int             return tTYPEINTEGER;
+string          return tTYPESTRING;
 return          return tRETURN;
 write           return tWRITE;
+allocate        return tALLOCATE;
+of              return tOF;
+length          return tLENGTH;
+if              return tIF;
+then            return tTHEN;
+else            return tELSE;
+while           return tWHILE;
+do              return tDO;
+"="             return tASSIGN;
+"=="            return tEQUALTO;
+"!="            return tNEQUALTO;
+"&&"            return tAND;
+"|"             return tPIPE;
+"("             return tLPAREN;
+")"             return tRPAREN;
+"{"             return tLBRACE;
+"}"             return tRBRACE;
+"<"             return tSMALLER;
+">"             return tBIGGER;
+"<="            return tSMALEQUAL;
+">="            return tBIGEQUAL;
+"%"             return tMOD;
+"*"             return tMULT;
+"/"             return tDIV;
+"+"             return tPLUS;
+"-"             return tSUB;
+"!"             return tNOT;
+";"             return tSEMI;
+":"             return tCOLON;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
                        return tINTCONST; }

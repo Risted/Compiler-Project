@@ -1,79 +1,99 @@
 #include <stdio.h>
 #include "pretty.h"
 
-void prettySTM(STM *stm) {
-  switch (stm->kind) {
+void prettySTM(STM *s){
+  switch (s->kind) {
     case returnK:
-      printf("return(");
-      prettyEXP(stm->val.returnE);
-      printf(")\n");
-      break;
-    case expK:
-      prettyEXP(stm->val.expE);
-      break;
+          printf("return ");
+          prettyEXP(s->val.returnS);
+          break;
     case writeK:
-      printf("write(");
-      prettyEXP(stm->val.returnE);
-      printf(")\n");
-      break;
+          printf("write ");
+          prettyEXP(s->val.writeS);
+          break;
+   case allocateK:
+          printf("allocating ");
+          prettyTYPE(s->val.allocateS);
+          break;
+    case allocateoflengthK:
+          printf("allocating: ");
+          prettyTYPE(s->val.allocateoflengthS.variable);
+          prettyEXP(s->val.allocateoflengthS.expression);
+          break;
+    case assignK:
+          printf("assigning: ");
+          prettyTYPE(s->val.assignS.variable);
+          prettyEXP(s->val.assignS.expression);
+          break;
+    case ifthenK:
+          printf("if( ");
+          prettyEXP(s->val.ifthenS.ifState);
+          printf(")\n");
+          printf("then(");
+          prettySTM(s->val.ifthenS.thenState);
+          printf(")\n");
+          break;
+    case ifelseK:
+          printf("if(");
+          prettyEXP(s->val.ifelseS.ifState);
+          printf(")\n");
+          printf("then(");
+          prettySTM(s->val.ifelseS.thenState);
+          printf(")\n");
+          printf("else(");
+          prettySTM(s->val.ifelseS.elseState);
+          printf(")\n");
+          break;
+    case whileK:
+          printf("while(");
+          prettyEXP(s->val.whileS.expression);
+          printf("){\n");
+          printf("do:\n");
+          prettySTM(s->val.whileS.statement);
+          printf("end\n");
+          printf("}\n");
+          break;
+  }
+}
+
+void prettyTERM(TERM *t){
+   switch (t->kind) {
+    case idtypeK:
+          printf("%s",t->val.idtypeT.id);
+          prettyTYPE(t->val.idtypeT.type);
+          break;
+    case numK:
+          printf("%d",t->val.numT );
+          break;
+    case notK:
+          printf("not(");
+          prettyTERM(t->val.notT);
+          printf(")" );
+          break;
+    case expK:
+          prettyEXP(t->val.expT);
+          break;
+    
+  }
+}
+
+void prettyTYPE(TYPE *t){
+   switch (t->kind) {
+    case idK:
+         printf("%s",t->val.idT);
+         break;
+    case intconstK:
+         printf("%i",t->val.intconstT);
+         break;
   }
 }
 void prettyEXP(EXP *e)
 { switch (e->kind) {
-    case idK:
-         printf("%s",e->val.idE);
+    case termK:
+         prettyTERM(e->val.termE);
          break;
     case intconstK:
-         printf("%i",e->val.intconstE);
-         break;
-    case equaltoK:
-         printf("(");
-         prettyEXP(e->val.equaltoE.left);
-         printf("==");
-         prettyEXP(e->val.equaltoE.right);
-         printf(")");
-         break;
-    case nequaltoK:
-         printf("(");
-         prettyEXP(e->val.nequaltoE.left);
-         printf("!=");
-         prettyEXP(e->val.nequaltoE.right);
-         printf(")");
-         break;
-    case andK:
-         printf("(");
-         prettyEXP(e->val.andE.left);
-         printf("&&");
-         prettyEXP(e->val.andE.right);
-         printf(")");
-         break;
-    case smallerK:
-         printf("(");
-         prettyEXP(e->val.smallerE.left);
-         printf("<");
-         prettyEXP(e->val.smallerE.right);
-         printf(")");
-         break;
-    case biggerK:
-         printf("(");
-         prettyEXP(e->val.biggerE.left);
-         printf(">");
-         prettyEXP(e->val.biggerE.right);
-         printf(")");
-         break;
-    case smalequalK:
-         printf("(");
-         prettyEXP(e->val.smalequalE.left);
-         printf("<=");
-         prettyEXP(e->val.smalequalE.right);
-         printf(")");
-         break;
-    case bigequalK:
-         printf("(");
-         prettyEXP(e->val.bigequalE.left);
-         printf(">=");
-         prettyEXP(e->val.bigequalE.right);
-         printf(")");
+         prettyTERM(e->val.termE);
          break;
     case timesK:
          printf("(");
