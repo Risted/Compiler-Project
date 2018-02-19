@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-#include "tree.h"
+#include "headers/tree.h"
 
 extern char *yytext;
 extern EXP *theexpression;
