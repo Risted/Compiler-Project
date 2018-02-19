@@ -4,29 +4,29 @@
 void prettySTM(STM *s){
   switch (s->kind) {
     case returnK:
-          printf("return");
+          printf("return ");
           prettyEXP(s->val.returnS);
           break;
     case writeK:
-          printf("write");
+          printf("write ");
           prettyEXP(s->val.writeS);
           break;
    case allocateK:
-          printf("allocating");
+          printf("allocating ");
           prettyTYPE(s->val.allocateS);
           break;
     case allocateoflengthK:
-          printf("allocating:");
+          printf("allocating: ");
           prettyTYPE(s->val.allocateoflengthS.variable);
           prettyEXP(s->val.allocateoflengthS.expression);
           break;
     case assignK:
-          printf("assigning:");
+          printf("assigning: ");
           prettyTYPE(s->val.assignS.variable);
           prettyEXP(s->val.assignS.expression);
           break;
     case ifthenK:
-          printf("if(");
+          printf("if( ");
           prettyEXP(s->val.ifthenS.ifState);
           printf(")\n");
           printf("then(");
@@ -69,6 +69,11 @@ void prettyTERM(TERM *t){
           printf("not(");
           prettyTERM(t->val.notT);
           printf(")" );
+          break;
+    case expK:
+          prettyEXP(t->val.expT);
+          break;
+    
   }
 }
 
