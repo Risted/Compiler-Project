@@ -13,7 +13,10 @@ OBJ  = y.tab.o
 OBJ += lex.yy.o
 OBJ += main.o
 OBJ += tree.o
-OBJ += pretty.o
+OBJ += prettyEXP.o
+OBJ += prettySTM.o
+OBJ += prettyTERM.o
+OBJ += prettyTYPE.o
 OBJ += memory.o
 
 main:             $(DEPS) $(OBJ)
