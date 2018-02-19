@@ -1,3 +1,5 @@
-Hvorfor skal vi bruge memory.c og memory.h - hvad gør de?
-Kan vi ændre i funktions navne?
-Kan vi bruge calloc?
+|| and | not the same, || handled in the parser.
+
+%prec NAME -> define it in association
+in scanner make sure comments gets ignored (* comment *) and # comment
+if we cant make || and |exp| work then we make abs() indead of |exp|

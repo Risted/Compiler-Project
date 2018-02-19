@@ -1,25 +1,22 @@
+#include "tree.h"
+#include "pretty.h"
 #include <stdio.h>
-#include "headers/symbol.h"
 
-int main(int argc, char const *argv[]) {
+int lineno;
 
-  char *string = "kitty";
-  int value = 21;
+void yyparse();
 
-  // int result = Hash(string);
-  // printf("String hash value: %i\n", result);
+FILE* yyin;
 
-  SymbolTable* newTable;
+EXP *theexpression;
+STM* thestatement;
 
-  newTable = initSymbolTable();
-
-  // printf("Size of table: %li\n", sizeof(newTable->table));
-
-  SYMBOL *newSymbol;
-
-  newSymbol = putSymbol(newTable, string, value);
-
-  printf("Index kitty: %d\n", (newTable->table[199]->value));
-
+int main(){
+  lineno = 1;
+  yyin = fopen("test.sk", "r");
+  yyparse();
+  prettySTM(thestatement);
+  fclose(yyin);
+  printf("\n");
   return 0;
 }
