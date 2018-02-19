@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "pretty.h"
+#include "headers/pretty.h"
 
 void prettySTM(STM *s){
   switch (s->kind) {

@@ -1,5 +1,5 @@
-#include "tree.h"
-#include "pretty.h"
+#include "headers/tree.h"
+#include "headers/pretty.h"
 #include <stdio.h>
 
 int lineno;
