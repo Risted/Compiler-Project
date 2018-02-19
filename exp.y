@@ -17,6 +17,8 @@ void yyerror() {
    struct EXP* expression;
    struct STM* statement;
    struct DEC* declaration;
+   struct TERM* term;
+   struct TYPE* type;
 }
 %token <declaration> tTYPEINTEGER tTYPESTRING
 %token <intconst> tINTCONST
@@ -24,12 +26,15 @@ void yyerror() {
 %token <expression> tASSIGN tEQUALTO tNEQUALTO tAND tPIPE
 %token <expression> tLPAREN tRPAREN tLBRACE tRBRACE
 %token <expression> tSMALLER tBIGGER tSMALEQUAL tBIGEQUAL
-%token <expression> tMOD tMULT tDIV tPLUS tSUB tNOT
+%token <expression> tMOD tMULT tDIV tPLUS tSUB tSEMI tCOLON
 %token <statement> tRETURN tWRITE tALLOCATE tOF tLENGTH tIF
 %token <statement> tTHEN tELSE tWHILE tDO
+%token <term> tNOT
 
-%type <expression> program expression
 %type <statement> statement
+%type <expression> program expression
+%type <term> term
+%type <type> type variable
 
 %start program
 
@@ -45,17 +50,15 @@ program    : statement              { thestatement = $1;}
 
 statement  : tRETURN expression                               {$$ = makeSTMreturn($2);}
            | tWRITE expression                                {$$ = makeSTMwrite($2);}
-           | tALLOCATE expression                             {$$ = makeSTMallocate($2);};
-           | tALLOCATE expression tOF tLENGTH expression      {$$ = makeSTMallocateoflength($1, $5);}
-           | expression tASSIGN expression                    {$$ = makeSTMassign($1, $3);}
+           | tALLOCATE variable                               {$$ = makeSTMallocate($2);};
+           | tALLOCATE variable tOF tLENGTH expression        {$$ = makeSTMallocateoflength($2, $5);}
+           | variable tASSIGN expression                      {$$ = makeSTMassign($1, $3);}
            | tIF expression tTHEN statement                   {$$ = makeSTMifthen($2, $4);}
            | tIF expression tTHEN statement tELSE statement   {$$ = makeSTMifelse($2, $4, $6);}
            | tWHILE expression tDO statement                  {$$ = makeSTMwhile($2, $4);}
 ;
 
-expression : tIDENTIFIER                        {$$ = makeEXPid($1);}
-           | tINTCONST                          {$$ = makeEXPintconst($1);}
-           | expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
+expression : expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
            | expression tNEQUALTO expression    {$$ = makeEXPnoequalto($1,$3);}
            | expression tAND expression         {$$ = makeEXPand($1,$3);}
            | expression tSMALLER expression     {$$ = makeEXPsmaller($1,$3);}
@@ -68,6 +71,20 @@ expression : tIDENTIFIER                        {$$ = makeEXPid($1);}
            | expression tPLUS expression        {$$ = makeEXPplus($1,$3);}
            | expression tSUB expression         {$$ = makeEXPminus($1,$3);}
            | tLPAREN expression tRPAREN         {$$ = $2;}
+           | term                               {$$ = makeEXPterm($1);}
+;
+
+variable : tIDENTIFIER        {$$ = makeTYPEid($1);}
+
+term : tIDENTIFIER tCOLON type        {$$ = makeTERMidtype($1, $3);}
+     | tLPAREN expression tRPAREN     {$$ = makeTERMexpression($2);}
+     | tNOT term                      {$$ = makeTERMnot($2);}
+     | tPIPE expression tPIPE         {$$ = makeTERMabsolute($2);}
+     | tINTCONST                      {$$ = makeTERMnum($1);}
+;
+
+type : tIDENTIFIER        {$$ = makeTYPEid($1);}
+     | tINTCONST          {$$ = makeTYPEintconst($1);}
 ;
 
 %%

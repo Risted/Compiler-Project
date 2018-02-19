@@ -9,7 +9,7 @@ extern int fileno();
 %option noyywrap nounput noinput
 
 %%
-[ \t]+        /* ignore */;
+[ \t]+          /* ignore */;
 \n              lineno++;
 
 int             return tTYPEINTEGER;
@@ -43,6 +43,8 @@ do              return tDO;
 "+"             return tPLUS;
 "-"             return tSUB;
 "!"             return tNOT;
+";"             return tSEMI;
+":"             return tCOLON;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
                        return tINTCONST; }

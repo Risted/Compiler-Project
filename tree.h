@@ -17,13 +17,27 @@ typedef struct DEC{
   struct DEC *next;
 }DEC;
 
+typedef struct STM {
+  int lineno;
+  enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
+    ifelseK, whileK} kind;
+  union {
+    struct EXP* returnS;
+    struct EXP* writeS;
+    struct TYPE* allocateS;
+    struct {struct TYPE *variable; struct EXP *expression;} allocateoflengthS;
+    struct {struct TYPE *variable; struct EXP *expression;} assignS;
+    struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
+    struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
+    struct {struct EXP* expression; struct STM* statement;} whileS;
+  } val;
+} STM;
+
 typedef struct EXP {
   int lineno;
-  enum {idK, intconstK, equaltoK, nequaltoK, andK, smallerK, biggerK,
+  enum {equaltoK, nequaltoK, andK, smallerK, biggerK, termK,
     smalequalK, bigequalK, moduloK, timesK, divK, plusK, minusK} kind;
   union {
-    char *idE;
-    int intconstE;
     struct {struct EXP *left; struct EXP *right;} equaltoE;
     struct {struct EXP *left; struct EXP *right;} nequaltoE;
     struct {struct EXP *left; struct EXP *right;} andE;
@@ -36,28 +50,30 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} divE;
     struct {struct EXP *left; struct EXP *right;} plusE;
     struct {struct EXP *left; struct EXP *right;} minusE;
+    struct TERM* termE;
   } val;
 } EXP;
 
-typedef struct STM {
+typedef struct TERM {
   int lineno;
-  enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
-    ifelseK, whileK} kind;
+  enum {idtypeK, notK, absoluteK, numK, expK} kind;
   union {
-    struct EXP* returnS;
-    struct EXP* writeS;
-    struct EXP* allocateS;
-    struct {struct EXP *variable; struct EXP *expression;} allocateoflengthS;
-    struct {struct EXP *variable; struct EXP *expression;} assignS;
-    struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
-    struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
-    struct {struct EXP* expression; struct STM* statement;} whileS;
+    // struct TERM* term notT;
+    // struct EXP *exp absoluteT;
+    // int num numT;
+    struct {char* id; struct TYPE* type;} idtypeT;
+    // struct EXP* expression expT;
   } val;
-} STM;
+} TERM;
 
-EXP *makeEXPid(char *id);
-
-EXP *makeEXPintconst(int intconst);
+typedef struct TYPE {
+  int lineno;
+  enum {idK, intconstK} kind;
+  union {
+    char *idT;
+    int intconstT;
+  } val;
+} TYPE;
 
 EXP *makeEXPequalto(EXP *left, EXP *right);
 
@@ -83,21 +99,41 @@ EXP *makeEXPplus(EXP *left, EXP *right);
 
 EXP *makeEXPminus(EXP *left, EXP *right);
 
+EXP* makeEXPterm(TERM* term);
+
+
 STM* makeSTMreturn(EXP* expression);
 
 STM* makeSTMwrite(EXP* expression);
 
-STM* makeSTMallocate(EXP* expression);
+STM* makeSTMallocate(TYPE* variable);
 
-STM* makeSTMallocateoflength(EXP* variable, EXP* expression);
+STM* makeSTMallocateoflength(TYPE* variable, EXP* expression);
 
-STM* makeSTMassign(EXP* variable, EXP* expression);
+STM* makeSTMassign(TYPE* variable, EXP* expression);
 
 STM* makeSTMifthen(EXP* expression, STM* statement);
 
 STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
 
 STM* makeSTMwhile(EXP* expression, STM* statement);
+
+
+TERM* makeTERMidtype(char* id, TYPE* type);
+
+TERM* makeTERMabsolute(EXP* expression);
+
+TERM* makeTERMnot(TERM* term);
+
+TERM* makeTERMnum(int num);
+
+TERM* makeTERMexpression(EXP* expression);
+
+
+TYPE* makeTYPEid(char* id);
+
+TYPE* makeTYPEintconst(int intconst);
+
 
 DEC_LIST *makeDEClist(DEC *dec);
 

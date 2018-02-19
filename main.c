@@ -6,13 +6,17 @@ int lineno;
 
 void yyparse();
 
-//EXP *theexpression;
+FILE* yyin;
+
+EXP *theexpression;
 STM* thestatement;
 
 int main(){
   lineno = 1;
+  yyin = fopen("test.sk", "r");
   yyparse();
   prettySTM(thestatement);
+  fclose(yyin);
   printf("\n");
   return 0;
 }

@@ -4,25 +4,6 @@
 
 extern int lineno;
 
-
-EXP *makeEXPid(char *id)
-{ EXP *e;
-  e = NEW(EXP);
-  e->lineno = lineno;
-  e->kind = idK;
-  e->val.idE = id;
-  return e;
-}
-
-EXP *makeEXPintconst(int intconst)
-{ EXP *e;
-  e = NEW(EXP);
-  e->lineno = lineno;
-  e->kind = intconstK;
-  e->val.intconstE = intconst;
-  return e;
-}
-
 EXP *makeEXPequalto(EXP *left, EXP *right){
   EXP *e;
   e = NEW(EXP);
@@ -143,6 +124,16 @@ EXP *makeEXPminus(EXP *left, EXP *right){
   return e;
 }
 
+EXP* makeEXPterm(TERM* term){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = termK;
+  e->val.termE = term;
+  return e;
+}
+
+
 STM* makeSTMreturn(EXP* expression){
   STM *s;
   s = NEW(STM);
@@ -161,7 +152,7 @@ STM* makeSTMwrite(EXP* expression){
   return s;
 }
 
-STM* makeSTMallocate(EXP* variable){
+STM* makeSTMallocate(TYPE* variable){
   STM *s;
   s = NEW(STM);
   s->lineno = lineno;
@@ -170,7 +161,7 @@ STM* makeSTMallocate(EXP* variable){
   return s;
 }
 
-STM* makeSTMallocateoflength(EXP* variable, EXP* expression){
+STM* makeSTMallocateoflength(TYPE* variable, EXP* expression){
   STM *s;
   s = NEW(STM);
   s->lineno = lineno;
@@ -180,12 +171,12 @@ STM* makeSTMallocateoflength(EXP* variable, EXP* expression){
   return s;
 }
 
-STM* makeSTMassign(EXP* variable, EXP* expression){
+STM* makeSTMassign(TYPE* variable, EXP* expression){
   STM *s;
   s = NEW(STM);
   s->lineno = lineno;
   s->kind = assignK;
-  s->val.assignS.expression = variable;
+  s->val.assignS.variable = variable;
   s->val.assignS.expression = expression;
   return s;
 }
@@ -220,6 +211,72 @@ STM* makeSTMwhile(EXP* expression, STM* statement){
   s->val.whileS.statement = statement;
   return s;
 }
+
+TERM* makeTERMidtype(char* id, TYPE* type){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = idtypeK;
+  t->val.idtypeT.id = id;
+  t->val.idtypeT.type = type;
+  return t;
+}
+/*
+TERM* makeTERMnot(TERM* term){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = notK;
+  t->val.notK.term = term;
+  return t;
+}
+
+TERM* makeTERMabsolute(EXP* expression){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = absoluteK;
+  t->val.absoluteT.exp = expression;
+  return t;
+}
+
+TERM* makeTERMnum(char* num){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = numK;
+  t->val.numT.num = num;
+  return t;
+}
+
+TERM* makeTERMexpression(EXP* expression){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = expK;
+  t->val.expT = expression;
+  return t;
+}
+*/
+
+TYPE* makeTYPEid(char* id){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = idK;
+  t->val.idT = id;
+  return t;
+}
+
+TYPE* makeTYPEintconst(int intconst){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = intconstK;
+  t->val.intconstT = intconst;
+  return t;
+}
+
 
 DEC_LIST *makeDEClist(DEC *dec){
   DEC_LIST *dl;
