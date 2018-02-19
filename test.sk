@@ -1,3 +1,3 @@
-return 2<3 (*
-ehehehhehe
+return 2<3 #this is a line comment
+(*so it will fail here
 *)
