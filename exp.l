@@ -54,5 +54,6 @@ do              return tDO;
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.stringconst = (char *)malloc(strlen(yytext)+1);
                          sprintf(yylval.stringconst,"%s",yytext);
                          return tIDENTIFIER; }
+"(*" [a-zA-Z0-9_]* "*)"
 .               /* ignore */;
 %%
