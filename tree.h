@@ -58,11 +58,11 @@ typedef struct TERM {
   int lineno;
   enum {idtypeK, notK, absoluteK, numK, expK} kind;
   union {
-    // struct TERM* term notT;
-    // struct EXP *exp absoluteT;
-    // int num numT;
+    struct TERM* notT;
+    struct EXP * absoluteT;
+    int numT;
     struct {char* id; struct TYPE* type;} idtypeT;
-    // struct EXP* expression expT;
+    struct EXP* expT;
   } val;
 } TERM;
 
@@ -101,7 +101,6 @@ EXP *makeEXPminus(EXP *left, EXP *right);
 
 EXP* makeEXPterm(TERM* term);
 
-
 STM* makeSTMreturn(EXP* expression);
 
 STM* makeSTMwrite(EXP* expression);
@@ -118,7 +117,6 @@ STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
 
 STM* makeSTMwhile(EXP* expression, STM* statement);
 
-
 TERM* makeTERMidtype(char* id, TYPE* type);
 
 TERM* makeTERMabsolute(EXP* expression);
@@ -129,11 +127,9 @@ TERM* makeTERMnum(int num);
 
 TERM* makeTERMexpression(EXP* expression);
 
-
 TYPE* makeTYPEid(char* id);
 
 TYPE* makeTYPEintconst(int intconst);
-
 
 DEC_LIST *makeDEClist(DEC *dec);
 

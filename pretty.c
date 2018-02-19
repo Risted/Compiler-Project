@@ -59,9 +59,16 @@ void prettySTM(STM *s){
 void prettyTERM(TERM *t){
    switch (t->kind) {
     case idtypeK:
-         printf("%s",t->val.idtypeT.id);
-         prettyTYPE(t->val.idtypeT.type);
-         break;
+          printf("%s",t->val.idtypeT.id);
+          prettyTYPE(t->val.idtypeT.type);
+          break;
+    case numK:
+          printf("%d",t->val.numT );
+          break;
+    case notK:
+          printf("not(");
+          prettyTERM(t->val.notT);
+          printf(")" );
   }
 }
 
@@ -72,6 +79,51 @@ void prettyTYPE(TYPE *t){
          break;
     case intconstK:
          printf("%i",t->val.intconstT);
+         break;
+  }
+}
+void prettyEXP(EXP *e)
+{ switch (e->kind) {
+    case termK:
+         prettyTERM(e->val.termE);
+         break;
+    case intconstK:
+         prettyTERM(e->val.termE);
+         break;
+    case timesK:
+         printf("(");
+         prettyEXP(e->val.timesE.left);
+         printf("*");
+         prettyEXP(e->val.timesE.right);
+         printf(")");
+         break;
+    case divK:
+         printf("(");
+         prettyEXP(e->val.divE.left);
+         printf("/");
+         prettyEXP(e->val.divE.right);
+         printf(")");
+         break;
+    case plusK:
+         printf("(");
+         prettyEXP(e->val.plusE.left);
+         printf("+");
+         prettyEXP(e->val.plusE.right);
+         printf(")");
+         break;
+    case minusK:
+         printf("(");
+         prettyEXP(e->val.minusE.left);
+         printf("-");
+         prettyEXP(e->val.minusE.right);
+         printf(")");
+         break;
+    case moduloK:
+         printf("(");
+         prettyEXP(e->val.moduloE.left);
+         printf("%%");
+         prettyEXP(e->val.moduloE.right);
+         printf(")");
          break;
   }
 }

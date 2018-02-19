@@ -221,13 +221,13 @@ TERM* makeTERMidtype(char* id, TYPE* type){
   t->val.idtypeT.type = type;
   return t;
 }
-/*
+
 TERM* makeTERMnot(TERM* term){
   TERM *t;
   t = NEW(TERM);
   t->lineno = lineno;
   t->kind = notK;
-  t->val.notK.term = term;
+  t->val.notT = term;
   return t;
 }
 
@@ -236,16 +236,16 @@ TERM* makeTERMabsolute(EXP* expression){
   t = NEW(TERM);
   t->lineno = lineno;
   t->kind = absoluteK;
-  t->val.absoluteT.exp = expression;
+  t->val.absoluteT = expression;
   return t;
 }
 
-TERM* makeTERMnum(char* num){
+TERM* makeTERMnum(int num){
   TERM *t;
   t = NEW(TERM);
   t->lineno = lineno;
   t->kind = numK;
-  t->val.numT.num = num;
+  t->val.numT = num;
   return t;
 }
 
@@ -257,7 +257,7 @@ TERM* makeTERMexpression(EXP* expression){
   t->val.expT = expression;
   return t;
 }
-*/
+
 
 TYPE* makeTYPEid(char* id){
   TYPE *t;
