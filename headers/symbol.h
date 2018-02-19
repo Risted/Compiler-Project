@@ -14,8 +14,8 @@ typedef struct Symbol {
 } Symbol;
 
 typedef struct SymbolTable {
-    Symbol *table[HashSize];
-    struct SymbolTable *next;
+  Symbol *table[HashSize];
+  struct SymbolTable *next;
 } SymbolTable;
 
 int Hash(char *str);
@@ -27,6 +27,8 @@ SymbolTable *scopeSymbolTable(SymbolTable *t);
 Symbol *putSymbol(SymbolTable *t, char *name, int value);
 
 Symbol *getSymbol(SymbolTable *t, char *name);
+
+void dropLinkedList(Symbol *s, int i);
 
 void dumpSymbolTable(SymbolTable *t);
 

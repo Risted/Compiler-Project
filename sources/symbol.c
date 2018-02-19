@@ -1,41 +1,35 @@
 #include "../headers/symbol.h"
-#include "../headers/memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
-int HashMod(int hash, int mod){
+/*int HashMod(int hash, int mod){
   hash = hash % mod;
-  return hash
-}
+  return hash;
+}*/
 
 
 int Hash(char *str){
   int sum = 0;
-
-  int i;
+  unsigned int i;
   for(i = 0; i < strlen(str) ;i++ ){
-    sum = sum * 2 + str[i]; //we use decimal operaters since these are natively defined in c
+    //iterating over the whole string
+    sum = sum * 2 + str[i];
+    //we use decimal operaters since these are natively defined in c
   }
-  //sum = sum % HashSize; //Takes the modulo of the sum and the hash table size.
-
-  return sum;
-}
-
-int Hashing(char *str, int mod){
-  int x;
-  x = Hash(str);
-  return(HashMod(x,mod));
+  return sum % HashSize;
 }
 
 SymbolTable *initSymbolTable(){
 
   SymbolTable *table = (SymbolTable*)malloc(sizeof(SymbolTable));
-  table->next = NULL; //we dont have a next so no need to make space for it.
+  table->next = NULL;
+  //we dont have a next so no need to make space for it.
 
   int i;
-  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
+  for(i = 0; i < HashSize; i++){
+    //set all pointers to NULL, can probably be optimized
     table->table[i] = NULL;
   }
 
@@ -44,33 +38,13 @@ SymbolTable *initSymbolTable(){
 
 SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
 
-  // scopeSymbolTable takes a pointer to a hash table t as argument and returns
-  // a new hash table with a pointer to t in its next field
-
-  SymbolTable *table = (SymbolTable *) malloc(sizeof(SymbolTable));
-
+  SymbolTable *table;
+  table = initSymbolTable();
   table->next = oldTable;
-
-  int i;
-  for(i = 0; i < HashSize; i++){  //set all pointers to NULL, can probably be optimized
-    table->table[i] = NULL;
-  }
-
   return table;
-
-  // SymbolTable table = {
-  //   .table = Malloc(HashSize * sizeof(Symbol)),
-  //   .next = oldTable
-  // };
-  // return &table;
 }
 
 Symbol *putSymbol(SymbolTable *t, char *name, int value){
-
-  // putSymbol takes a hash table and a string, name, as arguments and inserts
-  // name into the hash table together with the associated value value. A pointer
-  // to the SYMBOL value which stores name is returned.
-
   int hashValue;
   hashValue = Hash(name);
 
@@ -79,56 +53,95 @@ Symbol *putSymbol(SymbolTable *t, char *name, int value){
   symbol->value = value;
   symbol->next = NULL;
 
-  printf("Value in symbol: %i\n", symbol->value);
+  if (t->table[hashValue] == NULL){
+    t->table[hashValue] = symbol;
 
-  // Symbol symbol = {
-  //   .name = name,
-  //   .value = value,
-  //   .next = NULL
-  // };
-
-  if(t->table[hashValue] != NULL){
-    printf("%d\n", __LINE__);
-
-    Symbol *current = t->table[hashValue];
-
-    while(current->next != NULL){
-      current = current->next;
-    }
-
-    current->next = symbol;
-
+    return symbol;
   }
   else {
-    printf("%d\n", __LINE__);
-    t->table[hashValue] = symbol;
+    Symbol *currentSymbol;
+    currentSymbol = t->table[hashValue];
+    while(currentSymbol != NULL){
+      if(strcmp(currentSymbol->name, name) == 0){
+        currentSymbol->value = value;
+
+        free(symbol);
+        return currentSymbol;
+      }
+      else {
+        currentSymbol->next = symbol;
+
+        return symbol;
+      }
+      currentSymbol = currentSymbol->next;
+    }
   }
-
-  return symbol;
-
+  return NULL;
 }
 
-Symbol *getSymbol(SymbolTable *t, char *name){
+Symbol *getSymbol(SymbolTable *table, char *name){
 
-  // getSymbol takes a hash table and a string name as arguments and searches for
-  // name in the following manner: First search for name in the hash table which
-  // is one of the arguments of the function call. If name is not there, continue the
-  // search in the next hash table. This process is repeatedly recursively. If name has
-  // not been found after the root of the tree (see Fig. 1) has been checked, the result
-  // NULL is returned. If name is found, return a pointer to the SYMBOL value in
-  // which name is stored.
+  int hashValue;
+  Symbol *symbol;
 
-  
+  hashValue = Hash(name);
 
+  if(table->table[hashValue] == NULL){
+
+    return NULL;
+  }else{
+
+    symbol = table->table[hashValue];
+    while(symbol != NULL){
+
+      if(symbol->name == name){
+        return symbol;
+      }
+      symbol = symbol->next;
+    }
+    return NULL;
+  }
+  if(table->next !=NULL){
+
+    symbol = getSymbol(table->next, name);
+    if (symbol != NULL){
+      return symbol;
+    }
+  }
   return NULL;
+}
 
+void dropLinkedList(Symbol *symbol, int i){
+  Symbol *currentSymbol;
+  currentSymbol = symbol;
+  while(currentSymbol != NULL){
+    printf("Index %i = (%s, %i)\n", i,
+    currentSymbol->name, currentSymbol->value);
+    //On two lines so as to not go over the 79 characters
+    currentSymbol = currentSymbol->next;
+  }
 }
 
 void dumpSymbolTable(SymbolTable *t){
+  printf("\n");
+  printf("Start of table\n");
 
-  // dumpSymbolTable takes a pointer to a hash table t as argument and prints all
-  // the (name, value) pairs that are found in the hash tables from t up to the root.
-  // Hash tables are printed one at a time. The printing should be formatted in a nice
-  // way and is intended to be used for debugging (of other parts of the compiler).
+  int i;
+
+  for (i = 0; i < HashSize; i++){
+    if (t->table[i] != NULL){
+      if (t->table[i]->next == NULL){
+        printf("Index %i = (%s, %i)\n", i,
+        t->table[i]->name, t->table[i]->value);
+        //On two lines so as to not go over the 79 characters
+      }
+      else {
+        dropLinkedList(t->table[i], i);
+      }
+    }
+  }
+  if (t->next != NULL){
+    dumpSymbolTable(t->next);
+  }
 
 }

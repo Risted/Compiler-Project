@@ -1,25 +1,35 @@
 #include <stdio.h>
 #include "headers/symbol.h"
 
-int main(int argc, char const *argv[]) {
+int main() {
 
-  char *string = "kitty";
+  char *string = "hello";
   int value = 42;
 
   char *string1 = "kitty";
   int value1 = 9000;
 
-  // int result = Hash(string);
-  // printf("String hash value: %i\n", result);
+  char *string2 = "hello";
+  int value2 = 666;
+
+  char *string3 = "prince";
+  int value3 = 21;
+
+  SymbolTable *table;
+  table = initSymbolTable();
 
   SymbolTable *newTable;
-  newTable = initSymbolTable();
+  newTable = scopeSymbolTable(table);
 
-  Symbol *newSymbol;
-  newSymbol = putSymbol(newTable, string, value);
+  putSymbol(table, string, value);
 
-  Symbol *alsoNewSymbol;
-  alsoNewSymbol = putSymbol(newTable, string1, value1);
+  putSymbol(table, string1, value1);
+
+  putSymbol(newTable, string2, value2);
+
+  putSymbol(newTable, string3, value3);
+
+  dumpSymbolTable(newTable);
 
   return 0;
 }

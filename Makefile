@@ -6,10 +6,9 @@ CFLAGS	+=	-pedantic
 
 SOURCES	+= main.c
 SOURCES	+= sources/symbol.c
-SOURCES	+= sources/memory.c
 
 default: main.c
-	$(CC) -o main $(SOURCES) $(FLAGS)
+	$(CC) -o main $(SOURCES) $(CFLAGS)
 
 run:
 	./main
