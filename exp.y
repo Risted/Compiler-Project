@@ -47,6 +47,14 @@ void yyerror() {
 %%
 program    : statement              { thestatement = $1;}
 ;
+/*body : dec_list stm_list
+;
+dec_list  : dec dec_list    {;}
+          | dec             {;}
+;
+stm_list  : statement stm_list  {;}
+          | statement           {;}
+This is my idea of how body will brach out*/
 
 statement  : tRETURN expression                               {$$ = makeSTMreturn($2);}
            | tWRITE expression                                {$$ = makeSTMwrite($2);}
