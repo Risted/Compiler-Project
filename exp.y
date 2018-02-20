@@ -83,6 +83,7 @@ expression : expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
 ;
 
 variable : tIDENTIFIER        {$$ = makeTYPEid($1);}
+;
 
 term : tIDENTIFIER tCOLON type        {$$ = makeTERMidtype($1, $3);}
      | tLPAREN expression tRPAREN     {$$ = makeTERMexpression($2);}
