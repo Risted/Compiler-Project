@@ -27,6 +27,7 @@ OBJ += sources/prettyTERM.o
 OBJ += sources/prettyTYPE.o
 OBJ += sources/prettyFUNC.o
 OBJ += sources/prettyLIST.o
+OBJ += sources/prettyDEC.o
 
 OBJ += sources/memory.o
 

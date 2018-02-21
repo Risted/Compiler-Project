@@ -16,5 +16,8 @@ void prettyFUNC(FUNC *func);
 
 void prettyLIST(LIST *list);
 
+void prettyDEC(DEC *dec);
+
+
 
 #endif
