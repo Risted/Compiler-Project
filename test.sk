@@ -1,19 +1,16 @@
-# Test of lazy AND operator
-# If the AND operator is lazy, the test will terminate
-var b : bool;
+# Code generation for arrays, indexing
+type intArray = array of int;
+var a : intArray;
 
-func c () : bool
-  var d : int;
-  d = 0;
-  while ( !b ) do
-  {
-    d = d + 1;
-    b = false;
-  }
-  b = false;
-  return false;
-end c
+allocate a of length 7;
 
-b = true;
+a[0] = 4;
+a[1] = 5;
+a[2] = 6;
+a[3] = 7;
+a[4] = 8;
+a[5] = 9;
+a[6] = 10;
 
-if ( c() && c() ) then write 1; else write 0;
+write a[0];
+write a[6];

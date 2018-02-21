@@ -4,8 +4,6 @@
 
 extern char *yytext;
 extern FUNC* thebody;
-extern EXP *theexpression;
-extern STM *thestatement;
 
 void yyerror() {
    printf("syntax error before %s\n",yytext);
@@ -27,14 +25,14 @@ void yyerror() {
 %token <declaration> tTYPEINTEGER tTYPESTRING
 %token <intconst> tINT
 %token <stringconst> tID
-%token <type> tBOOL tARRAY tRECORD tEND tDOT tTYPE tVAR tFUNC
+%token <type> tARRAY tRECORD tEND tDOT tTYPE tVAR tFUNC
 %token <expression> tASSIGN tEQUALTO tNEQUALTO tAND tPIPE
 %token <expression> tLPAREN tRPAREN tLBRACE tRBRACE tLSQUARE tRSQUARE
 %token <expression> tSMALLER tBIGGER tSMALEQUAL tBIGEQUAL
 %token <expression> tMOD tMULT tDIV tPLUS tSUB tSEMI tCOLON
 %token <statement> tRETURN tWRITE tALLOCATE tOF tLENGTH tIF
 %token <statement> tTHEN tELSE tWHILE tDO
-%token <term> tNOT tTRUE tFALSE tNULL
+%token <term> tNOT tTRUE tFALSE tNULL tBOOL
 %token <list> tCOMMA
 
 %type <statement> statement
@@ -68,7 +66,6 @@ tail : tEND tID             {$$ = makeFUNCtail($2);}
 
 type : tID                                            {$$ = makeTYPEid($1);}
      | tINT                                           {$$ = makeTYPEintconst($1);}
-     | tBOOL                                          {$$ = makeTYPEbool($1);}
      | tARRAY tOF type                                {$$ = makeTYPEarray($3);}
      | tRECORD tOF tLBRACE var_decl_list tRBRACE      {$$ = makeTYPErecord($4);}
 ;
@@ -91,7 +88,7 @@ decl_list : /* empty */
           | declaration decl_list         {$$ = makeLISTdecl($1, $2);}
 ;
 
-declaration : tTYPE tID tASSIGN type tSEMI     {$$ = makeDECtype($4);}
+declaration : tTYPE tID tASSIGN type tSEMI     {$$ = makeDECtype($2, $4);}
             | function                         {$$ = makeDECfunc($1);}
             | tVAR var_decl_list tSEMI         {$$ = makeDEClist($2);}
 ;

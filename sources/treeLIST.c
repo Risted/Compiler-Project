@@ -13,6 +13,16 @@ LIST* makeLISTpar(LIST* var_decl_list){
   return list;
 }
 
+LIST *makeLISTdecl(DEC* declaration, LIST* decl_list){
+  LIST *head;
+  head = NEW(LIST);
+  head->lineno = lineno;
+  head->kind = decK;
+  head->val.decL.declaration = declaration;
+  head->val.decL.decl_list = decl_list;
+  return head;
+}
+
 LIST* makeLISTvarlist(TYPE* var_type, LIST* var_decl_list){
   LIST *list;
   list = NEW(LIST);

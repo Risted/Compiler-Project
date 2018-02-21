@@ -21,17 +21,18 @@ TYPE* makeTYPEintconst(int intconst){
   t->val.intconstT = intconst;
   return t;
 }
-TYPE* makeTYPEbool(char *boolean){
-  TYPE *t;
-  t = NEW(TYPE);
-  t->lineno = lineno;
-  t->kind = boolK;
-  if(boolean == "true"){
-    t->val.boolT = 0; //i think
-  }else{
-    t->val.boolT = 1;
-  }
-}
+
+// TYPE* makeTYPEbool(char *boolean){
+//   TYPE *t;
+//   t = NEW(TYPE);
+//   t->lineno = lineno;
+//   t->kind = boolK;
+//   if(boolean == "true"){
+//     t->val.boolT = 0; //i think
+//   }else{
+//     t->val.boolT = 1;
+//   }
+// }
 
 TYPE* makeTYPEarray(TYPE *type){
   return NULL;
@@ -41,17 +42,17 @@ TYPE* makeTYPErecord(LIST *var_decl_list){
   return NULL;
 }
 
-TYPE* makeTYPEvarexp(char *id, EXP *expression){
+TYPE* makeTYPEvarexp(TYPE* var, EXP *expression){
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;
   t->kind = varexpK;
-  t->val.varexpT.id = id;
+  t->val.varexpT.var = var;
   t->val.varexpT.expression = expression;
   return t;
 }
 
-TYPE* makeTYPEvar(char *id, TYPE *type){
+TYPE* makeTYPEvar(char* id, TYPE *type){
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;

@@ -26,6 +26,7 @@ typedef struct STM {
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
     struct {struct EXP* expression; struct STM* statement;} whileS;
+    struct LIST* statelist;
   }val;
 }STM;
 
@@ -87,21 +88,22 @@ typedef struct TYPE {
   union {
     char *idT;
     int intconstT;
-    int boolT;
-    struct {char *id; struct TYPE *type;}varT;
-    struct {char *id; struct EXP *expression;}varexpT;
+    struct TERM* boolT;
+    struct {char* id; struct TYPE *type;} varT;
+    struct {struct TYPE* var; struct EXP *expression;} varexpT;
   }val;
 }TYPE;
 
 typedef struct DEC{
   int lineno;
-  enum{integerK, stringK,dectypeK,decfuncK}kind;
-  char *id;
+  enum{integerK, stringK, dectypeK, decfuncK, listK }kind;
   union{
+    char *id;
     char *stringE;
     int integerE;
     struct FUNC *func;
-    struct TYPE *type;
+    struct LIST *listD;
+    struct {char* id; struct TYPE *type;} typeD;
   }val;
 }DEC;
 
@@ -159,6 +161,8 @@ STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
 
 STM* makeSTMwhile(EXP* expression, STM* statement);
 
+STM* makeSTMlist(LIST *statement_list);
+
 
 LIST* makeLISTpar(LIST* var_decl_list);
 
@@ -196,21 +200,22 @@ TYPE* makeTYPEid(char* id);
 
 TYPE* makeTYPEintconst(int intconst);
 
-TYPE* makeTYPEbool(char *boolian);
+TYPE* makeTYPEbool(TERM *boolian);
 
 TYPE* makeTYPEarray(TYPE *type);
 
 TYPE* makeTYPErecord(LIST *var_decl_list);
 
-TYPE* makeTYPEvar(char *id, TYPE *type);
+TYPE* makeTYPEvar(char* id, TYPE *type);
 
-TYPE* makeTYPEvarexp(char *id, EXP *expression);
+TYPE* makeTYPEvarexp(TYPE* var, EXP *expression);
 
 
-DEC *makeDECint(int integer);
 
-DEC *makeDECstring(char *string);
+DEC* makeDEClist(LIST* list);
 
-void *addDEC(LIST *list, DEC *dec);
+DEC* makeDECtype(char* id, TYPE* type);
+
+DEC *makeDECfunc(FUNC* function);
 
 #endif

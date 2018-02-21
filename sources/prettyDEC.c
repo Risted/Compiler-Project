@@ -13,7 +13,8 @@ void prettyDEC(DEC *d){
       prettyFUNC(d->val.func);
       break;
     case dectypeK:
-      prettyTYPE(d->val.type);
+      printf("%s\n", d->val.typeD.id);
+      prettyTYPE(d->val.typeD.type);
       break;
   }
 }

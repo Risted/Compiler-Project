@@ -9,8 +9,6 @@ void yyparse();
 FILE* yyin;
 
 FUNC* thebody;
-EXP *theexpression;
-STM* thestatement;
 
 int main(){
   lineno = 1;

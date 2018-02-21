@@ -39,6 +39,7 @@ TERM* makeTERMexpression(EXP* expression){
   t->val.expT = expression;
   return t;
 }
+
 TERM* makeTERMboolean(int value){
   TERM *t;
   t = NEW(TERM);
@@ -47,6 +48,7 @@ TERM* makeTERMboolean(int value){
   t->val.booleanT = value;
   return t;
 }
+
 TERM* makeTERMvar(LIST* act_list){
   return NULL; //was not certain what do to
 }
