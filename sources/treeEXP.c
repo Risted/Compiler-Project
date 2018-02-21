@@ -132,3 +132,40 @@ EXP* makeEXPterm(TERM* term){
   e->val.termE = term;
   return e;
 }
+
+LIST* makeLISTact(LIST* exp_list){
+  LIST *list;
+  list = NEW(LIST);
+  list->lineno = lineno;
+  list->kind = actlistK;
+  list->val.actlistL = exp_list;
+  return list;
+}
+
+LIST* makeLISTexp(EXP* expression){
+  LIST *list;
+  list = NEW(LIST);
+  list->lineno = lineno;
+  list->kind = expressionK;
+  list->val.expressionL = expression;
+  return list;
+}
+
+LIST* makeLISTexplist(EXP* expression, LIST* exp_list){
+  LIST *list;
+  list = NEW(LIST);
+  list->lineno = lineno;
+  list->kind = explistK;
+  list->val.explistL.expression = expression;
+  list->val.explistL.exp_list = exp_list;
+  return list;
+}
+EXP* makeEXPor(EXP *left, EXP *right){
+  EXP *e;
+  e = NEW(EXP);
+  e->lineno = lineno;
+  e->kind = orK;
+  e->val.orE.left = left;
+  e->val.orE.right = right;
+  return e;
+}

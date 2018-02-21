@@ -47,3 +47,9 @@ TERM* makeTERMboolean(int value){
   t->val.booleanT = value;
   return t;
 }
+TERM* makeTERMvar(LIST* act_list){
+  return NULL; //was not certain what do to
+}
+TERM* makeTERMact(LIST* act_list){
+  return NULL; //was not certain what do to
+}

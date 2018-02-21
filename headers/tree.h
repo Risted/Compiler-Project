@@ -8,7 +8,7 @@ typedef struct FUNC {
     struct {struct FUNC* head; struct FUNC* body; struct FUNC* tail;} functionF;
     struct {char* id; struct LIST* par_decl_list; struct TYPE* type;} headF;
     struct {struct LIST* decl_list; struct LIST* statement_list;} bodyF;
-    char* tailF;
+    char* id //tailF;
   } val;
 } FUNC;
 
@@ -62,6 +62,7 @@ typedef struct LIST {
     struct {struct STM* statement; struct LIST* statement_list;} statelistL;
     struct LIST* actlistL;
     struct EXP* expressionL;
+    //should these two be here?
     struct {struct EXP* expression; struct LIST* exp_list;} explistL;
   } val;
 } LIST;
@@ -81,10 +82,13 @@ typedef struct TERM {
 
 typedef struct TYPE {
   int lineno;
-  enum {idK, intconstK} kind;
+  enum {idK, intconstK,boolK,arrayK,recordK,vareK,varexpK} kind;
   union {
     char *idT;
     int intconstT;
+    int boolT;
+    struct {char *id; struct TYPE *type;}varT;
+    struct {char *id; struct EXP *expression;}varexpT;
   } val;
 } TYPE;
 
@@ -132,6 +136,8 @@ EXP *makeEXPplus(EXP *left, EXP *right);
 EXP *makeEXPminus(EXP *left, EXP *right);
 
 EXP* makeEXPterm(TERM* term);
+
+EXP* makeEXPor(EXP *left, EXP *right);
 
 
 STM* makeSTMreturn(EXP* expression);
@@ -186,6 +192,12 @@ TERM* makeTERMboolean(int value);
 TYPE* makeTYPEid(char* id);
 
 TYPE* makeTYPEintconst(int intconst);
+
+TYPE* makeTYPEbool(char *boolian);
+
+TYPE* makeTYPEarray(TYPE *type);
+
+TYPE* makeTYPErecord(LIST *var_decl_list);
 
 
 DEC *makeDECint(int integer);
