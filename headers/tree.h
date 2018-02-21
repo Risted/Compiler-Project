@@ -8,9 +8,9 @@ typedef struct FUNC {
     struct {struct FUNC* head; struct FUNC* body; struct FUNC* tail;} functionF;
     struct {char* id; struct LIST* par_decl_list; struct TYPE* type;} headF;
     struct {struct LIST* decl_list; struct LIST* statement_list;} bodyF;
-    char* id //tailF;
-  } val;
-} FUNC;
+    char* id; //tailF;
+  }val;
+}FUNC;
 
 typedef struct STM {
   int lineno;
@@ -25,8 +25,8 @@ typedef struct STM {
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
     struct {struct EXP* expression; struct STM* statement;} whileS;
-  } val;
-} STM;
+  }val;
+}STM;
 
 typedef struct EXP {
   int lineno;
@@ -47,8 +47,8 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} plusE;
     struct {struct EXP *left; struct EXP *right;} minusE;
     struct TERM* termE;
-  } val;
-} EXP;
+  }val;
+}EXP;
 
 typedef struct LIST {
   int lineno;
@@ -64,8 +64,8 @@ typedef struct LIST {
     struct EXP* expressionL;
     //should these two be here?
     struct {struct EXP* expression; struct LIST* exp_list;} explistL;
-  } val;
-} LIST;
+  }val;
+}LIST;
 
 typedef struct TERM {
   int lineno;
@@ -77,8 +77,8 @@ typedef struct TERM {
     struct {char* id; struct TYPE* type;} idtypeT;
     struct EXP* expT;
     int booleanT;
-  } val;
-} TERM;
+  }val;
+}TERM;
 
 typedef struct TYPE {
   int lineno;
@@ -89,8 +89,8 @@ typedef struct TYPE {
     int boolT;
     struct {char *id; struct TYPE *type;}varT;
     struct {char *id; struct EXP *expression;}varexpT;
-  } val;
-} TYPE;
+  }val;
+}TYPE;
 
 typedef struct DEC{
   int lineno;
@@ -101,9 +101,8 @@ typedef struct DEC{
     int integerE;
     struct FUNC *func;
     struct TYPE *type;
-
   }val;
-} DEC;
+}DEC;
 
 FUNC* makeFUNC(FUNC* head, FUNC* body, FUNC* tail);
 

@@ -12,18 +12,23 @@ DEPS += headers/tree.h
 OBJ  = y.tab.o
 OBJ += lex.yy.o
 OBJ += main.o
+
 OBJ += sources/treeDEC.o
 OBJ += sources/treeEXP.o
 OBJ += sources/treeSTM.o
 OBJ += sources/treeTERM.o
 OBJ += sources/treeTYPE.o
+OBJ += sources/treeFUNC.o
+OBJ += sources/treeLIST.o
+
 OBJ += sources/prettyEXP.o
 OBJ += sources/prettySTM.o
 OBJ += sources/prettyTERM.o
 OBJ += sources/prettyTYPE.o
+OBJ += sources/prettyFUNC.o
+OBJ += sources/prettyLIST.o
+
 OBJ += sources/memory.o
-OBJ += sources/treeFUNC.o
-OBJ += sources/treeLIST.o
 
 
 main:             $(DEPS) $(OBJ)

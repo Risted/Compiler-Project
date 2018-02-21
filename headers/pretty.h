@@ -12,5 +12,9 @@ void prettyTERM(TERM *term);
 
 void prettyTYPE(TYPE *type);
 
+void prettyFUNC(FUNC *func);
+
+void prettyLIST(LIST *list);
+
 
 #endif
