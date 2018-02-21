@@ -23,6 +23,8 @@ OBJ += sources/prettyTERM.o
 OBJ += sources/prettyTYPE.o
 OBJ += sources/memory.o
 OBJ += sources/treeFUNC.o
+OBJ += sources/treeLIST.o
+
 
 main:             $(DEPS) $(OBJ)
 	          $(CC) $(OBJ) -o compiler -lfl

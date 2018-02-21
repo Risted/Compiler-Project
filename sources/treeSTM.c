@@ -81,3 +81,12 @@ STM* makeSTMwhile(EXP* expression, STM* statement){
   s->val.whileS.statement = statement;
   return s;
 }
+LIST* makeSTMlist(LIST *statement_list){
+  LIST *list;
+  list = NEW(LIST);
+  list->lineno;
+  list->kind = statelistK;
+  list->val.statelistL.statement = NULL;
+  list->val.statelistL.statement_list = NULL;
+  return list;
+}

@@ -94,11 +94,14 @@ typedef struct TYPE {
 
 typedef struct DEC{
   int lineno;
-  enum{integerK, stringK}kind;
+  enum{integerK, stringK,dectypeK,decfuncK}kind;
   char *id;
   union{
     char *stringE;
     int integerE;
+    struct FUNC *func;
+    struct TYPE *type;
+
   }val;
 } DEC;
 

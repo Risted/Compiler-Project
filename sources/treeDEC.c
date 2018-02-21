@@ -41,6 +41,26 @@ LIST *makeLISTdecl(DEC* declaration, LIST* decl_list){
   head->val.decL.decl_list = decl_list;
   return head;
 }
+
+DEC *makeDECtype(TYPE *type){
+  DEC *dec;
+  dec = NEW(DEC);
+  dec->lineno = lineno;
+  dec->kind = dectypeK;
+  dec->val.type = type;
+  return dec;
+
+}
+DEC *makeDECfunc(FUNC *func){
+  DEC *dec;
+  dec = NEW(DEC);
+  dec->lineno = lineno;
+  dec->kind = decfuncK;
+  dec->val.func = func;
+  return dec;
+
+}
+
 /*
 void *addDEC(LIST *list, DEC *dec){
   makeDEClist(dec);
