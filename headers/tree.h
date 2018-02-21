@@ -5,10 +5,10 @@ typedef struct FUNC {
   int lineno;
   enum {functionK, headK, bodyK, tailK} kind;
   union {
-    struct {struct HEAD* head; struct BODY* body; struct TAIL* tail;} functionF;
+    struct {struct FUNC* head; struct FUNC* body; struct FUNC* tail;} functionF;
     struct {char* id; struct LIST* par_decl_list; struct TYPE* type;} headF;
     struct {struct LIST* decl_list; struct LIST* statement_list;} bodyF;
-    char* id tailF;
+    char* tailF;
   } val;
 } FUNC;
 
@@ -54,14 +54,14 @@ typedef struct LIST {
   int lineno;
   enum {parK, varlistK, varK, decK, stateK, statelistK, actlistK, expressionK, explistK} kind;
   union {
-    struct LIST* var_decl_list parL;
+    struct LIST* parL;
     struct {struct TYPE* var_type; struct LIST* var_decl_list;} varlistL;
-    struct TYPE* var_type varL;
+    struct TYPE* varL;
     struct {struct DEC* declaration; struct LIST* decl_list;} decL;
-    struct STM* statement stateL;
+    struct STM* stateL;
     struct {struct STM* statement; struct LIST* statement_list;} statelistL;
-    struct LIST* exp_list actlistL;
-    struct EXP* expression expressionL;
+    struct LIST* actlistL;
+    struct EXP* expressionL;
     struct {struct EXP* expression; struct LIST* exp_list;} explistL;
   } val;
 } LIST;
@@ -96,12 +96,9 @@ typedef struct DEC{
     char *stringE;
     int integerE;
   }val;
-  struct DEC *next;
 } DEC;
 
-
-
-FUNC* makeFUNC(HEAD* head, BODY* body, TAIL* tail);
+FUNC* makeFUNC(FUNC* head, FUNC* body, FUNC* tail);
 
 FUNC* makeFUNChead(char* id, LIST* par_decl_list, TYPE* type);
 
@@ -191,11 +188,10 @@ TYPE* makeTYPEid(char* id);
 TYPE* makeTYPEintconst(int intconst);
 
 
-
 DEC *makeDECint(int integer);
 
 DEC *makeDECstring(char *string);
 
-void *addDEC(DEC_LIST *list, DEC *dec);
+void *addDEC(LIST *list, DEC *dec);
 
 #endif

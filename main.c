@@ -8,7 +8,7 @@ void yyparse();
 
 FILE* yyin;
 
-BODY* thebody;
+FUNC* thebody;
 EXP *theexpression;
 STM* thestatement;
 

@@ -25,7 +25,7 @@ void prettyTERM(TERM *t){
     case booleanK:
           if(t->val.booleanT == 0){
             printf("True");
-          }else if(t-val.booleanT == 1){
+          }else if(t->val.booleanT == 1){
             printf("False");
           }else{
             printf("NULL");

@@ -4,38 +4,50 @@
 
 extern int lineno;
 
-DEC_LIST *makeDEClist(DEC *dec){
-  DEC_LIST *dl;
-  dl = NEW(DEC_LIST);
-  dl->lineno = lineno;
-  dl->head = dec;
-  return dl;
+LIST *makeDEClist(DEC *dec){
+  LIST *declist;
+  declist = NEW(LIST);
+  declist->lineno = lineno;
+  declist->kind = decK;
+  declist->val.decL.declaration = dec;
+  declist->val.decL.decl_list = NULL;
+  return declist;
 }
 
 DEC *makeDECint(int integer){
-  DEC *d;
-  d = NEW(DEC);
-  d->lineno = lineno;
-  d->kind = integerK;
-  d->val.integerE = integer;
-  d->next = NULL;
-  return d;
+  DEC *dec;
+  dec = NEW(DEC);
+  dec->lineno = lineno;
+  dec->kind = integerK;
+  dec->val.integerE = integer;
+  return dec;
 }
 
 DEC *makeDECstring(char *string){
-  DEC *d;
-  d = NEW(DEC);
-  d->lineno = lineno;
-  d->kind = stringK;
-  d->val.stringE = string;
-  d->next = NULL;
-  return d;
+  DEC *dec;
+  dec = NEW(DEC);
+  dec->lineno = lineno;
+  dec->kind = stringK;
+  dec->val.stringE = string;
+  return dec;
 }
 
-void *addDEC(DEC_LIST *list, DEC *dec){
-  DEC *current = list->head;
-  while(current->next != NULL){
-    current = current->next;
-  }
-  current->next = dec;
+LIST *makeLISTdecl(DEC* declaration, LIST* decl_list){
+  LIST *head;
+  head = NEW(LIST);
+  head->lineno = lineno;
+  head->kind = decK;
+  head->val.decL.declaration = declaration;
+  head->val.decL.decl_list = decl_list;
+  return head;
 }
+/*
+void *addDEC(LIST *list, DEC *dec){
+  makeDEClist(dec);
+
+  LIST *current = list->val.decL;
+  while(current->decl_list != NULL){
+    current = current->decl_list.decL;
+  }
+  current->decl_list = makeDEClist(dec);
+}*/
