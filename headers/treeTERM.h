@@ -14,15 +14,17 @@ typedef struct TERM {
   } val;
 } TERM;
 
-TERM* makeTERMidtype(char* id, TYPE* type);
+TERM* makeTERMvar(LIST* act_list);
 
-TERM* makeTERMabsolute(EXP* expression);
+TERM* makeTERMact(LIST* act_list);
+
+TERM* makeTERMexpression(EXP* expression);
 
 TERM* makeTERMnot(TERM* term);
 
-TERM* makeTERMnum(int num);
+TERM* makeTERMabsolute(EXP* expression);
 
-TERM* makeTERMexpression(EXP* expression);
+TERM* makeTERMnum(int num);
 
 TERM* makeTERMboolean(int value);
 

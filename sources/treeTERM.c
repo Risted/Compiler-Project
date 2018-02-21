@@ -4,16 +4,6 @@
 
 extern int lineno;
 
-TERM* makeTERMidtype(char* id, TYPE* type){
-  TERM *t;
-  t = NEW(TERM);
-  t->lineno = lineno;
-  t->kind = idtypeK;
-  t->val.idtypeT.id = id;
-  t->val.idtypeT.type = type;
-  return t;
-}
-
 TERM* makeTERMnot(TERM* term){
   TERM *t;
   t = NEW(TERM);

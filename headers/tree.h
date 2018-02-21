@@ -1,21 +1,16 @@
 #ifndef __tree_h
 #define __tree_h
 
-typedef struct DEC_LIST{
+typedef struct FUNC {
   int lineno;
-  struct DEC *head;
-}DEC_LIST;
-
-typedef struct DEC{
-  int lineno;
-  enum{integerK, stringK}kind;
-  char *id;
-  union{
-    char *stringE;
-    int integerE;
-  }val;
-  struct DEC *next;
-}DEC;
+  enum {functionK, headK, bodyK, tailK} kind;
+  union {
+    struct {struct HEAD* head; struct BODY* body; struct TAIL* tail;} functionF;
+    struct {char* id; struct LIST* par_decl_list; struct TYPE* type;} headF;
+    struct {struct LIST* decl_list; struct LIST* statement_list;} bodyF;
+    char* id tailF;
+  } val;
+} FUNC;
 
 typedef struct STM {
   int lineno;
@@ -55,9 +50,25 @@ typedef struct EXP {
   } val;
 } EXP;
 
+typedef struct LIST {
+  int lineno;
+  enum {parK, varlistK, varK, decK, stateK, statelistK, actlistK, expressionK, explistK} kind;
+  union {
+    struct LIST* var_decl_list parL;
+    struct {struct TYPE* var_type; struct LIST* var_decl_list;} varlistL;
+    struct TYPE* var_type varL;
+    struct {struct DEC* declaration; struct LIST* decl_list;} decL;
+    struct STM* statement stateL;
+    struct {struct STM* statement; struct LIST* statement_list;} statelistL;
+    struct LIST* exp_list actlistL;
+    struct EXP* expression expressionL;
+    struct {struct EXP* expression; struct LIST* exp_list;} explistL;
+  } val;
+} LIST;
+
 typedef struct TERM {
   int lineno;
-  enum {idtypeK, notK, absoluteK, numK, expK,booleanK} kind;
+  enum {idtypeK, notK, absoluteK, numK, expK, booleanK} kind;
   union {
     struct TERM* notT;
     struct EXP * absoluteT;
@@ -76,6 +87,28 @@ typedef struct TYPE {
     int intconstT;
   } val;
 } TYPE;
+
+typedef struct DEC{
+  int lineno;
+  enum{integerK, stringK}kind;
+  char *id;
+  union{
+    char *stringE;
+    int integerE;
+  }val;
+  struct DEC *next;
+} DEC;
+
+
+
+FUNC* makeFUNC(HEAD* head, BODY* body, TAIL* tail);
+
+FUNC* makeFUNChead(char* id, LIST* par_decl_list, TYPE* type);
+
+FUNC* makeFUNCbody(LIST* decl_list, LIST* statement_list);
+
+FUNC* makeFUNCtail(char* id);
+
 
 EXP *makeEXPequalto(EXP *left, EXP *right);
 
@@ -103,6 +136,7 @@ EXP *makeEXPminus(EXP *left, EXP *right);
 
 EXP* makeEXPterm(TERM* term);
 
+
 STM* makeSTMreturn(EXP* expression);
 
 STM* makeSTMwrite(EXP* expression);
@@ -119,6 +153,26 @@ STM* makeSTMifelse(EXP* expression, STM* statement, STM* elseStatement);
 
 STM* makeSTMwhile(EXP* expression, STM* statement);
 
+
+LIST* makeLISTpar(LIST* var_decl_list);
+
+LIST* makeLISTvarlist(TYPE* var_type, LIST* var_decl_list);
+
+LIST* makeLISTvar(TYPE* var_type);
+
+LIST* makeLISTdecl(DEC* declaration, LIST* decl_list);
+
+LIST* makeLISTstate(STM* statement);
+
+LIST* makeLISTstatelist(STM* statement, LIST* statement_list);
+
+LIST* makeLISTact(LIST* exp_list);
+
+LIST* makeLISTexp(EXP* expression);
+
+LIST* makeLISTexplist(EXP* expression, LIST* exp_list);
+
+
 TERM* makeTERMidtype(char* id, TYPE* type);
 
 TERM* makeTERMabsolute(EXP* expression);
@@ -131,11 +185,12 @@ TERM* makeTERMexpression(EXP* expression);
 
 TERM* makeTERMboolean(int value);
 
+
 TYPE* makeTYPEid(char* id);
 
 TYPE* makeTYPEintconst(int intconst);
 
-DEC_LIST *makeDEClist(DEC *dec);
+
 
 DEC *makeDECint(int integer);
 
