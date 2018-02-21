@@ -40,6 +40,7 @@ TYPE* makeTYPEarray(TYPE *type){
 TYPE* makeTYPErecord(LIST *var_decl_list){
   return NULL;
 }
+
 TYPE* makeTYPEvarexp(char *id, EXP *expression){
   TYPE *t;
   t = NEW(TYPE);

@@ -16,7 +16,7 @@ int main(){
   lineno = 1;
   yyin = fopen("test.sk", "r");
   yyparse();
-  prettySTM(thebody);
+  prettyBODY(thebody);
   fclose(yyin);
   printf("\n");
   return 0;

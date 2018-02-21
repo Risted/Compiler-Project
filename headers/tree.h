@@ -12,6 +12,7 @@ typedef struct FUNC {
   }val;
 }FUNC;
 
+
 typedef struct STM {
   int lineno;
   enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
@@ -62,7 +63,7 @@ typedef struct LIST {
     struct {struct STM* statement; struct LIST* statement_list;} statelistL;
     struct LIST* actlistL;
     struct EXP* expressionL;
-    //should these two be here?
+    //should these two be here? Yes, why not?
     struct {struct EXP* expression; struct LIST* exp_list;} explistL;
   }val;
 }LIST;
@@ -200,6 +201,10 @@ TYPE* makeTYPEbool(char *boolian);
 TYPE* makeTYPEarray(TYPE *type);
 
 TYPE* makeTYPErecord(LIST *var_decl_list);
+
+TYPE* makeTYPEvar(char *id, TYPE *type);
+
+TYPE* makeTYPEvarexp(char *id, EXP *expression);
 
 
 DEC *makeDECint(int integer);
