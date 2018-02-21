@@ -113,7 +113,7 @@ statement  : tRETURN expression tSEMI                              {$$ = makeSTM
 
 variable : tID                                          {$$ = makeTYPEid($1);}
          | variable tLSQUARE expression tRSQUARE        {$$ = makeTYPEvarexp($1, $3);}
-         | variable tDOT tID                            {$$ = makeTYPEvar($1);}
+         | variable tDOT tID                            {$$ = makeTYPEvar($1, $3);}
 ;
 
 expression : expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
