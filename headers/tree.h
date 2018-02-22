@@ -85,13 +85,14 @@ typedef struct TERM {
 
 typedef struct TYPE {
   int lineno;
-  enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK} kind;
+  enum {idK, intconstK,typeK, boolK, arrayK, recordK, vareK, varexpK} kind;
   union {
     char *idT;
     int intconstT;
     struct TYPE* arrayT;
     struct LIST* recordT;
     struct {struct TYPE *variable; char* id;} varT;
+    struct {struct TYPE *variable; char* id;} typeT;
     struct {struct TYPE* variable; struct EXP *expression;} varexpT;
   }val;
 }TYPE;
@@ -215,6 +216,8 @@ TYPE* makeTYPErecord(LIST *var_decl_list);
 TYPE* makeTYPEvar(TYPE *variable, char* id);
 
 TYPE* makeTYPEvarexp(TYPE* variable, EXP *expression);
+
+TYPE* makeTYPEtype(char* id,TYPE *variable);
 
 
 DEC* makeDEClist(LIST* list);
