@@ -4,7 +4,7 @@
 void prettyLIST(LIST *l){
   switch (l->kind) {
     case parK:
-      printf("parK\n");
+      printf("parK: \n");
       prettyLIST(l->val.parL);
       break;
     case varlistK:

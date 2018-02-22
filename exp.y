@@ -71,7 +71,7 @@ type : tID                                            {$$ = makeTYPEid($1);}
      | tBOOL                                          {$$ = makeTYPEbool();}
 ;
 
-par_decl_list : {}
+par_decl_list : {;}
               | var_decl_list                      {$$ = makeLISTpar($1);}
 ;
 

@@ -6,3 +6,42 @@ TYPE NEEDS TO BE CHECKED, THEY ARE TYPES NOT VARIABLES!!!!!!
 
 in scanner make sure comments gets ignored (* comment *) and # comment
 if we cant make || and |exp| work then we make abs() indead of |exp|
+
+something is wrong in the linking of par_decl_list to its var_decl_list
+shown by this code:
+(
+# Code generation of static link, referencing variables which redefines
+# outer variables and the calling a function in an outer scope
+# The references to the variable 'a' in the inner function 'sub'
+# should refer to the 'a' declared in 'b'
+# However, when 'sub' calls 'c', the 'a' in 'c' refers to the outer 'a'
+var a : int, temp : int;
+
+func b() : int
+  func sub(input : int) : int
+    var a : int;
+    a = 0;
+    write a;
+    d = d * 2;
+    temp = c();
+    return temp + input;
+  end sub
+  var a : int, d : int;
+  a = 3;
+  d = 1;
+  write temp;
+  return sub(a) + d;
+end b
+
+func c() : int
+  write a;
+  return 5;
+end c
+
+a = 7;
+temp = 9;
+write a;
+a = b();
+write a;
+write temp;
+)
