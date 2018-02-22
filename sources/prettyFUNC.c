@@ -10,7 +10,7 @@ void prettyFUNC(FUNC *f){
       prettyFUNC(f->val.functionF.tail);
       break;
     case headK:
-      printf(" function %s (", f->val.headF.id);
+      printf(" function %s ( ", f->val.headF.id);
       prettyLIST(f->val.headF.par_decl_list);
       prettyTYPE(f->val.headF.type);
       printf(")\n");

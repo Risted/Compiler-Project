@@ -4,81 +4,82 @@
 void prettyEXP(EXP *e)
 { switch (e->kind) {
     case termK:
+         //printf("term " );
          prettyTERM(e->val.termE);
          break;
     case timesK:
-         printf("(");
+         printf("( ");
          prettyEXP(e->val.timesE.left);
-         printf("*");
+         printf("* ");
          prettyEXP(e->val.timesE.right);
-         printf(")");
+         printf(") ");
          break;
     case divK:
-         printf("(");
+         printf("( ");
          prettyEXP(e->val.divE.left);
-         printf("/");
+         printf("/ ");
          prettyEXP(e->val.divE.right);
-         printf(")");
+         printf(") ");
          break;
     case plusK:
-         printf("(");
+         printf("( ");
          prettyEXP(e->val.plusE.left);
-         printf("+");
+         printf("+ ");
          prettyEXP(e->val.plusE.right);
-         printf(")");
+         printf(") ");
          break;
     case minusK:
-         printf("(");
+         printf("( ");
          prettyEXP(e->val.minusE.left);
-         printf("-");
+         printf("- ");
          prettyEXP(e->val.minusE.right);
-         printf(")");
+         printf(") ");
          break;
     case moduloK:
-         printf("(");
+         printf("( ");
          prettyEXP(e->val.moduloE.left);
-         printf("%%");
+         printf("%% ");
          prettyEXP(e->val.moduloE.right);
-         printf(")");
+         printf(") ");
          break;
     case biggerK:
           prettyEXP(e->val.biggerE.left);
-          printf(">");
+          printf("> ");
           prettyEXP(e->val.biggerE.right);
           break;
     case smallerK:
           prettyEXP(e->val.smallerE.left);
-          printf("<");
+          printf("< ");
           prettyEXP(e->val.smallerE.right);
           break;
     case equaltoK:
           prettyEXP(e->val.equaltoE.left);
-          printf("==");
+          printf("== ");
           prettyEXP(e->val.equaltoE.right);
           break;
     case nequaltoK:
           prettyEXP(e->val.nequaltoE.left);
-          printf("!=");
+          printf("!= ");
           prettyEXP(e->val.nequaltoE.right);
           break;
     case orK:
           prettyEXP(e->val.orE.left);
-          printf("||");
+          printf("|| ");
           prettyEXP(e->val.orE.right);
           break;
     case andK:
           prettyEXP(e->val.andE.left);
-          printf("&&");
+          printf("&& ");
           prettyEXP(e->val.andE.right);
           break;
     case bigequalK:
           prettyEXP(e->val.bigequalE.left);
-          printf(">=");
+          printf(">= ");
           prettyEXP(e->val.bigequalE.right);
           break;
     case smalequalK:
           prettyEXP(e->val.smalequalE.left);
-          printf("<=");
+          printf("<= ");
           prettyEXP(e->val.smalequalE.right);
           break;
   }

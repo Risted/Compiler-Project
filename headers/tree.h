@@ -16,7 +16,7 @@ typedef struct FUNC {
 typedef struct STM {
   int lineno;
   enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
-    ifelseK, whileK} kind;
+    ifelseK, whileK, stmlistK} kind;
   union {
     struct EXP* returnS;
     struct EXP* writeS;
@@ -26,7 +26,7 @@ typedef struct STM {
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
     struct {struct EXP* expression; struct STM* statement;} whileS;
-    struct LIST* statelist;
+    struct LIST* listT;
   }val;
 }STM;
 

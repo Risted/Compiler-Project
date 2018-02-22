@@ -85,7 +85,7 @@ STM* makeSTMlist(LIST *statement_list){
   STM *s;
   s = NEW(STM);
   s->lineno;
-  s->kind = statelistK;
-  s->val.statelist = statement_list;
+  s->kind = stmlistK;
+  s->val.listT = statement_list;
   return s;
 }

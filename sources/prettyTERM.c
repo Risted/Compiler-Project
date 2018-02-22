@@ -8,27 +8,34 @@ void prettyTERM(TERM *t){
           prettyTYPE(t->val.idtypeT.type);
           break;
     case numK:
-          printf("%d",t->val.numT );
+          printf("%d ",t->val.numT );
           break;
     case notK:
-          printf("not(");
+          printf("not( ");
           prettyTERM(t->val.notT);
-          printf(")" );
+          printf(") " );
           break;
     case expK:
           prettyEXP(t->val.expT);
           break;
     case absoluteK:
-          printf("|");
+          printf("| ");
           prettyEXP(t->val.absoluteT);
-          printf("|");
+          printf("| ");
     case booleanK:
           if(t->val.booleanT == 0){
-            printf("true");
+            printf("true ");
           }else if(t->val.booleanT == 1){
-            printf("false");
+            printf("false ");
           }else{
-            printf("NULL");
+            printf("NULL ");
           }
+    case variableK:
+      prettyTYPE(t->val.varT);
+      break;
+    case var_listK:
+      printf("%s ", t->val.act_listT.id);
+      prettyLIST(t->val.act_listT.act_list);
+      break;
   }
 }
