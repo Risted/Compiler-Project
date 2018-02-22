@@ -3,9 +3,6 @@
 TYPE NEEDS TO BE CHECKED, THEY ARE TYPES NOT VARIABLES!!!!!!
 
 %prec NAME -> define it in association
+
 in scanner make sure comments gets ignored (* comment *) and # comment
 if we cant make || and |exp| work then we make abs() indead of |exp|
-
-
-type
-| tBOOL                                          {$$ = makeTYPEbool($1);}

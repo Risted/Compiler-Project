@@ -15,8 +15,7 @@ extern int fileno();
 "(*"(\n|.)*"*)"  /* multiple line comments */;
 "#".*           /*rest of line comments*/ ;
 
-int             return tTYPEINTEGER;
-string          return tTYPESTRING;
+int             return tINT;
 return          return tRETURN;
 write           return tWRITE;
 allocate        return tALLOCATE;
@@ -64,7 +63,7 @@ NULL            return tNULL;
 "."             return tDOT;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
-                       return tINT; }
+                       return tNUM; }
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.stringconst = (char *)malloc(strlen(yytext)+1);
                          sprintf(yylval.stringconst,"%s",yytext);
                          return tID; }

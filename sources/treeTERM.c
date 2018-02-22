@@ -49,9 +49,21 @@ TERM* makeTERMboolean(int value){
   return t;
 }
 
-TERM* makeTERMvar(LIST* act_list){
-  return NULL; //was not certain what do to
+TERM* makeTERMvar(TYPE* variable){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = variableK;
+  t->val.varT = variable;
+  return t;
 }
-TERM* makeTERMact(LIST* act_list){
-  return NULL; //was not certain what do to
+
+TERM* makeTERMact(char* id, LIST* act_list){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = var_listK;
+  t->val.act_listT.id = id;
+  t->val.act_listT.act_list = act_list;
+  return t;
 }

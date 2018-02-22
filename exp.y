@@ -23,9 +23,9 @@ void yyerror() {
 }
 
 %token <declaration> tTYPEINTEGER tTYPESTRING
-%token <intconst> tINT
+%token <intconst> tNUM
 %token <stringconst> tID
-%token <type> tARRAY tRECORD tEND tDOT tTYPE tVAR tFUNC
+%token <type> tARRAY tRECORD tEND tDOT tTYPE tVAR tFUNC tINT
 %token <expression> tASSIGN tEQUALTO tNEQUALTO tAND tPIPE
 %token <expression> tLPAREN tRPAREN tLBRACE tRBRACE tLSQUARE tRSQUARE
 %token <expression> tSMALLER tBIGGER tSMALEQUAL tBIGEQUAL
@@ -65,13 +65,14 @@ tail : tEND tID             {$$ = makeFUNCtail($2);}
 ;
 
 type : tID                                            {$$ = makeTYPEid($1);}
-     | tINT                                           {$$ = makeTYPEintconst($1);}
+     | tINT                                           {$$ = makeTYPEintconst();}
      | tARRAY tOF type                                {$$ = makeTYPEarray($3);}
      | tRECORD tOF tLBRACE var_decl_list tRBRACE      {$$ = makeTYPErecord($4);}
+     | tBOOL                                          {$$ = makeTYPEbool();}
 ;
 
-par_decl_list : /* empty */
-              | var_decl_list             {$$ = makeLISTpar($1);}
+par_decl_list : {}
+              | var_decl_list                      {$$ = makeLISTpar($1);}
 ;
 
 var_decl_list : var_type tCOMMA var_decl_list      {$$ = makeLISTvarlist($1, $3);}
@@ -84,13 +85,13 @@ var_type : tID tCOLON type                {$$ = makeTYPEvar($1, $3);}
 body : decl_list statement_list           {$$ = makeFUNCbody($1, $2);}
 ;
 
-decl_list : /* empty */
+decl_list : {}
           | declaration decl_list         {$$ = makeLISTdecl($1, $2);}
 ;
 
-declaration : tTYPE tID tASSIGN type tSEMI     {$$ = makeDECtype($2, $4);}
-            | function                         {$$ = makeDECfunc($1);}
-            | tVAR var_decl_list tSEMI         {$$ = makeDEClist($2);}
+declaration : tTYPE tID tASSIGN type tSEMI             {$$ = makeDECtype($2, $4);}
+            | function                                 {$$ = makeDECfunc($1);}
+            | tVAR var_decl_list tSEMI                 {$$ = makeDEClist($2);}
 ;
 
 statement_list : statement                    {$$ = makeLISTstate($1);}
@@ -108,9 +109,9 @@ statement  : tRETURN expression tSEMI                              {$$ = makeSTM
            | tLBRACE statement_list tRBRACE                        {$$ = makeSTMlist($2);}
 ;
 
-variable : tID                                          {$$ = makeTYPEid($1);}
-         | variable tLSQUARE expression tRSQUARE        {$$ = makeTYPEvarexp($1, $3);}
-         | variable tDOT tID                            {$$ = makeTYPEvar($1, $3);}
+variable : tID                                                  {$$ = makeTYPEid($1);}
+         | variable tLSQUARE expression tRSQUARE                {$$ = makeTYPEvarexp($1, $3);}
+         | variable tDOT tID                                    {$$ = makeTYPEvar($1, $3);}
 ;
 
 expression : expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
@@ -129,18 +130,18 @@ expression : expression tEQUALTO expression     {$$ = makeEXPequalto($1,$3);}
            | term                               {$$ = makeEXPterm($1);}
 ;
 
-term : variable                       {$$ = makeTERMvar($1);}
-     | tID tLPAREN act_list tRPAREN   {$$ = makeTERMact($1, $3);}
-     | tLPAREN expression tRPAREN     {$$ = makeTERMexpression($2);}
-     | tNOT term                      {$$ = makeTERMnot($2);}
-     | tPIPE expression tPIPE         {$$ = makeTERMabsolute($2);}
-     | tINT                           {$$ = makeTERMnum($1);}
-     | tTRUE                          {$$ = makeTERMboolean(0);}
-     | tFALSE                         {$$ = makeTERMboolean(1);}
-     | tNULL                          {$$ = makeTERMboolean(-1);}
+term : variable                               {$$ = makeTERMvar($1);}
+     | tID tLPAREN act_list tRPAREN           {$$ = makeTERMact($1, $3);}
+     | tLPAREN expression tRPAREN             {$$ = makeTERMexpression($2);}
+     | tNOT term                              {$$ = makeTERMnot($2);}
+     | tPIPE expression tPIPE                 {$$ = makeTERMabsolute($2);}
+     | tNUM                                   {$$ = makeTERMnum($1);}
+     | tTRUE                                  {$$ = makeTERMboolean(0);}
+     | tFALSE                                 {$$ = makeTERMboolean(1);}
+     | tNULL                                  {$$ = makeTERMboolean(-1);}
 ;
 
-act_list : /* empty */
+act_list : {}
          | exp_list         {$$ = makeLISTact($1);}
 ;
 

@@ -4,10 +4,27 @@
 void prettyTYPE(TYPE *t){
    switch (t->kind) {
     case idK:
-         printf("%s",t->val.idT);
+         printf("id %s", t->val.idT);
          break;
     case intconstK:
-         printf("%i",t->val.intconstT);
+         printf("int ");
+         break;
+    case boolK:
+         printf("bool ");
+         break;
+    case arrayK:
+         printf("array ");
+         prettyTYPE(t->val.arrayT);
+         break;
+    case recordK:
+         printf("record ");
+         prettyLIST(t->val.recordT);
+         break;
+    case vareK:
+         printf("vareK");
+         break;
+    case varexpK:
+         printf("vareexpK");
          break;
   }
 }

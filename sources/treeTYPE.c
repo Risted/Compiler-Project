@@ -13,51 +13,55 @@ TYPE* makeTYPEid(char* id){
   return t;
 }
 
-TYPE* makeTYPEintconst(int intconst){
+TYPE* makeTYPEintconst(){
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;
   t->kind = intconstK;
-  t->val.intconstT = intconst;
   return t;
 }
 
-// TYPE* makeTYPEbool(char *boolean){
-//   TYPE *t;
-//   t = NEW(TYPE);
-//   t->lineno = lineno;
-//   t->kind = boolK;
-//   if(boolean == "true"){
-//     t->val.boolT = 0; //i think
-//   }else{
-//     t->val.boolT = 1;
-//   }
-// }
-
-TYPE* makeTYPEarray(TYPE *type){
-  return NULL;
-}
-
-TYPE* makeTYPErecord(LIST *var_decl_list){
-  return NULL;
-}
-
-TYPE* makeTYPEvarexp(TYPE* var, EXP *expression){
+TYPE* makeTYPEbool(){
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;
-  t->kind = varexpK;
-  t->val.varexpT.var = var;
-  t->val.varexpT.expression = expression;
+  t->kind = boolK;
+}
+
+TYPE* makeTYPEarray(TYPE *type){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = arrayK;
+  t->val.arrayT = type;
   return t;
 }
 
-TYPE* makeTYPEvar(char* id, TYPE *type){
+TYPE* makeTYPErecord(LIST *var_decl_list){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = recordK;
+  t->val.recordT = var_decl_list;
+  return t;
+}
+
+TYPE* makeTYPEvar(TYPE *variable, char* id){
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;
   t->kind = vareK;
+  t->val.varT.variable = variable;
   t->val.varT.id = id;
-  t->val.varT.type = type;
+  return t;
+}
+
+TYPE* makeTYPEvarexp(TYPE* variable, EXP *expression){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = varexpK;
+  t->val.varexpT.variable = variable;
+  t->val.varexpT.expression = expression;
   return t;
 }

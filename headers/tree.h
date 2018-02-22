@@ -64,14 +64,13 @@ typedef struct LIST {
     struct {struct STM* statement; struct LIST* statement_list;} statelistL;
     struct LIST* actlistL;
     struct EXP* expressionL;
-    //should these two be here? Yes, why not?
     struct {struct EXP* expression; struct LIST* exp_list;} explistL;
   }val;
 }LIST;
 
 typedef struct TERM {
   int lineno;
-  enum {idtypeK, notK, absoluteK, numK, expK, booleanK} kind;
+  enum {idtypeK, notK, absoluteK, numK, expK, booleanK, variableK, var_listK} kind;
   union {
     struct TERM* notT;
     struct EXP * absoluteT;
@@ -79,18 +78,21 @@ typedef struct TERM {
     struct {char* id; struct TYPE* type;} idtypeT;
     struct EXP* expT;
     int booleanT;
+    struct TYPE* varT;
+    struct {char* id; struct LIST* act_list;} act_listT;
   }val;
 }TERM;
 
 typedef struct TYPE {
   int lineno;
-  enum {idK, intconstK,boolK,arrayK,recordK,vareK,varexpK} kind;
+  enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK} kind;
   union {
     char *idT;
     int intconstT;
-    struct TERM* boolT;
-    struct {char* id; struct TYPE *type;} varT;
-    struct {struct TYPE* var; struct EXP *expression;} varexpT;
+    struct TYPE* arrayT;
+    struct LIST* recordT;
+    struct {struct TYPE *variable; char* id;} varT;
+    struct {struct TYPE* variable; struct EXP *expression;} varexpT;
   }val;
 }TYPE;
 
@@ -195,21 +197,24 @@ TERM* makeTERMexpression(EXP* expression);
 
 TERM* makeTERMboolean(int value);
 
+TERM* makeTERMvar(TYPE* variable);
+
+TERM* makeTERMact(char* id, LIST* act_list);
+
 
 TYPE* makeTYPEid(char* id);
 
-TYPE* makeTYPEintconst(int intconst);
+TYPE* makeTYPEintconst();
 
-TYPE* makeTYPEbool(TERM *boolian);
+TYPE* makeTYPEbool();
 
 TYPE* makeTYPEarray(TYPE *type);
 
 TYPE* makeTYPErecord(LIST *var_decl_list);
 
-TYPE* makeTYPEvar(char* id, TYPE *type);
+TYPE* makeTYPEvar(TYPE *variable, char* id);
 
-TYPE* makeTYPEvarexp(TYPE* var, EXP *expression);
-
+TYPE* makeTYPEvarexp(TYPE* variable, EXP *expression);
 
 
 DEC* makeDEClist(LIST* list);
