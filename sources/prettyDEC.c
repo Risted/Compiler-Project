@@ -16,5 +16,8 @@ void prettyDEC(DEC *d){
       printf("%s\n", d->val.typeD.id);
       prettyTYPE(d->val.typeD.type);
       break;
+    case listK:
+      prettyLIST(d->val.listD);
+
   }
 }
