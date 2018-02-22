@@ -1,15 +1,8 @@
-# Code generation, simple while loop
-var i: int;
+# Code generation of static link, referencing variables which redefines
+# outer variables and the calling a function in an outer scope
+# The references to the variable 'a' in the inner function 'sub'
+# should refer to the 'a' declared in 'b'
+# However, when 'sub' calls 'c', the 'a' in 'c' refers to the outer 'a'
+var a : int, temp : int;
 
-i = 3;
-while i < 3 do {
-   write 9 ;
-   i = i + 1;
-}
-write 2;
-
-while i <= 4 do {
-   write i;
-   i = i + 1;
-}
-write 2;
+write a;

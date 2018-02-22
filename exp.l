@@ -60,6 +60,7 @@ NULL            return tNULL;
 "!"             return tNOT;
 ";"             return tSEMI;
 ":"             return tCOLON;
+","             return tCOMMA;
 "."             return tDOT;
 
 0|([1-9][0-9]*)        { yylval.intconst = atoi(yytext);
