@@ -18,6 +18,5 @@ void prettyDEC(DEC *d){
       break;
     case listK:
       prettyLIST(d->val.listD);
-
   }
 }

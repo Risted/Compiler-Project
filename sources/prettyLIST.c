@@ -4,42 +4,42 @@
 void prettyLIST(LIST *l){
   switch (l->kind) {
     case parK:
-      printf("parK: \n");
+      printf("par: ");
       prettyLIST(l->val.parL);
       break;
     case varlistK:
-      printf("varlistK\n");
+      printf("varlist");
       prettyTYPE(l->val.varlistL.var_type);
       prettyLIST(l->val.varlistL.var_decl_list);
       break;
     case varK:
-      printf("varK\n");
+      printf("var");
       prettyTYPE(l->val.varL);
       break;
     case decK:
-      printf("decK\n");
+      printf("dec");
       prettyDEC(l->val.decL.declaration);
       prettyLIST(l->val.decL.decl_list);
       break;
     case stateK:
-      printf("stateK\n");
+      printf("state");
       prettySTM(l->val.stateL);
       break;
     case statelistK:
-      printf("statelistK\n");
+      printf("statelist");
       prettySTM(l->val.statelistL.statement);
       prettyLIST(l->val.statelistL.statement_list);
       break;
     case actlistK:
-      printf("actlistK\n");
+      printf("actlist");
       prettyLIST(l->val.actlistL);
       break;
     case expressionK:
-      printf("expressionK\n");
+      printf("expression");
       prettyEXP(l->val.expressionL);
       break;
     case explistK:
-      printf("explistK\n");
+      printf("explist");
       prettyEXP(l->val.explistL.expression);
       prettyLIST(l->val.explistL.exp_list);
       break;
