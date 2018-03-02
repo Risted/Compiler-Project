@@ -1,5 +1,8 @@
-<<<<<<< HEAD
-return 2+2-5*6/19
-=======
-return not(5-3+7)
->>>>>>> b6f76360a915abfdbaf9f173b054f5c4a1745268
+# This is an inline comment
+
+(* This is a multi line comment and is can span
+over multiple lines and include %48"fjs9/ signs and
+key words like while func not null then return *)
+
+var rand:int, a:int, b:int, modulo:int;
+while(counter < |5| || |counter| > a + b) do {return rand;}

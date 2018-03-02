@@ -5,9 +5,35 @@ CLFAGS += -Wall
 CFLAGS +=	-Wextra
 CFLAGS += -pedantic
 
+DEPS  = headers/memory.h
+DEPS += headers/pretty.h
+DEPS += headers/tree.h
 
-main:             y.tab.o lex.yy.o main.o tree.h tree.o pretty.h pretty.o memory.h memory.o
-	          $(CC) lex.yy.o y.tab.o tree.o pretty.o memory.o main.o -o compiler -lfl
+OBJ  = y.tab.o
+OBJ += lex.yy.o
+OBJ += main.o
+
+OBJ += sources/treeDEC.o
+OBJ += sources/treeEXP.o
+OBJ += sources/treeSTM.o
+OBJ += sources/treeTERM.o
+OBJ += sources/treeTYPE.o
+OBJ += sources/treeFUNC.o
+OBJ += sources/treeLIST.o
+
+OBJ += sources/prettyEXP.o
+OBJ += sources/prettySTM.o
+OBJ += sources/prettyTERM.o
+OBJ += sources/prettyTYPE.o
+OBJ += sources/prettyFUNC.o
+OBJ += sources/prettyLIST.o
+OBJ += sources/prettyDEC.o
+
+OBJ += sources/memory.o
+
+
+main:             $(DEPS) $(OBJ)
+	          $(CC) $(OBJ) -o compiler -lfl
 
 y.tab.c y.tab.h:  exp.y
 	          bison -y -d exp.y
@@ -19,4 +45,4 @@ run:
 	./compiler
 
 clean:
-	rm -f y.tab.o lex.yy.o main.o tree.o pretty.o memory.o compiler lex.yy.c y.tab.c y.tab.h
+	rm -f $(OBJ) compiler lex.yy.c y.tab.c y.tab.h

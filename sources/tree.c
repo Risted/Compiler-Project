@@ -1,6 +1,6 @@
 #include "stdio.h"
-#include "memory.h"
-#include "tree.h"
+#include "../headers/memory.h"
+#include "../headers/tree.h"
 
 extern int lineno;
 
@@ -255,6 +255,14 @@ TERM* makeTERMexpression(EXP* expression){
   t->lineno = lineno;
   t->kind = expK;
   t->val.expT = expression;
+  return t;
+}
+TERM* makeTERMboolean(int value){
+  TERM *t;
+  t = NEW(TERM);
+  t->lineno = lineno;
+  t->kind = booleanK;
+  t->val.booleanT = value;
   return t;
 }
 
