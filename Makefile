@@ -8,6 +8,8 @@ CFLAGS += -pedantic
 DEPS  = headers/memory.h
 DEPS += headers/pretty.h
 DEPS += headers/tree.h
+DEPS += headers/typecheck.h
+DEPS += headers/symbol.h
 
 OBJ  = y.tab.o
 OBJ += lex.yy.o
@@ -30,6 +32,8 @@ OBJ += sources/prettyLIST.o
 OBJ += sources/prettyDEC.o
 
 OBJ += sources/memory.o
+OBJ += sources/typecheck.o
+OBJ += sources/symbol.o
 
 
 main:             $(DEPS) $(OBJ)
