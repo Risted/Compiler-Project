@@ -4,7 +4,6 @@
 void prettyEXP(EXP *e)
 { switch (e->kind) {
     case termK:
-         //printf("term " );
          prettyTERM(e->val.termE);
          break;
     case timesK:

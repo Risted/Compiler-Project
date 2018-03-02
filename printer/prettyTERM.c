@@ -22,6 +22,7 @@ void prettyTERM(TERM *t){
           printf("| ");
           prettyEXP(t->val.absoluteT);
           printf("| ");
+          break;
     case booleanK:
           if(t->val.booleanT == 0){
             printf("true ");
@@ -30,12 +31,13 @@ void prettyTERM(TERM *t){
           }else{
             printf("NULL ");
           }
+          break;
     case variableK:
-      prettyTYPE(t->val.varT);
-      break;
+          prettyTYPE(t->val.varT);
+          break;
     case var_listK:
-      printf("%s ", t->val.act_listT.id);
-      prettyLIST(t->val.act_listT.act_list);
-      break;
+          printf("%s ", t->val.act_listT.id);
+          prettyLIST(t->val.act_listT.act_list);
+          break;
   }
 }

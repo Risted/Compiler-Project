@@ -8,32 +8,32 @@ CFLAGS += -pedantic
 DEPS  = headers/memory.h
 DEPS += headers/pretty.h
 DEPS += headers/tree.h
+# DEPS += headers/symbol.h
 DEPS += headers/typecheck.h
-DEPS += headers/symbol.h
 
 OBJ  = y.tab.o
 OBJ += lex.yy.o
 OBJ += main.o
 
-OBJ += sources/treeDEC.o
-OBJ += sources/treeEXP.o
-OBJ += sources/treeSTM.o
-OBJ += sources/treeTERM.o
-OBJ += sources/treeTYPE.o
-OBJ += sources/treeFUNC.o
-OBJ += sources/treeLIST.o
+OBJ += printer/prettyDEC.o
+OBJ += printer/prettyEXP.o
+OBJ += printer/prettyFUNC.o
+OBJ += printer/prettyLIST.o
+OBJ += printer/prettySTM.o
+OBJ += printer/prettyTERM.o
+OBJ += printer/prettyTYPE.o
 
-OBJ += sources/prettyEXP.o
-OBJ += sources/prettySTM.o
-OBJ += sources/prettyTERM.o
-OBJ += sources/prettyTYPE.o
-OBJ += sources/prettyFUNC.o
-OBJ += sources/prettyLIST.o
-OBJ += sources/prettyDEC.o
+OBJ += tree/treeDEC.o
+OBJ += tree/treeEXP.o
+OBJ += tree/treeFUNC.o
+OBJ += tree/treeLIST.o
+OBJ += tree/treeSTM.o
+OBJ += tree/treeTERM.o
+OBJ += tree/treeTYPE.o
 
+# OBJ += sources/symbol.o
 OBJ += sources/memory.o
 OBJ += sources/typecheck.o
-OBJ += sources/symbol.o
 
 
 main:             $(DEPS) $(OBJ)

@@ -1,8 +1,3 @@
-# This is an inline comment
-
-(* This is a multi line comment and is can span
-over multiple lines and include %48"fjs9/ signs and
-key words like while func not null then return *)
-
-var rand:int, a:int, b:int, modulo:int;
-while(counter < |5| || |counter| > a + b) do {return rand;}
+var rand:int, a:int, b:int, c:char;
+b = bil;
+while(|2| > |3| == |4+2| < |42|) do {return rand;}

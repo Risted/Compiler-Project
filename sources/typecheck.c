@@ -1,3 +1,6 @@
-#include "typecheck.h"
-#include "memory.h" //maybe
-#include "symbol.h"
+#include "../headers/symbol.h"
+#include "../headers/typecheck.h"
+
+SymbolTable* typeCheck(FUNC* body){
+
+}

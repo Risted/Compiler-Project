@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include "headers/symbol.h"
 #include "headers/pretty.h"
 #include "headers/tree.h"
 #include <stdio.h>
