@@ -3,13 +3,10 @@
 
 #define HashSize 317
 
-/* SYMBOL will be extended later.
-   Function calls will take more parameters later.
-*/
-
 typedef struct Symbol {
   char *name;
-  int value;
+  int type;
+  void* value;
   struct Symbol *next;
 } Symbol;
 
@@ -24,7 +21,7 @@ SymbolTable *initSymbolTable();
 
 SymbolTable *scopeSymbolTable(SymbolTable *t);
 
-Symbol *putSymbol(SymbolTable *t, char *name, int value);
+Symbol *putSymbol(SymbolTable *t, char *name, int type, void* value);
 
 Symbol *getSymbol(SymbolTable *t, char *name);
 

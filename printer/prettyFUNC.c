@@ -20,8 +20,7 @@ void prettyFUNC(FUNC *f){
       prettyLIST(f->val.bodyF.statement_list);
       break;
     case tailK:
-      printf("end func: ");
-      printf("%s\n", f->val.id);
+      printf("end %s\n", f->val.id);
       break;
   }
 }

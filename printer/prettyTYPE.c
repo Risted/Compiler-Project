@@ -26,7 +26,7 @@ void prettyTYPE(TYPE *t){
          break;
     case varexpK:
          prettyTYPE(t->val.varexpT.variable);
-         printf("= " );
+         printf("= ");
          prettyEXP(t->val.varexpT.expression);
          break;
     case typeK:
@@ -34,5 +34,6 @@ void prettyTYPE(TYPE *t){
         prettyTYPE(t->val.typeT.variable);
         printf("%s ", t->val.typeT.id);
         printf("\n");
+        break;
   }
 }
