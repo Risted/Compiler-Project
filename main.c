@@ -1,35 +1,21 @@
+#include "headers/pretty.h"
+#include "headers/tree.h"
 #include <stdio.h>
-#include "headers/symbol.h"
 
-int main() {
+int lineno;
 
-  char *string = "hello";
-  int value = 42;
+void yyparse();
 
-  char *string1 = "kitty";
-  int value1 = 9000;
+FILE* yyin;
 
-  char *string2 = "hello";
-  int value2 = 666;
+FUNC* thebody;
 
-  char *string3 = "prince";
-  int value3 = 21;
-
-  SymbolTable *table;
-  table = initSymbolTable();
-
-  SymbolTable *newTable;
-  newTable = scopeSymbolTable(table);
-
-  putSymbol(table, string, value);
-
-  putSymbol(table, string1, value1);
-
-  putSymbol(newTable, string2, value2);
-
-  putSymbol(newTable, string3, value3);
-
-  dumpSymbolTable(newTable);
-
+int main(){
+  lineno = 1;
+  yyin = fopen("test.sk", "r");
+  yyparse();
+  prettyFUNC(thebody);
+  fclose(yyin);
+  printf("\n");
   return 0;
 }
