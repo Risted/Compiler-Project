@@ -3,7 +3,7 @@
 
 checkForDevideByZero(EXP expression){
   int i;
-  //dives into an expression tree and checks for
+  //dives into an expression tree and checks for aby division by zero
   expression = findDevision(expression);
   if(expression != NULL){
     i =evaluateDevident(expression);
@@ -14,10 +14,15 @@ checkForDevideByZero(EXP expression){
 }
 
 checkForTautaulogy(STM stm){
+  //like we saw in the lecture, if we see "something || true" we just compile
+  //as if it was just "true" (or false)
 
 }
 
 int evaluateDevident(EXP expression){
+  //auxillary function for the devide by zero check
+  //here we evaluate the expression to see if its expression evaluate to ZERO
+  //if it does we return an error since that is not a defined expression
 
 }
 
@@ -79,5 +84,6 @@ EXP findDevision(EXP expression){
             return findDevision(e->val.smalequalE.left);
             return findDevision(e->val.smalequalE.right);
             break;
+      return NULL;
     }
 }
