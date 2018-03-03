@@ -2,8 +2,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-void *Malloc(unsigned n)
-{
+void *Malloc(unsigned n){
   void *p;
   if(!(p = malloc(n)))
   {

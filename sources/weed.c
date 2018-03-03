@@ -17,6 +17,10 @@ checkForTautaulogy(STM stm){
 
 }
 
+int evaluateDevident(EXP expression){
+
+}
+
 EXP findDevision(EXP expression){
   switch (e->kind) {
       case termK:
