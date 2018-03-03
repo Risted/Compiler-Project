@@ -13,6 +13,7 @@ FILE* yyin;
 FUNC* thebody;
 
 int main(){
+
   lineno = 1;
   yyin = fopen("test.sk", "r");
   yyparse();

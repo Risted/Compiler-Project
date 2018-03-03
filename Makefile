@@ -8,7 +8,7 @@ CFLAGS += -pedantic
 DEPS  = headers/memory.h
 DEPS += headers/pretty.h
 DEPS += headers/tree.h
-# DEPS += headers/symbol.h
+DEPS += headers/symbol.h
 DEPS += headers/typecheck.h
 
 OBJ  = y.tab.o
@@ -30,8 +30,7 @@ OBJ += tree/treeLIST.o
 OBJ += tree/treeSTM.o
 OBJ += tree/treeTERM.o
 OBJ += tree/treeTYPE.o
-
-# OBJ += sources/symbol.o
+ OBJ += sources/symbol.o
 OBJ += sources/memory.o
 OBJ += sources/typecheck.o
 

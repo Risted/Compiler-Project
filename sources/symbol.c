@@ -44,12 +44,13 @@ SymbolTable *scopeSymbolTable(SymbolTable *oldTable){
   return table;
 }
 
-Symbol *putSymbol(SymbolTable *t, char *name, int value){
+Symbol *putSymbol(SymbolTable *t, char *name, int type, void* value){
   int hashValue;
   hashValue = Hash(name);
 
   Symbol *symbol = (Symbol *) malloc(sizeof(Symbol));
   symbol->name = name;
+  symbol->type = type;
   symbol->value = value;
   symbol->next = NULL;
 
@@ -115,7 +116,7 @@ void dropLinkedList(Symbol *symbol, int i){
   Symbol *currentSymbol;
   currentSymbol = symbol;
   while(currentSymbol != NULL){
-    printf("Index %i = (%s, %i)\n", i,
+    printf("Index %i = (%s, %p)\n", i,
     currentSymbol->name, currentSymbol->value);
     //On two lines so as to not go over the 79 characters
     currentSymbol = currentSymbol->next;
@@ -131,7 +132,7 @@ void dumpSymbolTable(SymbolTable *t){
   for (i = 0; i < HashSize; i++){
     if (t->table[i] != NULL){
       if (t->table[i]->next == NULL){
-        printf("Index %i = (%s, %i)\n", i,
+        printf("Index %i = (%s, %p)\n", i,
         t->table[i]->name, t->table[i]->value);
         //On two lines so as to not go over the 79 characters
       }

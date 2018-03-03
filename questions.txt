@@ -1,76 +1,21 @@
-|| and | not the same, || handled in the parser.
-
 TYPE NEEDS TO BE CHECKED, THEY ARE TYPES NOT VARIABLES!!!!!!
 
 %prec NAME -> define it in association
 
-in scanner make sure comments gets ignored (* comment *) and # comment
-if we cant make || and |exp| work then we make abs() indead of |exp|
 
-something is wrong in the linking of par_decl_list to its var_decl_list
-shown by this code:
-(
-  # Code generation of static link, referencing variables which redefines
-  # outer variables and the calling a function in an outer scope
-  # The references to the variable 'a' in the inner function 'sub'
-  # should refer to the 'a' declared in 'b'
-  # However, when 'sub' calls 'c', the 'a' in 'c' refers to the outer 'a'
-  var a : int, temp : int;
+NEEDS TO BE CHECKED:
+Indput:
+var rand:int, a:int, b:int, c:char;
+b = 42;
+c = fortytwo;
 
-  func b() : int
-    func sub(input : int) : int
-      var a : int;
-      a = 0;
-      write a;
-      d = d * 2;
-      temp = c();
-      return temp + input;
-    end sub
-    var a : int, d : int;
-    a = 3;
-    d = 1;
-    write temp;
-    return sub(a) + d;
-  end b
-
-  func c() : int
-    write a;
-    return 5;
-  end c
-
-  a = 7;
-  temp = 9;
-  write a;
-  a = b();
-  write a;
-  write temp;
-)
-This next piece of code returns some problems that indicate that statement_list is
-not implimented well either...
-(
-  # Typecheck and code generation, records with array elements
-  var a : record of {n : array of int, m : array of bool  };
-  var i : int, total : int;
-
-  allocate a;
-  allocate a.n of length 5;
-  allocate a.m of length 5;
-
-  i = 0;
-  while ( i < 5) do
-  {
-      a.n[i] = i;
-      a.m[i] = false;
-      i = i + 1;
-  }
-
-  i = 0;
-  total = 0;
-  while ( i < 5) do
-  {
-      total = total + a.n[i];
-      i = i + 1;
-  }
-
-  write total;
-)
+Output:
+typeK int rand
+typeK int a
+typeK int b
+typeK id char c
+typeK int rand
+typeK int a
+typeK int b
+typeK id char c
+assigning: id b 42 assigning: id c id fortytwo
