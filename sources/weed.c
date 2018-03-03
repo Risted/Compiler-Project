@@ -16,7 +16,73 @@ checkForDevideByZero(EXP expression){
 checkForTautaulogy(STM stm){
   //like we saw in the lecture, if we see "something || true" we just compile
   //as if it was just "true" (or false)
-
+  switch (s->kind) {
+    case ifthenK:
+          EXPtautology(s->val.ifthenS.ifState);
+          break;
+    case ifelseK:
+          EXPtautology(s->val.ifelseS.ifState);
+          break;
+  }
+}
+int EXPtautology(EXP *e){
+  switch (e->kind) {
+      case termK:
+           evalTERM(e->val.termE);
+           break;
+      case timesK:
+           EXPtautology(e->val.timesE.left);
+           EXPtautology(e->val.timesE.right);
+           break;
+      case divK:
+           EXPtautology(e->val.divE.left);
+           EXPtautology(e->val.divE.right);
+           break;
+      case plusK:
+           EXPtautology(e->val.plusE.left);
+           EXPtautology(e->val.plusE.right);
+           break;
+      case minusK:
+           EXPtautology(e->val.minusE.left);
+           EXPtautology(e->val.minusE.right);
+           break;
+      case moduloK:
+           EXPtautology(e->val.moduloE.left);
+           EXPtautology(e->val.moduloE.right);
+           break;
+      case biggerK:
+            EXPtautology(e->val.biggerE.left);
+            EXPtautology(e->val.biggerE.right);
+            break;
+      case smallerK:
+            EXPtautology(e->val.smallerE.left);
+            EXPtautology(e->val.smallerE.right);
+            break;
+      case equaltoK:
+            EXPtautology(e->val.equaltoE.left);
+            EXPtautology(e->val.equaltoE.right);
+            break;
+      case nequaltoK:
+            EXPtautology(e->val.nequaltoE.left);
+            EXPtautology(e->val.nequaltoE.right);
+            break;
+      case orK:
+            EXPtautology(e->val.orE.left);
+            EXPtautology(e->val.orE.right);
+            break;
+      case andK:
+            EXPtautology(e->val.andE.left);
+            EXPtautology(e->val.andE.right);
+            break;
+      case bigequalK:
+            EXPtautology(e->val.bigequalE.left);
+            EXPtautology(e->val.bigequalE.right);
+            break;
+      case smalequalK:
+            EXPtautology(e->val.smalequalE.left);
+            EXPtautology(e->val.smalequalE.right);
+            break;
+    }
 }
 
 int evaluateDevident(EXP expression){
