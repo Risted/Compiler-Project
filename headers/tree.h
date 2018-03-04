@@ -99,7 +99,7 @@ typedef struct TYPE {
 
 typedef struct DEC{
   int lineno;
-  enum{integerK, stringK, dectypeK, decfuncK, listK }kind;
+  enum{integerK, stringK, dectypeK, decfuncK, listK, }kind;
   union{
     char *id;
     char *stringE;
