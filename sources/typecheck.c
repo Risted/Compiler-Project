@@ -1,4 +1,5 @@
 #include "../headers/symbol.h"
+#include "../headers/tree.h"
 #include "../headers/typecheck.h"
 
 SymbolTable *initSymbolTable();
@@ -17,7 +18,7 @@ SymbolTable* typeCheck(FUNC* body){
 int deepTypeCheck(FUNC *function){
   LIST *var_decl_list = function->val.bodyF.decl_list;
   LIST *stm_list = function->val.bodyF.statement_list;
-  DEC var_declaration;
+  DEC declaration;
   while (var_decl_list != NULL) {
     declaration = decl_list->val.decL.declaration;
     //type: tID\n tINT\n tARRAY tOF type\n tRECORD tOF tLBRACE var_decl_list tRBRACE \n
