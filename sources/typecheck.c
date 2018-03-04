@@ -16,7 +16,7 @@ SymbolTable* typeCheck(FUNC* body){
   if (val){
     return symboltable;
   }
-  return val; //error code TODO define error codes 
+  return val; //error code TODO define error codes
 
 }
 
@@ -36,6 +36,10 @@ int deepTypeCheck(FUNC *function){
         printf("type error %d\n", declaration->lineno);
       }
 
+    }
+    if(declaration->kind == decfuncK){
+      declaration->val.func->scope = scopeSymbolTable(symboltable);
+      //TODO fill the scope of the SymbolTable
     }
   }
   return 0;
