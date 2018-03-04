@@ -3,6 +3,7 @@
 
 typedef struct FUNC {
   int lineno;
+  struct SymbolTable scope;
   enum {functionK, headK, bodyK, tailK} kind;
   union {
     struct {struct FUNC* head; struct FUNC* body; struct FUNC* tail;} functionF;
@@ -15,6 +16,7 @@ typedef struct FUNC {
 
 typedef struct STM {
   int lineno;
+  struct SymbolTable scope;
   enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
     ifelseK, whileK, stmlistK} kind;
   union {
