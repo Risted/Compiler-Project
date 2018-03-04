@@ -13,6 +13,11 @@ SymbolTable* typeCheck(FUNC* body){
     return NULL;
   }
   val = deepTypeCheck(body);
+  if (val){
+    return symboltable;
+  }
+  return val; //error code TODO define error codes 
+
 }
 
 int deepTypeCheck(FUNC *function){
