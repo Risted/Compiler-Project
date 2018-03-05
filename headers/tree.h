@@ -12,7 +12,6 @@ typedef struct FUNC {
   }val;
 }FUNC;
 
-
 typedef struct STM {
   int lineno;
   enum {returnK, writeK, allocateK, allocateoflengthK, assignK, ifthenK,
