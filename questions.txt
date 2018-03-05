@@ -4,18 +4,6 @@ TYPE NEEDS TO BE CHECKED, THEY ARE TYPES NOT VARIABLES!!!!!!
 
 
 NEEDS TO BE CHECKED:
-Indput:
-var rand:int, a:int, b:int, c:char;
-b = 42;
-c = fortytwo;
 
-Output:
-typeK int rand
-typeK int a
-typeK int b
-typeK id char c
-typeK int rand
-typeK int a
-typeK int b
-typeK id char c
-assigning: id b 42 assigning: id c id fortytwo
+
+Alle regler i grammatikken der leder til et "statement" kræver et nyt scope

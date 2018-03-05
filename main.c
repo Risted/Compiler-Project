@@ -14,11 +14,11 @@ FILE* yyin;
 FUNC* thebody;
 
 int main(){
-
+  SymbolTable* root = initSymbolTable();
   lineno = 1;
   yyin = fopen("test.sk", "r");
   yyparse();
-  int doesItWork = typeCheck(thebody);
+  int doesItWork = typeCheck(thebody,root);
   fclose(yyin);
   printf("doesItWork = %i\n", doesItWork);
   return 0;

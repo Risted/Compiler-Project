@@ -45,15 +45,7 @@ TYPE* makeTYPErecord(LIST *var_decl_list){
   t->val.recordT = var_decl_list;
   return t;
 }
-TYPE* makeTYPEtype(char* id,TYPE *variable){
-  TYPE *t;
-  t = NEW(TYPE);
-  t->lineno = lineno;
-  t->kind = typeK;
-  t->val.typeT.variable = variable;
-  t->val.typeT.id = id;
-  return t;
-}
+
 TYPE* makeTYPEvar(TYPE *variable, char* id){
   TYPE *t;
   t = NEW(TYPE);
