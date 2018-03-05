@@ -8,6 +8,6 @@ SymbolTable* typeCheck(FUNC* body){
   symboltable = initSymbolTable;
   if(body->kind != bodyK){
     printf("compiler error\n");
-    return NULL;
+    //return NULL;
   }
 }

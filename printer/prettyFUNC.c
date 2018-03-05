@@ -16,7 +16,9 @@ void prettyFUNC(FUNC *f){
       printf(")\n");
       break;
     case bodyK:
+      printf("dec list:\n");
       prettyLIST(f->val.bodyF.decl_list);
+      printf("stm list:\n");
       prettyLIST(f->val.bodyF.statement_list);
       break;
     case tailK:
