@@ -30,7 +30,8 @@ OBJ += tree/treeLIST.o
 OBJ += tree/treeSTM.o
 OBJ += tree/treeTERM.o
 OBJ += tree/treeTYPE.o
- OBJ += sources/symbol.o
+
+OBJ += sources/symbol.o
 OBJ += sources/memory.o
 OBJ += sources/typecheck.o
 

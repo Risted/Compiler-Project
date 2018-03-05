@@ -2,6 +2,7 @@
 #include "headers/symbol.h"
 #include "headers/pretty.h"
 #include "headers/tree.h"
+#include "headers/typecheck.h"
 #include <stdio.h>
 
 int lineno;
@@ -17,8 +18,8 @@ int main(){
   lineno = 1;
   yyin = fopen("test.sk", "r");
   yyparse();
-  prettyFUNC(thebody);
+  int doesItWork = typeCheck(thebody);
   fclose(yyin);
-  printf("\n");
+  printf("doesItWork = %i\n", doesItWork);
   return 0;
 }

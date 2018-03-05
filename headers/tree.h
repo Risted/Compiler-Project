@@ -1,5 +1,5 @@
-#ifndef __tree_h
-#define __tree_h
+#ifndef tree_h
+#define tree_h
 
 typedef struct FUNC {
   int lineno;
