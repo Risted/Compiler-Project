@@ -28,19 +28,21 @@ int deepTypeCheck(FUNC *function){
     declaration = decl_list->val.decL.declaration;
     //type: tID\n tINT\n tARRAY tOF type\n tRECORD tOF tLBRACE var_decl_list tRBRACE \n
     //declaration : tTYPE tID tASSIGN type tSEMI\n function\n tVAR var_decl_list tSEMI\n
-    if(declaration->kind == dectypeK){
+    //if(declaration->kind == dectypeK){
       //what i mean to do here is trying to prevent a piece of code
       //like this: int a = 42, string b = a
       //but i cant seem to see where in the code i fix this =(
-      if (declaration->val.typeD.type == NULL/*TODO find a value to compare*/){
+      /*if (declaration->val.typeD.type == NULL){//TODO find a value to compare
         printf("type error %d\n", declaration->lineno);
-      }
+      }*/
 
-    }
+    //}
     if(declaration->kind == decfuncK){
       declaration->val.func->scope = scopeSymbolTable(symboltable);
       //TODO fill the scope of the SymbolTable
     }
+
+
   }
   return 0;
 }

@@ -52,7 +52,7 @@ void yyerror() {
 %left tMULT tDIV
 
 %%
-program    : body              { thebody = $1;}
+program    : body                   { thebody = $1;}
 ;
 
 function : head body tail           {$$ = makeFUNC($1, $2, $3);}
