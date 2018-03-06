@@ -6,6 +6,7 @@
 int typeCheck(FUNC* body, SymbolTable* symbolTable){
   SymbolTable* nextTable;
   LIST* list = body->val.bodyF.decl_list;
+  LIST* stm_list = body->val.bodyF.statement_list;
   DEC* declaration;
   while(list != NULL){
     Symbol* newSymbol;
@@ -24,9 +25,9 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
         //newSymbol = putSymbol(symbolTable, declaration->val.integerE, INTEGER, NULL);
         //newSymbol = putSymbol(symbolTable, declaration->val.integerE, INTEGER, NULL);
         break;
-      case stringK:
+/*      case stringK:
         newSymbol = putSymbol(symbolTable, declaration->val.stringE, STRING, NULL);
-        break;
+        break;*/
       case dectypeK:
         break;
       case decfuncK:
@@ -39,7 +40,12 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
         //printf("Compiler error, typechecker default%i\n",__line__);
     }
     list = list->val.decL.decl_list;
+
+  }while(stm_list != NULL){
+    //TODO here we update and scope symbol tables
+    stm_list = stm_list->val.statelistL.statement_list;
   }
+
   //nextTable = decCheck(symbolTable, body->val.bodyF.statement_list->val.statelistL.statement);
 
   return 0;

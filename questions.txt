@@ -7,3 +7,7 @@ NEEDS TO BE CHECKED:
 
 
 Alle regler i grammatikken der leder til et "statement" kræver et nyt scope
+
+symbol struct contains void pointer "value" in case we want to expand our types to extend other than integers
+
+strings are not a native part of tiger (sheer khan).

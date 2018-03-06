@@ -24,6 +24,7 @@ DEC *makeDECtype(char* id, TYPE *type){
   return dec;
 
 }
+
 DEC *makeDECfunc(FUNC *func){
   DEC *dec;
   dec = NEW(DEC);
