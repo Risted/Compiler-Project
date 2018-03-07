@@ -79,7 +79,7 @@ var_decl_list : var_type tCOMMA var_decl_list      {$$ = makeLISTvarlist($1, $3)
               | var_type                           {$$ = makeLISTvar($1);}
 ;
 
-var_type : tID tCOLON type                {$$ = makeTYPEtype($1, $3);}
+var_type : tID tCOLON type                {$$ = makeDECtype($1, $3);}
 ;
 
 body : decl_list statement_list           {$$ = makeFUNCbody($1, $2);}

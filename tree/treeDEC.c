@@ -13,6 +13,7 @@ DEC* makeDEClist(LIST *list){
   return dec;
 }
 
+
 DEC *makeDECtype(char* id, TYPE *type){
   DEC *dec;
   dec = NEW(DEC);
@@ -23,6 +24,7 @@ DEC *makeDECtype(char* id, TYPE *type){
   return dec;
 
 }
+
 DEC *makeDECfunc(FUNC *func){
   DEC *dec;
   dec = NEW(DEC);

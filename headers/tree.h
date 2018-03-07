@@ -84,7 +84,7 @@ typedef struct TERM {
 
 typedef struct TYPE {
   int lineno;
-  enum {idK, intconstK,typeK, boolK, arrayK, recordK, vareK, varexpK} kind;
+  enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK} kind;
   union {
     char *idT;
     int intconstT;
@@ -98,7 +98,7 @@ typedef struct TYPE {
 
 typedef struct DEC{
   int lineno;
-  enum{integerK, stringK, dectypeK, decfuncK, listK }kind;
+  enum{integerK, stringK, dectypeK, decfuncK, listK, typeK}kind;
   union{
     char *id;
     char *stringE;
