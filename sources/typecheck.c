@@ -12,7 +12,10 @@ int typeCheck(FUNC* body){
 }
 
 SymbolTable* decCheck(SymbolTable* parent, STM* stm){
-  printf("%i\n",stm->val.assignS.expression->val.termE->val.numT);
+  printf("id = %s\n",stm->val.assignS.variable->val.idT);
+  printf("value = %i\n",stm->val.assignS.expression->val.termE->val.numT);
+
+  
 
   SymbolTable* symbolTable = scopeSymbolTable(parent);
 

@@ -20,6 +20,6 @@ int main(){
   yyparse();
   int doesItWork = typeCheck(thebody);
   fclose(yyin);
-  printf("doesItWork = %i\n", doesItWork);
+  // printf("doesItWork = %i\n", doesItWork);
   return 0;
 }
