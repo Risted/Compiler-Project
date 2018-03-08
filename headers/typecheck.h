@@ -4,7 +4,7 @@
 #include "tree.h"
 
 #define INTEGER 0
-#define STRING 1
+#define BOOLEAN 1
 #define FUNCTION 2
 #define ID 3
 
@@ -22,7 +22,5 @@ int typeCheckTERM(TERM* term, SymbolTable* symbolTable);
 int typeCheckEXP(EXP* expression, SymbolTable* symbolTable);
 
 int typeCheckLIST(LIST* list, SymbolTable* symbolTable);
-
-SymbolTable* decCheck(SymbolTable* parent, STM* decleration);
 
 #endif
