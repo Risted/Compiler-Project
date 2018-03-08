@@ -25,4 +25,5 @@ int typeCheckLIST(LIST* list, SymbolTable* symbolTable);
 
 SymbolTable* decCheck(SymbolTable* parent, STM* decleration);
 
+
 #endif

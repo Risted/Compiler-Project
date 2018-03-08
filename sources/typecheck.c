@@ -51,6 +51,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
     //TODO here we update and scope symbol tables
     switch (statement->kind) {
       case returnK:
+      
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
