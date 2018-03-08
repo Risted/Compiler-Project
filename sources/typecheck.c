@@ -8,6 +8,7 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
   LIST* list = body->val.bodyF.decl_list;
   LIST* stm_list = body->val.bodyF.statement_list;
   DEC* declaration;
+  STM* statement;
   while(list != NULL){
     Symbol* newSymbol;
     int x;
@@ -24,7 +25,6 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
         break;
       case integerK:
         //newSymbol = putSymbol(symbolTable, declaration->val.integerE, INTEGER, NULL);
-        //newSymbol = putSymbol(symbolTable, declaration->val.integerE, INTEGER, NULL);
         break;
 /*      case stringK:
         newSymbol = putSymbol(symbolTable, declaration->val.stringE, STRING, NULL);
@@ -39,13 +39,45 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
       case listK:
         break;
       default:
+      //printf("Compiler error, typechecker default%i\n",__line__);
         break;
-        //printf("Compiler error, typechecker default%i\n",__line__);
     }
     list = list->val.decL.decl_list;
-
+    decleration = list->val.decL.declaration;
+  //TODO i would like an extra set of eyes to review this (Emil)
+  //LIST* stm_list = body->val.bodyF.statement_list;
   }while(stm_list != NULL){
+    statement =stm_list->val.statelistL.statement;
     //TODO here we update and scope symbol tables
+    switch (statement->kind) {
+      case returnK:
+        //TODO check is legal expression typecheckEXP(statement->val.returnS);
+        break;
+      case writeK:
+        //TODO we need to define what types can be used with write
+        //what will we write here write(x||y); is it legal?
+        break;
+      case allocateK:
+        //TODO the code below
+        if(statement->val.allocateS->kind == idK){
+          putSymbol(symbolTable,statement->val.allocateS->val.idT)
+        }
+        break;
+      case allocateoflengthK:
+        break;
+      case assignK:
+        break;
+      case ifthenK:
+        break;
+      case ifelseK:
+        break;
+      case whileK:
+        nextTable = scopeSymbolTable(symbolTable/*or nextTable*/);
+        //TODO typecheck the new scope
+        break;
+      case stmlistK:
+        break;
+    }
     stm_list = stm_list->val.statelistL.statement_list;
   }
 
