@@ -11,6 +11,7 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
   while(list != NULL){
     Symbol* newSymbol;
     int x;
+    char *id;
     TYPE* type;
     declaration = list->val.decL.declaration;
     switch (declaration->kind) {
@@ -31,7 +32,9 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
       case dectypeK:
         break;
       case decfuncK:
-        newSymbol = putSymbol(symbolTable, declaration->val.stringE, FUNCTION, NULL);
+        id = declaration->val.func->val.functionF.head->val.headF.id;
+        //TODO check if the above code could be done shorter
+        newSymbol = putSymbol(symbolTable, id, FUNCTION, NULL);
         break;
       case listK:
         break;
