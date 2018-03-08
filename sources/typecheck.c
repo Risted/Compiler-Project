@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-int typeCheck(FUNC* body, SymbolTable* symbolTable){
+int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
   SymbolTable* nextTable;
   LIST* list = body->val.bodyF.decl_list;
   LIST* stm_list = body->val.bodyF.statement_list;
@@ -11,7 +11,7 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
   STM* statement;
   while(list != NULL){
     Symbol* newSymbol;
-    int x;
+    int decType;
     char *id;
     TYPE* type;
     declaration = list->val.decL.declaration;
@@ -19,9 +19,9 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
       case typeK:
         type = declaration->val.typeD.type;
         if(type->kind == intconstK){
-          x = 0;
+          decType = INTEGER;
         }//TODO expand this if then statement
-        newSymbol = putSymbol(symbolTable, declaration->val.typeD.id, x, NULL);
+        newSymbol = putSymbol(symbolTable, declaration->val.typeD.id, decType, NULL);
         break;
       case integerK:
         //newSymbol = putSymbol(symbolTable, declaration->val.integerE, INTEGER, NULL);
@@ -58,21 +58,31 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
         //what will we write here write(x||y); is it legal?
         break;
       case allocateK:
-        //TODO the code below
+        //TODO the code below should be expanded into all the relevant kinds
         if(statement->val.allocateS->kind == idK){
           putSymbol(symbolTable,statement->val.allocateS->val.idT,INTEGER,NULL);
         }
         break;
       case allocateoflengthK:
+        typecheckTYPE(statement->val.allocateoflengthS.variable, nextTable);
+        typecheckEXP(statement->val.allocateoflengthS.expression, nextTable);
         break;
       case assignK:
+        typecheckTYPE(statement->val.allocateS, nextTable);
         break;
       case ifthenK:
+        nextTable = scopeSymbolTable(symbolTable);
+        typecheckEXP(statement->val.ifthenS.ifState, nextTable);
+        typecheckSTM(statement->val.ifthenS.thenState, nextTable);
         break;
       case ifelseK:
+        nextTable = scopeSymbolTable(symbolTable);
+        typecheckEXP(statement->val.ifelseS.ifState, nextTable);
+        typecheckSTM(statement->val.ifelseS.thenState, nextTable);
+        typecheckSTM(statement->val.ifelseS.elseState, nextTable);
         break;
       case whileK:
-        nextTable = scopeSymbolTable(symbolTable/*or nextTable*/);
+        nextTable = scopeSymbolTable(symbolTable);
         //TODO typecheck the new scope
         break;
       case stmlistK:
@@ -89,9 +99,6 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
 SymbolTable* decCheck(SymbolTable* parent, STM* stm){
   printf("id = %s\n",stm->val.assignS.variable->val.idT);
   printf("value = %i\n",stm->val.assignS.expression->val.termE->val.numT);
-
-
-
   SymbolTable* symbolTable = scopeSymbolTable(parent);
 
   return NULL;
