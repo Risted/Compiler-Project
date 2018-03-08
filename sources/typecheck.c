@@ -53,7 +53,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
       case returnK:
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
-      case writeK:
+      case writeK: 
         typecheckEXP(stat)
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
@@ -97,10 +97,32 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
   return 0;
 }
 
-SymbolTable* decCheck(SymbolTable* parent, STM* stm){
-  printf("id = %s\n",stm->val.assignS.variable->val.idT);
-  printf("value = %i\n",stm->val.assignS.expression->val.termE->val.numT);
-  SymbolTable* symbolTable = scopeSymbolTable(parent);
+int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable){
 
-  return NULL;
+  return 0;
+}
+
+int typeCheckDEC(DEC* declaration, SymbolTable* symbolTable){
+
+  return 0;
+}
+
+int typeCheckSTM(STM* statement, SymbolTable* symbolTable){
+
+  return 0;
+}
+
+int typeCheckTERM(TERM* term, SymbolTable* symbolTable){
+
+  return 0;
+}
+
+int typeCheckEXP(EXP* expression, SymbolTable* symbolTable){
+
+  return 0;
+}
+
+int typeCheckLIST(LIST* list, SymbolTable* symbolTable){
+
+  return 0;
 }
