@@ -43,7 +43,7 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
         break;
     }
     list = list->val.decL.decl_list;
-    decleration = list->val.decL.declaration;
+    declaration = list->val.decL.declaration;
   //TODO i would like an extra set of eyes to review this (Emil)
   //LIST* stm_list = body->val.bodyF.statement_list;
   }while(stm_list != NULL){
@@ -60,7 +60,7 @@ int typeCheck(FUNC* body, SymbolTable* symbolTable){
       case allocateK:
         //TODO the code below
         if(statement->val.allocateS->kind == idK){
-          putSymbol(symbolTable,statement->val.allocateS->val.idT)
+          putSymbol(symbolTable,statement->val.allocateS->val.idT,INTEGER,NULL);
         }
         break;
       case allocateoflengthK:
