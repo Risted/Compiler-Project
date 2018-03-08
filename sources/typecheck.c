@@ -51,10 +51,10 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
     //TODO here we update and scope symbol tables
     switch (statement->kind) {
       case returnK:
-      
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
+        typecheckEXP(stat)
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
         break;
@@ -69,7 +69,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         typecheckEXP(statement->val.allocateoflengthS.expression, nextTable);
         break;
       case assignK:
-        typecheckTYPE(statement->val.allocateS, nextTable);
+        typecheckTYPE(statement->val.assignS, nextTable);
         break;
       case ifthenK:
         nextTable = scopeSymbolTable(symbolTable);
