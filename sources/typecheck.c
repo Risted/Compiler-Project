@@ -56,7 +56,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
-        //typecheckEXP(stat);
+        typeCheckEXP(statement->val.writeS);
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
         break;
@@ -67,22 +67,22 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         }
         break;
       case allocateoflengthK:
-        typecheckTYPE(statement->val.allocateoflengthS.variable, nextTable);
-        typecheckEXP(statement->val.allocateoflengthS.expression, nextTable);
+        typeCheckTYPE(statement->val.allocateoflengthS.variable, nextTable);
+        typeCheckEXP(statement->val.allocateoflengthS.expression, nextTable);
         break;
       case assignK:
-        typecheckTYPE(statement->val.assignS, nextTable);
+        typeCheckTYPE(statement->val.assignS, nextTable);
         break;
       case ifthenK:
         nextTable = scopeSymbolTable(symbolTable);
-        typecheckEXP(statement->val.ifthenS.ifState, nextTable);
-        typecheckSTM(statement->val.ifthenS.thenState, nextTable);
+        typeCheckEXP(statement->val.ifthenS.ifState, nextTable);
+        typeCheckSTM(statement->val.ifthenS.thenState, nextTable);
         break;
       case ifelseK:
         nextTable = scopeSymbolTable(symbolTable);
-        typecheckEXP(statement->val.ifelseS.ifState, nextTable);
-        typecheckSTM(statement->val.ifelseS.thenState, nextTable);
-        typecheckSTM(statement->val.ifelseS.elseState, nextTable);
+        typeCheckEXP(statement->val.ifelseS.ifState, nextTable);
+        typeCheckSTM(statement->val.ifelseS.thenState, nextTable);
+        typeCheckSTM(statement->val.ifelseS.elseState, nextTable);
         break;
       case whileK:
         nextTable = scopeSymbolTable(symbolTable);
