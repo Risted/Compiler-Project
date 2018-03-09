@@ -71,7 +71,7 @@ type : tID                                            {$$ = makeTYPEid($1);}
      | tBOOL                                          {$$ = makeTYPEbool();}
 ;
 
-par_decl_list : {}
+par_decl_list :                                    {$$ = NULL;}
               | var_decl_list                      {$$ = makeLISTpar($1);}
 ;
 
@@ -79,13 +79,13 @@ var_decl_list : var_type tCOMMA var_decl_list      {$$ = makeLISTvarlist($1, $3)
               | var_type                           {$$ = makeLISTvar($1);}
 ;
 
-var_type : tID tCOLON type                {$$ = makeDECtype($1, $3);}
+var_type : tID tCOLON type                {$$ = makeTYPEtype($1, $3);}
 ;
 
 body : decl_list statement_list           {$$ = makeFUNCbody($1, $2);}
 ;
 
-decl_list : {}
+decl_list :                               {$$ = NULL;}
           | declaration decl_list         {$$ = makeLISTdecl($1, $2);}
 ;
 
@@ -141,7 +141,7 @@ term : variable                               {$$ = makeTERMvar($1);}
      | tNULL                                  {$$ = makeTERMboolean(-1);}
 ;
 
-act_list : {}
+act_list :                  {$$ = NULL;}
          | exp_list         {$$ = makeLISTact($1);}
 ;
 

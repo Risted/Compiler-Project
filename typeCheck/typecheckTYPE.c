@@ -6,26 +6,19 @@
 
 int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable){
   switch (type->kind) {
-    case intconstK:
-      printf("intconstK\n");
-      break;
     case idK:
-      printf("idK\n");
+      printf("TYPE idK\n");
+      printf("Id is: %s\n", type->val.idT);
       break;
-    case boolK:
-      printf("boolK\n");
+
+    case var_typeK:
+      printf("TYPE var_typeK\n");
+      printf("Id is: %s\n", type->val.var_typeT.id);
+      typeCheckTYPE(type->val.var_typeT.variable, symbolTable);
       break;
-    case arrayK:
-      printf("arrayK\n");
-      break;
-    case recordK:
-      printf("recordK\n");
-      break;
-    case vareK:
-      printf("vareK\n");
-      break;
-    case varexpK:
-      printf("varexpK\n");
+
+    default:
+      printf("default case in typeCheckTYPE\n");
       break;
   }
   return 0;

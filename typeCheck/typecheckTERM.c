@@ -5,6 +5,15 @@
 
 
 int typeCheckTERM(TERM* term, SymbolTable* symbolTable){
+  switch (term->kind) {
+    case numK:
+      printf("TERM numK\n");
+      printf("num is: %i\n", term->val.numT);
+      break;
 
+    default:
+      printf("default case in typeCheckTERM\n");
+      break;
+  }
   return 0;
 }

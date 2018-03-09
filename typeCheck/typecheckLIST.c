@@ -5,27 +5,31 @@
 
 
 int typeCheckLIST(LIST* list, SymbolTable* symbolTable){
-  DEC* declaration;
   switch (list->kind) {
     case decK:
       printf("LIST decK\n");
-      declaration = list->val.decL.declaration;
-      while(list != NULL){
-        typeCheckDEC(declaration, symbolTable);
-        list = list->val.decL.decl_list;
-        declaration = list->val.decL.declaration;
+      typeCheckDEC(list->val.decL.declaration, symbolTable);
+
+      if (list->val.decL.decl_list != NULL){
+        printf("You should not be here\n");
+        typeCheckLIST(list->val.decL.decl_list, symbolTable);
       }
       break;
-    case var_listK:
-      printf("LIST var_list\n");
+
+    case stateK:
+      printf("LIST stateK\n");
+      typeCheckSTM(list->val.stateL, symbolTable);
       break;
+
     case varK:
-      printf("LIST var\n");
-      typeCheckTYPE(list->val.varL,symbolTable);
+      printf("LIST varK\n");
+      typeCheckTYPE(list->val.varL, symbolTable);
       break;
-  //TODO add the remaining cases
+
     default:
+      printf("default case in typeCheckLIST\n");
       break;
   }
+
   return 0;
 }

@@ -22,6 +22,7 @@ TYPE* makeTYPEintconst(){
 }
 
 TYPE* makeTYPEbool(){
+  printf("In makeTYPEbool\n");
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;
@@ -63,5 +64,15 @@ TYPE* makeTYPEvarexp(TYPE* variable, EXP *expression){
   t->kind = varexpK;
   t->val.varexpT.variable = variable;
   t->val.varexpT.expression = expression;
+  return t;
+}
+
+TYPE* makeTYPEtype(char* id, TYPE *variable){
+  TYPE *t;
+  t = NEW(TYPE);
+  t->lineno = lineno;
+  t->kind = var_typeK;
+  t->val.var_typeT.id = id;
+  t->val.var_typeT.variable = variable;
   return t;
 }

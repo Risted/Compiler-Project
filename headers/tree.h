@@ -84,13 +84,14 @@ typedef struct TERM {
 
 typedef struct TYPE {
   int lineno;
-  enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK} kind;
+  enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK, var_typeK} kind;
   union {
     char *idT;
     int intconstT;
     struct TYPE* arrayT;
     struct LIST* recordT;
     struct {struct TYPE *variable; char* id;} varT;
+    struct {char* id; struct TYPE *variable;} var_typeT;
     struct {struct TYPE *variable; char* id;} typeT;
     struct {struct TYPE* variable; struct EXP *expression;} varexpT;
   }val;
