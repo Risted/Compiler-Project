@@ -6,12 +6,12 @@ void prettySTM(STM *s){
     case returnK:
           printf("return( ");
           prettyEXP(s->val.returnS);
-          printf(") ");
+          printf(") \n");
           break;
     case writeK:
           printf("write( ");
           prettyEXP(s->val.writeS);
-          printf(") ");
+          printf(") \n");
           break;
    case allocateK:
           printf("allocating: ");
@@ -56,8 +56,7 @@ void prettySTM(STM *s){
           }else{
             prettySTM(s->val.whileS.statement);
           }
-          printf("end\n");
-          printf("}\n");
+          printf("}end\n");
           break;
   }
 }
