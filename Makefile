@@ -31,9 +31,16 @@ OBJ += tree/treeSTM.o
 OBJ += tree/treeTERM.o
 OBJ += tree/treeTYPE.o
 
+OBJ += typeCheck/typecheckDEC.o
+OBJ += typeCheck/typecheckEXP.o
+OBJ += typeCheck/typecheckFUNC.o
+OBJ += typeCheck/typecheckLIST.o
+OBJ += typeCheck/typecheckSTM.o
+OBJ += typeCheck/typecheckTERM.o
+OBJ += typeCheck/typecheckTYPE.o
+
 OBJ += sources/symbol.o
 OBJ += sources/memory.o
-OBJ += sources/typecheck.o
 
 
 main:             $(DEPS) $(OBJ)

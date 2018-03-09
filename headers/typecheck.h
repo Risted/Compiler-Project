@@ -24,3 +24,4 @@ int typeCheckEXP(EXP* expression, SymbolTable* symbolTable);
 int typeCheckLIST(LIST* list, SymbolTable* symbolTable);
 
 #endif
+it

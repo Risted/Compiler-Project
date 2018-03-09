@@ -3,6 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
+
 int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
   SymbolTable* nextTable;
   LIST* list = body->val.bodyF.decl_list;
@@ -56,7 +57,11 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
+<<<<<<< HEAD:sources/typecheck.c
         typeCheckEXP(statement->val.writeS);
+=======
+        // typecheckEXP(stat)
+>>>>>>> 9b98a624b6ab1b506b5f733a8e41b0a0239aa53a:typeCheck/typecheckFUNC.c
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
         break;
@@ -94,37 +99,6 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
     stm_list = stm_list->val.statelistL.statement_list;
   }
 
-  //nextTable = decCheck(symbolTable, body->val.bodyF.statement_list->val.statelistL.statement);
-
-  return 0;
-}
-
-int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable){
-
-  return 0;
-}
-
-int typeCheckDEC(DEC* declaration, SymbolTable* symbolTable){
-
-  return 0;
-}
-
-int typeCheckSTM(STM* statement, SymbolTable* symbolTable){
-
-  return 0;
-}
-
-int typeCheckTERM(TERM* term, SymbolTable* symbolTable){
-
-  return 0;
-}
-
-int typeCheckEXP(EXP* expression, SymbolTable* symbolTable){
-
-  return 0;
-}
-
-int typeCheckLIST(LIST* list, SymbolTable* symbolTable){
 
   return 0;
 }
