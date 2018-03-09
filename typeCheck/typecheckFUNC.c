@@ -57,11 +57,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
-<<<<<<< HEAD:sources/typecheck.c
         typeCheckEXP(statement->val.writeS);
-=======
-        // typecheckEXP(stat)
->>>>>>> 9b98a624b6ab1b506b5f733a8e41b0a0239aa53a:typeCheck/typecheckFUNC.c
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
         break;
@@ -76,7 +72,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         typeCheckEXP(statement->val.allocateoflengthS.expression, nextTable);
         break;
       case assignK:
-        typeCheckTYPE(statement->val.assignS, nextTable);
+        typeCheckTYPE(statement->val.assignS.variable, nextTable);
         break;
       case ifthenK:
         nextTable = scopeSymbolTable(symbolTable);
@@ -98,7 +94,5 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
     }
     stm_list = stm_list->val.statelistL.statement_list;
   }
-
-
   return 0;
 }
