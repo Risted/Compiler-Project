@@ -16,7 +16,9 @@ int main(){
   SymbolTable* root = initSymbolTable();
   yyin = fopen("test.sk", "r");
   yyparse();
+  //prettyFUNC(thebody);
   int doesItWork = typeCheckFUNC(thebody,root);
+  printf("\n");
   fclose(yyin);
   // printf("doesItWork = %i\n", doesItWork);
   return 0;

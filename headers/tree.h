@@ -100,7 +100,7 @@ typedef struct DEC{
   int lineno;
   enum{integerK, stringK, dectypeK, decfuncK, listK, typeK}kind;
   union{
-    char *id;
+//    char *id;
     char *stringE;
     int integerE;
     struct FUNC *func;
