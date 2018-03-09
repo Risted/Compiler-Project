@@ -39,7 +39,6 @@ OBJ += typeCheck/typecheckSTM.o
 OBJ += typeCheck/typecheckTERM.o
 OBJ += typeCheck/typecheckTYPE.o
 
-
 OBJ += sources/symbol.o
 OBJ += sources/memory.o
 

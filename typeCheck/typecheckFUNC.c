@@ -57,11 +57,7 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         //TODO check is legal expression typecheckEXP(statement->val.returnS);
         break;
       case writeK:
-<<<<<<< HEAD:typeCheck/typecheckFUNC.c
-        typecheckEXP(stat)
-=======
-        //typecheckEXP(stat);
->>>>>>> 2c39ffad784dbc8fa8d0f404787d7b7d5da93a3f:sources/typecheck.c
+        // typecheckEXP(stat)
         //TODO we need to define what types can be used with write
         //what will we write here write(x||y); is it legal?
         break;
