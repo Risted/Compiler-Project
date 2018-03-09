@@ -24,7 +24,7 @@ typedef struct STM {
     struct {struct TYPE *variable; struct EXP *expression;} assignS;
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
-    struct {struct EXP* expression; struct STM* statement;/*TODO i think this is supposed to be a statement list*/} whileS; 
+    struct {struct EXP* expression; struct STM* statement;/*TODO i think this is supposed to be a statement list*/} whileS;
     struct LIST* listT;
   }val;
 }STM;
