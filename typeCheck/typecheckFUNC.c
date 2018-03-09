@@ -68,22 +68,22 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
         }
         break;
       case allocateoflengthK:
-        typecheckTYPE(statement->val.allocateoflengthS.variable, nextTable);
-        typecheckEXP(statement->val.allocateoflengthS.expression, nextTable);
+        typeCheckTYPE(statement->val.allocateoflengthS.variable, nextTable);
+        typeCheckEXP(statement->val.allocateoflengthS.expression, nextTable);
         break;
       case assignK:
-        typecheckTYPE(statement->val.assignS, nextTable);
+        typeCheckTYPE(statement->val.assignS.variable, nextTable);
         break;
       case ifthenK:
         nextTable = scopeSymbolTable(symbolTable);
-        typecheckEXP(statement->val.ifthenS.ifState, nextTable);
-        typecheckSTM(statement->val.ifthenS.thenState, nextTable);
+        typeCheckEXP(statement->val.ifthenS.ifState, nextTable);
+        typeCheckSTM(statement->val.ifthenS.thenState, nextTable);
         break;
       case ifelseK:
         nextTable = scopeSymbolTable(symbolTable);
-        typecheckEXP(statement->val.ifelseS.ifState, nextTable);
-        typecheckSTM(statement->val.ifelseS.thenState, nextTable);
-        typecheckSTM(statement->val.ifelseS.elseState, nextTable);
+        typeCheckEXP(statement->val.ifelseS.ifState, nextTable);
+        typeCheckSTM(statement->val.ifelseS.thenState, nextTable);
+        typeCheckSTM(statement->val.ifelseS.elseState, nextTable);
         break;
       case whileK:
         nextTable = scopeSymbolTable(symbolTable);
@@ -94,7 +94,6 @@ int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
     }
     stm_list = stm_list->val.statelistL.statement_list;
   }
-
 
   return 0;
 }
