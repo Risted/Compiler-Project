@@ -51,8 +51,8 @@ TYPE* makeTYPEvar(TYPE *variable, char* id){
   t = NEW(TYPE);
   t->lineno = lineno;
   t->kind = vareK;
-  t->val.varT.variable = variable;
-  t->val.varT.id = id;
+  t->val.vareT.variable = variable;
+  t->val.vareT.id = id;
   return t;
 }
 

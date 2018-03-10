@@ -8,7 +8,7 @@ typedef struct FUNC {
     struct {struct FUNC* head; struct FUNC* body; struct FUNC* tail;} functionF;
     struct {char* id; struct LIST* par_decl_list; struct TYPE* type;} headF;
     struct {struct LIST* decl_list; struct LIST* statement_list;} bodyF;
-    char* id; //tailF;
+    char* tailF;
   }val;
 }FUNC;
 
@@ -24,20 +24,19 @@ typedef struct STM {
     struct {struct TYPE *variable; struct EXP *expression;} assignS;
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
-    struct {struct EXP* expression; struct STM* statement;/*TODO i think this is supposed to be a statement list*/} whileS;
-    struct LIST* listT;
+    struct {struct EXP* expression; struct STM* statement;} whileS;
+    struct LIST* stmlistT;
   }val;
 }STM;
 
 typedef struct EXP {
   int lineno;
-  enum {equaltoK, nequaltoK, andK, orK, smallerK, biggerK, termK,
-    smalequalK, bigequalK, moduloK, timesK, divK, plusK, minusK} kind;
+  enum {equaltoK, nequaltoK, andK, smallerK, biggerK, smalequalK,
+    bigequalK, moduloK, timesK, divK, plusK, minusK, termK, orK} kind;
   union {
     struct {struct EXP *left; struct EXP *right;} equaltoE;
     struct {struct EXP *left; struct EXP *right;} nequaltoE;
     struct {struct EXP *left; struct EXP *right;} andE;
-    struct {struct EXP *left; struct EXP *right;} orE;
     struct {struct EXP *left; struct EXP *right;} smallerE;
     struct {struct EXP *left; struct EXP *right;} biggerE;
     struct {struct EXP *left; struct EXP *right;} smalequalE;
@@ -48,6 +47,7 @@ typedef struct EXP {
     struct {struct EXP *left; struct EXP *right;} plusE;
     struct {struct EXP *left; struct EXP *right;} minusE;
     struct TERM* termE;
+    struct {struct EXP *left; struct EXP *right;} orE;
   }val;
 }EXP;
 
@@ -69,15 +69,14 @@ typedef struct LIST {
 
 typedef struct TERM {
   int lineno;
-  enum {idtypeK, notK, absoluteK, numK, expK, booleanK, variableK, var_listK} kind;
+  enum {notK, absoluteK, numK, expK, booleanK, variableK, act_listK} kind;
   union {
     struct TERM* notT;
     struct EXP * absoluteT;
     int numT;
-    struct {char* id; struct TYPE* type;} idtypeT;
     struct EXP* expT;
     int booleanT;
-    struct TYPE* varT;
+    struct TYPE* variableT;
     struct {char* id; struct LIST* act_list;} act_listT;
   }val;
 }TERM;
@@ -87,26 +86,21 @@ typedef struct TYPE {
   enum {idK, intconstK, boolK, arrayK, recordK, vareK, varexpK, var_typeK} kind;
   union {
     char *idT;
-    int intconstT;
     struct TYPE* arrayT;
     struct LIST* recordT;
-    struct {struct TYPE *variable; char* id;} varT;
-    struct {char* id; struct TYPE *variable;} var_typeT;
-    struct {struct TYPE *variable; char* id;} typeT;
+    struct {struct TYPE *variable; char* id;} vareT;
     struct {struct TYPE* variable; struct EXP *expression;} varexpT;
+    struct {char* id; struct TYPE *variable;} var_typeT;
   }val;
 }TYPE;
 
 typedef struct DEC{
   int lineno;
-  enum{integerK, stringK, dectypeK, decfuncK, listK, typeK}kind;
+  enum{listK, dectypeK, decfuncK}kind;
   union{
-//    char *id;
-    char *stringE;
-    int integerE;
-    struct FUNC *func;
     struct LIST *listD;
-    struct {char* id; struct TYPE *type;} typeD;
+    struct {char* id; struct TYPE *type;} dectypeD;
+    struct FUNC *decfuncD;
   }val;
 }DEC;
 
@@ -186,11 +180,9 @@ LIST* makeLISTexp(EXP* expression);
 LIST* makeLISTexplist(EXP* expression, LIST* exp_list);
 
 
-TERM* makeTERMidtype(char* id, TYPE* type);
+TERM* makeTERMnot(TERM* term);
 
 TERM* makeTERMabsolute(EXP* expression);
-
-TERM* makeTERMnot(TERM* term);
 
 TERM* makeTERMnum(int num);
 

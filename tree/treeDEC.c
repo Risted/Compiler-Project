@@ -19,8 +19,8 @@ DEC *makeDECtype(char* id, TYPE *type){
   dec = NEW(DEC);
   dec->lineno = lineno;
   dec->kind = dectypeK;
-  dec->val.typeD.id = id;
-  dec->val.typeD.type = type;
+  dec->val.dectypeD.id = id;
+  dec->val.dectypeD.type = type;
   return dec;
 
 }
@@ -30,7 +30,7 @@ DEC *makeDECfunc(FUNC *func){
   dec = NEW(DEC);
   dec->lineno = lineno;
   dec->kind = decfuncK;
-  dec->val.func = func;
+  dec->val.decfuncD = func;
   return dec;
 
 }

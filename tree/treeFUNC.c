@@ -41,6 +41,6 @@ FUNC* makeFUNCtail(char* id){
   func = NEW(FUNC);
   func->lineno = lineno;
   func->kind = tailK;
-  func->val.id = id;
+  func->val.tailF = id;
   return func;
 }

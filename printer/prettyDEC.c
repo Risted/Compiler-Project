@@ -3,20 +3,21 @@
 
 void prettyDEC(DEC *d){
   switch (d->kind) {
-    case integerK:
-      printf("%d ", d->val.integerE);
-      break;
-    case stringK:
-      printf("%s ", d->val.stringE);
-      break;
-    case decfuncK:
-      prettyFUNC(d->val.func);
-      break;
-    case dectypeK:
-      printf("%s ", d->val.typeD.id);
-      prettyTYPE(d->val.typeD.type);
-      break;
     case listK:
       prettyLIST(d->val.listD);
+      break;
+
+    case dectypeK:
+      printf("%s ", d->val.dectypeD.id);
+      prettyTYPE(d->val.dectypeD.type);
+      break;
+
+    case decfuncK:
+      prettyFUNC(d->val.decfuncD);
+      break;
+
+    default:
+      printf("in default case in DEC\n");
+      break;
   }
 }

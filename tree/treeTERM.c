@@ -54,7 +54,7 @@ TERM* makeTERMvar(TYPE* variable){
   t = NEW(TERM);
   t->lineno = lineno;
   t->kind = variableK;
-  t->val.varT = variable;
+  t->val.variableT = variable;
   return t;
 }
 
@@ -62,7 +62,7 @@ TERM* makeTERMact(char* id, LIST* act_list){
   TERM *t;
   t = NEW(TERM);
   t->lineno = lineno;
-  t->kind = var_listK;
+  t->kind = act_listK;
   t->val.act_listT.id = id;
   t->val.act_listT.act_list = act_list;
   return t;

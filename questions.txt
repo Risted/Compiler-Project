@@ -1,5 +1,3 @@
-TYPE NEEDS TO BE CHECKED, THEY ARE TYPES NOT VARIABLES!!!!!!
-
 %prec NAME -> define it in association
 
 
@@ -14,7 +12,6 @@ strings are not a native part of tiger (sheer khan).
 
 
 Smøkisering:
-- Purge tree.h
 - Sæt mellemrum i alt Emul har lavet
 - exp.y - match funktioner med argumenter
 -
@@ -23,3 +20,5 @@ Smøkisering:
 Have done:
 - changed dumpSymbolTable to printSymbolTable
 - symbolTable is called as the first argument in the functions
+- Purged tree.h, removed the unused cases and unused kinds and made so that all cases and kinds have the same name
+  - Also updated pretty.c files so they work with the new tree.c files
