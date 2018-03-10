@@ -4,9 +4,9 @@
 #include <stdio.h>
 
 
-int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable){
-  typeCheckLIST(body->val.bodyF.decl_list, symbolTable);
-  typeCheckLIST(body->val.bodyF.statement_list, symbolTable);
+int typeCheckFUNC(SymbolTable* symbolTable, FUNC* func){
+  typeCheckLIST(symbolTable, func->val.bodyF.decl_list);
+  typeCheckLIST(symbolTable, func->val.bodyF.statement_list);
 
   return 0;
 }

@@ -22,7 +22,6 @@ TYPE* makeTYPEintconst(){
 }
 
 TYPE* makeTYPEbool(){
-  printf("In makeTYPEbool\n");
   TYPE *t;
   t = NEW(TYPE);
   t->lineno = lineno;

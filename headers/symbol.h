@@ -27,6 +27,6 @@ Symbol *getSymbol(SymbolTable *t, char *name);
 
 void dropLinkedList(Symbol *s, int i);
 
-void dumpSymbolTable(SymbolTable *t);
+void printSymbolTable(SymbolTable *t);
 
 #endif

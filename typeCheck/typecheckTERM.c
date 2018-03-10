@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int typeCheckTERM(TERM* term, SymbolTable* symbolTable){
+int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
   switch (term->kind) {
     case numK:
       printf("TERM numK\n");

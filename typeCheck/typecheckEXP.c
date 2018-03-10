@@ -4,11 +4,11 @@
 #include <stdio.h>
 
 
-int typeCheckEXP(EXP* expression, SymbolTable* symbolTable){
+int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
   switch (expression->kind) {
     case termK:
       printf("EXP termK\n");
-      typeCheckTERM(expression->val.termE, symbolTable);
+      typeCheckTERM(symbolTable, expression->val.termE);
       break;
 
     default:

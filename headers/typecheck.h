@@ -9,18 +9,18 @@
 #define ID 3
 
 
-int typeCheckFUNC(FUNC* body, SymbolTable* symbolTable);
+int typeCheckFUNC(SymbolTable* symbolTable, FUNC* body);
 
-int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable);
+int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type);
 
-int typeCheckDEC(DEC* declaration, SymbolTable* symbolTable);
+int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration);
 
-int typeCheckSTM(STM* statement, SymbolTable* symbolTable);
+int typeCheckSTM(SymbolTable* symbolTable, STM* statement);
 
-int typeCheckTERM(TERM* term, SymbolTable* symbolTable);
+int typeCheckTERM(SymbolTable* symbolTable, TERM* term);
 
-int typeCheckEXP(EXP* expression, SymbolTable* symbolTable);
+int typeCheckEXP(SymbolTable* symbolTable, EXP* expression);
 
-int typeCheckLIST(LIST* list, SymbolTable* symbolTable);
+int typeCheckLIST(SymbolTable* symbolTable, LIST* list);
 
 #endif

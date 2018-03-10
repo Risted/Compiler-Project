@@ -123,7 +123,7 @@ void dropLinkedList(Symbol *symbol, int i){
   }
 }
 
-void dumpSymbolTable(SymbolTable *t){
+void printSymbolTable(SymbolTable *t){
   printf("\n");
   printf("Start of table\n");
 
@@ -142,7 +142,7 @@ void dumpSymbolTable(SymbolTable *t){
     }
   }
   if (t->next != NULL){
-    dumpSymbolTable(t->next);
+    printSymbolTable(t->next);
   }
 
 }

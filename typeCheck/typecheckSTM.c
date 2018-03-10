@@ -4,14 +4,14 @@
 #include <stdio.h>
 
 
-int typeCheckSTM(STM* statement, SymbolTable* symbolTable){
+int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
   switch (statement->kind) {
     case assignK:
       printf("STM assignK\n");
-      typeCheckTYPE(statement->val.assignS.variable, symbolTable);
-      typeCheckEXP(statement->val.assignS.expression, symbolTable);
+      typeCheckTYPE(symbolTable, statement->val.assignS.variable);
+      typeCheckEXP(symbolTable, statement->val.assignS.expression);
       break;
-      
+
     default:
       printf("default case in typeCheckSTM\n");
       break;

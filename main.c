@@ -17,7 +17,7 @@ int main(){
   yyin = fopen("test.sk", "r");
   yyparse();
   //prettyFUNC(thebody);
-  int doesItWork = typeCheckFUNC(thebody,root);
+  int doesItWork = typeCheckFUNC(root, thebody);
   printf("\n");
   fclose(yyin);
   // printf("doesItWork = %i\n", doesItWork);

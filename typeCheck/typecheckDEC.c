@@ -4,13 +4,13 @@
 #include <stdio.h>
 
 
-int typeCheckDEC(DEC* declaration, SymbolTable* symbolTable){
+int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration){
   switch (declaration->kind) {
     case listK:
       printf("DEC listK\n");
-      typeCheckLIST(declaration->val.listD, symbolTable);
+      typeCheckLIST(symbolTable, declaration->val.listD);
       break;
-      
+
     default:
       printf("default case in typeCheckDEC\n");
       break;

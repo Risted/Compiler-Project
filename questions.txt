@@ -14,8 +14,12 @@ strings are not a native part of tiger (sheer khan).
 
 
 Smøkisering:
-- SymbolTable skal kaldes først i funktioner
 - Purge tree.h
 - Sæt mellemrum i alt Emul har lavet
 - exp.y - match funktioner med argumenter
 -
+
+
+Have done:
+- changed dumpSymbolTable to printSymbolTable
+- symbolTable is called as the first argument in the functions

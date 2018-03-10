@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable){
+int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   switch (type->kind) {
     case idK:
       printf("TYPE idK\n");
@@ -14,7 +14,7 @@ int typeCheckTYPE(TYPE* type, SymbolTable* symbolTable){
     case var_typeK:
       printf("TYPE var_typeK\n");
       printf("Id is: %s\n", type->val.var_typeT.id);
-      typeCheckTYPE(type->val.var_typeT.variable, symbolTable);
+      typeCheckTYPE(symbolTable, type->val.var_typeT.variable);
       break;
 
     default:
