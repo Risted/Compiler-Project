@@ -24,7 +24,7 @@ int typeCheckFUNC(SymbolTable* symbolTable, FUNC* func){
       break;
 
     case tailK:
-      //TODO: add tailF
+      //TODO: add tailF get symbol
       break;
   }
 
