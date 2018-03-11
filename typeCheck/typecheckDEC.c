@@ -10,7 +10,12 @@ int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration){
       // printf("DEC listK\n");
       typeCheckLIST(symbolTable, declaration->val.listD);
       break;
-
+    case dectypeK:
+      typeCheckTYPE(symbolTable, declaration->val.dectypeD.type);
+      break;
+    case decfuncK:
+      typeCheckFUNC(symbolTable, declaration->val.decfuncD);
+      break;
     default:
       printf("default case in typeCheckDEC\n");
       break;
