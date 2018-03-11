@@ -7,7 +7,7 @@
 int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration){
   switch (declaration->kind) {
     case listK:
-      printf("DEC listK\n");
+      // printf("DEC listK\n");
       typeCheckLIST(symbolTable, declaration->val.listD);
       break;
 

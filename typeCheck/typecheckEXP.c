@@ -7,7 +7,7 @@
 int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
   switch (expression->kind) {
     case termK:
-      printf("EXP termK\n");
+      // printf("EXP termK\n");
       typeCheckTERM(symbolTable, expression->val.termE);
       break;
 

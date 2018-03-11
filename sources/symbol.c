@@ -4,11 +4,6 @@
 #include <string.h>
 #include <math.h>
 
-/*int HashMod(int hash, int mod){
-  hash = hash % mod;
-  return hash;
-}*/
-
 
 int Hash(char *str){
   int sum = 0;

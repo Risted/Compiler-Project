@@ -7,8 +7,8 @@
 int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
   switch (term->kind) {
     case numK:
-      printf("TERM numK\n");
-      printf("num is: %i\n", term->val.numT);
+      // printf("TERM numK\n");
+      // printf("num is: %i\n", term->val.numT);
       break;
 
     default:
