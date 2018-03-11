@@ -24,7 +24,6 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
       break;
 
     case assignK:
-      // printf("STM assignK\n");
       typeCheckTYPE(symbolTable, statement->val.assignS.variable);
       typeCheckEXP(symbolTable, statement->val.assignS.expression);
       break;
@@ -46,6 +45,7 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
       break;
 
     case stmlistK:
+      typeCheckLIST(symbolTable, statement->val.stmlistS);
       break;
 
     default:

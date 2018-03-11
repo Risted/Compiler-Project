@@ -11,17 +11,36 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   // printf("KIND: %i\n", type->kind);
   switch (type->kind) {
     case idK:
-      printf("TYPE idK\n");
-      // printf("Id is: %s\n", type->val.idT);
+      //TODO: find out how to do this
       break;
 
     case intconstK:
-      printf("TYPE intconstK\n");
+      //TODO: find out how to do this
+      break;
+
+    case boolK:
+      //TODO: find out how to do this
+      break;
+
+    case arrayK:
+      typeCheckTYPE(symbolTable, type->val.arrayT);
+      break;
+
+    case recordK:
+      typeCheckLIST(symbolTable, type->val.recordT);
+      break;
+
+    case vareK:
+      typeCheckTYPE(symbolTable, type->val.vareT.variable);
+      //TODO: find out how to do id
+      break;
+
+    case varexpK:
+      typeCheckTYPE(symbolTable, type->val.varexpT.variable);
+      typeCheckEXP(symbolTable, type->val.varexpT.expression);
       break;
 
     case var_typeK:
-      printf("TYPE var_typeK\n");
-      // printf("Id is: %s\n", type->val.var_typeT.id);
       error = typeCheckTYPE(symbolTable, type->val.var_typeT.variable);
       if (error == 0){
         typeCheck = findType(type->val.var_typeT.variable);

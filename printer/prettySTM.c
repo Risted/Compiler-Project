@@ -59,7 +59,7 @@ void prettySTM(STM *s){
       printf("){\n");
       printf("do:\n");
       if(s->val.whileS.statement->kind == stmlistK){
-        prettyLIST(s->val.whileS.statement->val.stmlistT);
+        prettyLIST(s->val.whileS.statement->val.stmlistS);
       }else{
         prettySTM(s->val.whileS.statement);
       }

@@ -25,7 +25,7 @@ typedef struct STM {
     struct {struct EXP *ifState; struct STM* thenState;} ifthenS;
     struct {struct EXP* ifState; struct STM* thenState; struct STM* elseState;} ifelseS;
     struct {struct EXP* expression; struct STM* statement;} whileS;
-    struct LIST* stmlistT;
+    struct LIST* stmlistS;
   }val;
 }STM;
 
