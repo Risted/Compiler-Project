@@ -68,7 +68,7 @@ int findType(TYPE* type){
       break;
 
     default:
-      printf("Error not right type\n");
+      printf("ERROR Message: not right type,  line %i\n", type->lineno);
       break;
   }
 

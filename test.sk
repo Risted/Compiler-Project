@@ -1,2 +1,4 @@
-var a:int, b:bool;
+var a:int, b:bool, c:int;
 a = 42;
+b = true;
+c = 21;
