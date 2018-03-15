@@ -11,7 +11,8 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   // printf("TYPE KIND: %i\n", type->kind);
   switch (type->kind) {
     case idK:
-      return ID;  
+      symbol = getSymbol(symbolTable, type->val.idT);
+      return symbol->type;
       break;
 
     case intconstK:
