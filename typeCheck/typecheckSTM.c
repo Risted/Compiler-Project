@@ -31,8 +31,8 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
     case assignK:
       type = statement->val.assignS.variable;
       typeCheckTYPE(symbolTable, type);
-      if(type->kind != 0){
-        printf("error\n");
+      if(type->kind != 0 /*bad coding style i know but i like it*/){
+        printf("error undefined assign variable \n");
         return -1;
       }
       symbol = getSymbol(symbolTable, type->val.idT);
