@@ -5,7 +5,6 @@
 #define INTEGER 0
 #define BOOLEAN 1
 
-
 #define HashSize 317
 
 typedef struct Symbol {

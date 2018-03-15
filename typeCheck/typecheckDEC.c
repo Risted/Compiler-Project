@@ -5,13 +5,16 @@
 
 
 int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration){
+  int type;
   switch (declaration->kind) {
     case listK:
       // printf("DEC listK\n");
       typeCheckLIST(symbolTable, declaration->val.listD);
       break;
     case dectypeK:
-      typeCheckTYPE(symbolTable, declaration->val.dectypeD.type);
+      type =typeCheckTYPE(symbolTable, declaration->val.dectypeD.type);
+      printf("putting %s %d\n",declaration->val.dectypeD.id,type);
+      putSymbol(symbolTable,declaration->val.dectypeD.id,type,NULL);
       break;
     case decfuncK:
       typeCheckFUNC(symbolTable, declaration->val.decfuncD);

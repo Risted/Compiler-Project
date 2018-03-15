@@ -5,74 +5,155 @@
 
 
 int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
+  printf("EXP KIND: %i\n", expression->kind);
+  int x,y;
   switch (expression->kind) {
     case equaltoK:
-      typeCheckEXP(symbolTable, expression->val.equaltoE.left);
-      typeCheckEXP(symbolTable, expression->val.equaltoE.right);
+      x =typeCheckEXP(symbolTable, expression->val.equaltoE.left);
+      y =typeCheckEXP(symbolTable, expression->val.equaltoE.right);
+      if (x == y ){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case nequaltoK:
-      typeCheckEXP(symbolTable, expression->val.nequaltoE.left);
-      typeCheckEXP(symbolTable, expression->val.nequaltoE.right);
+      x=typeCheckEXP(symbolTable, expression->val.nequaltoE.left);
+      y=typeCheckEXP(symbolTable, expression->val.nequaltoE.right);
+      if (x == y){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case andK:
-      typeCheckEXP(symbolTable, expression->val.andE.left);
-      typeCheckEXP(symbolTable, expression->val.andE.right);
+      x=typeCheckEXP(symbolTable, expression->val.andE.left);
+      y=typeCheckEXP(symbolTable, expression->val.andE.right);
+      if (x == y == BOOLEAN){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case smallerK:
-      typeCheckEXP(symbolTable, expression->val.smallerE.left);
-      typeCheckEXP(symbolTable, expression->val.smallerE.right);
+      x =typeCheckEXP(symbolTable, expression->val.smallerE.left);
+      y=typeCheckEXP(symbolTable, expression->val.smallerE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case biggerK:
-      typeCheckEXP(symbolTable, expression->val.biggerE.left);
-      typeCheckEXP(symbolTable, expression->val.biggerE.right);
+      x=typeCheckEXP(symbolTable, expression->val.biggerE.left);
+      y=typeCheckEXP(symbolTable, expression->val.biggerE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case smalequalK:
-      typeCheckEXP(symbolTable, expression->val.smalequalE.left);
-      typeCheckEXP(symbolTable, expression->val.smalequalE.right);
+      x=typeCheckEXP(symbolTable, expression->val.smalequalE.left);
+      y=typeCheckEXP(symbolTable, expression->val.smalequalE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case bigequalK:
-      typeCheckEXP(symbolTable, expression->val.bigequalE.left);
-      typeCheckEXP(symbolTable, expression->val.bigequalE.right);
+      x=typeCheckEXP(symbolTable, expression->val.bigequalE.left);
+      y=typeCheckEXP(symbolTable, expression->val.bigequalE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case moduloK:
-      typeCheckEXP(symbolTable, expression->val.moduloE.left);
-      typeCheckEXP(symbolTable, expression->val.moduloE.right);
+      x=typeCheckEXP(symbolTable, expression->val.moduloE.left);
+      y=typeCheckEXP(symbolTable, expression->val.moduloE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case timesK:
-      typeCheckEXP(symbolTable, expression->val.timesE.left);
-      typeCheckEXP(symbolTable, expression->val.timesE.right);
+      x=typeCheckEXP(symbolTable, expression->val.timesE.left);
+      y=typeCheckEXP(symbolTable, expression->val.timesE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case divK:
-      typeCheckEXP(symbolTable, expression->val.divE.left);
-      typeCheckEXP(symbolTable, expression->val.divE.right);
+      x=typeCheckEXP(symbolTable, expression->val.divE.left);
+      y=typeCheckEXP(symbolTable, expression->val.divE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case plusK:
-      typeCheckEXP(symbolTable, expression->val.plusE.left);
-      typeCheckEXP(symbolTable, expression->val.plusE.right);
+      x=typeCheckEXP(symbolTable, expression->val.plusE.left);
+      y=typeCheckEXP(symbolTable, expression->val.plusE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case minusK:
-      typeCheckEXP(symbolTable, expression->val.minusE.left);
-      typeCheckEXP(symbolTable, expression->val.minusE.right);
+      x=typeCheckEXP(symbolTable, expression->val.minusE.left);
+      y=typeCheckEXP(symbolTable, expression->val.minusE.right);
+      if (x == y == INTEGER){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     case termK:
-      typeCheckTERM(symbolTable, expression->val.termE);
+//      printf("12\n" );
+      return typeCheckTERM(symbolTable, expression->val.termE);
       break;
 
     case orK:
-      typeCheckEXP(symbolTable, expression->val.orE.left);
-      typeCheckEXP(symbolTable, expression->val.orE.right);
+      x=typeCheckEXP(symbolTable, expression->val.orE.left);
+      y=typeCheckEXP(symbolTable, expression->val.orE.right);
+      if (x == y == BOOLEAN){
+        return x;
+      }else{
+        printf("ERROR\n");
+        return -1;
+      }
       break;
 
     default:

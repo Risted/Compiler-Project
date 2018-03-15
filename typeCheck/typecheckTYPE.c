@@ -8,18 +8,18 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   int error;
   int typeCheck;
   Symbol* symbol;
-  // printf("KIND: %i\n", type->kind);
+  printf("TYPE KIND: %i\n", type->kind);
   switch (type->kind) {
     case idK:
-      //TODO: find out how to do this
+      return 3;
       break;
 
     case intconstK:
-      //TODO: find out how to do this
+      return INTEGER;
       break;
 
     case boolK:
-      //TODO: find out how to do this
+      return BOOLEAN;
       break;
 
     case arrayK:
@@ -41,12 +41,10 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
       break;
 
     case var_typeK:
-      error = typeCheckTYPE(symbolTable, type->val.var_typeT.variable);
-      if (error == 0){
-        typeCheck = findType(type->val.var_typeT.variable);
-        printf("Typecheck: %i\n", typeCheck);
-        symbol = putSymbol(symbolTable, type->val.var_typeT.id, typeCheck, NULL);
-      }
+      //printf("here\n");
+      typeCheck = typeCheckTYPE(symbolTable, type->val.var_typeT.variable);
+      putSymbol(symbolTable,type->val.var_typeT.id,typeCheck,NULL);
+      printf("putting id: %s of type: %i\n", type->val.var_typeT.id,typeCheck);
       break;
 
     default:

@@ -5,6 +5,9 @@
 
 
 int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
+  printf("STM KIND: %i\n", statement->kind);
+  Symbol* symbol;
+  int typeCheck;
   switch (statement->kind) {
     case returnK:
       typeCheckEXP(symbolTable, statement->val.returnS);
@@ -25,7 +28,22 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
 
     case assignK:
       typeCheckTYPE(symbolTable, statement->val.assignS.variable);
-      typeCheckEXP(symbolTable, statement->val.assignS.expression);
+      if(statement->val.assignS.variable->kind != 0){
+        printf("error\n");
+        return -1;
+      }
+      symbol = getSymbol(symbolTable,statement->val.assignS.variable->val.idT);
+      typeCheck = typeCheckEXP(symbolTable, statement->val.assignS.expression);
+      printf("lets go\n");
+      if (symbol->type == typeCheck){
+        printf("naisu\n");
+        return symbol->type;
+      }else{
+        printf("fak\n" );
+
+        printf("cant assign type %i to type %i\n", symbol->type, typeCheck);
+      }
+
       break;
 
     case ifthenK:

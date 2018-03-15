@@ -3,11 +3,19 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
+int atoi (const char* str);
 
 int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
+  printf("TERM KIND: %i\n", term->kind);
+
+  int type;
   switch (term->kind) {
     case notK:
-      typeCheckTERM(symbolTable, term->val.notT);
+      type = typeCheckTERM(symbolTable, term->val.notT);
+      if (type == INTEGER){
+        return -1;
+      }
+      return BOOLEAN;
       break;
 
     case absoluteK:
@@ -15,7 +23,8 @@ int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
       break;
 
     case numK:
-      //TODO: how to do this
+      //printf("its an int\n");
+      return INTEGER;
       break;
 
     case expK:
@@ -23,7 +32,8 @@ int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
       break;
 
     case booleanK:
-      //TODO: how to do this
+      //printf("its a bool\n");
+      return BOOLEAN;
       break;
 
     case variableK:
@@ -31,8 +41,8 @@ int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
       break;
 
     case act_listK:
-      //TODO: how to write id
       typeCheckLIST(symbolTable, term->val.act_listT.act_list);
+      //return atoi(term->val.act_listT.id);
       break;
 
     default:
