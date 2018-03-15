@@ -7,7 +7,9 @@
 int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
   // printf("STM KIND: %i\n", statement->kind);
   Symbol* symbol;
-  int typeCheck;
+  SymbolTable* nextsymbolTable;
+  int typeCheck = 5;
+  TYPE* type;
   switch (statement->kind) {
     case returnK:
       typeCheckEXP(symbolTable, statement->val.returnS);
@@ -27,12 +29,13 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
       break;
 
     case assignK:
-      typeCheckTYPE(symbolTable, statement->val.assignS.variable);
-      if(statement->val.assignS.variable->kind != 0){
+      type = statement->val.assignS.variable;
+      typeCheckTYPE(symbolTable, type);
+      if(type->kind != 0){
         printf("error\n");
         return -1;
       }
-      symbol = getSymbol(symbolTable,statement->val.assignS.variable->val.idT);
+      symbol = getSymbol(symbolTable, type->val.idT);
       typeCheck = typeCheckEXP(symbolTable, statement->val.assignS.expression);
       if (symbol->type == typeCheck){
         return symbol->type;
@@ -43,18 +46,22 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
 
     case ifthenK:
       typeCheckEXP(symbolTable, statement->val.ifthenS.ifState);
-      typeCheckSTM(symbolTable, statement->val.ifthenS.thenState);
+      nextsymbolTable = scopeSymbolTable(symbolTable);
+      typeCheckSTM(nextsymbolTable, statement->val.ifthenS.thenState);
       break;
 
     case ifelseK:
       typeCheckEXP(symbolTable, statement->val.ifelseS.ifState);
-      typeCheckSTM(symbolTable, statement->val.ifelseS.thenState);
-      typeCheckSTM(symbolTable, statement->val.ifelseS.elseState);
+      nextsymbolTable = scopeSymbolTable(symbolTable);
+      typeCheckSTM(nextsymbolTable, statement->val.ifelseS.thenState);
+      nextsymbolTable = scopeSymbolTable(symbolTable);
+      typeCheckSTM(nextsymbolTable, statement->val.ifelseS.elseState);
       break;
 
     case whileK:
       typeCheckEXP(symbolTable, statement->val.whileS.expression);
-      typeCheckSTM(symbolTable, statement->val.whileS.statement);
+      nextsymbolTable = scopeSymbolTable(symbolTable);
+      typeCheckSTM(nextsymbolTable, statement->val.whileS.statement);
       break;
 
     case stmlistK:

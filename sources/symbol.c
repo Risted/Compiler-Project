@@ -81,16 +81,12 @@ Symbol *getSymbol(SymbolTable *table, char *name){
   Symbol *symbol;
 
   hashValue = Hash(name);
-
   if(table->table[hashValue] == NULL){
-
     return NULL;
   }else{
-
     symbol = table->table[hashValue];
     while(symbol != NULL){
-
-      if(symbol->name == name){
+      if(strcmp(symbol->name, name) == 0){
         return symbol;
       }
       symbol = symbol->next;
