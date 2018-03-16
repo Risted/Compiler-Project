@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
   if (debug){
     printf("STM KIND: %i\n", statement->kind);

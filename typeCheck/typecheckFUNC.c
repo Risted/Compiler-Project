@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckFUNC(SymbolTable* symbolTable, FUNC* func){
   if (debug){
     printf("%d\n", func->kind);

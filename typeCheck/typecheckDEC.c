@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckDEC(SymbolTable* symbolTable, DEC* declaration){
   int type;
   if (debug){

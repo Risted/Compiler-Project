@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   int error;
   int typeCheck;

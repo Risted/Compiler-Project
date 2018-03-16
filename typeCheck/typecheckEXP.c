@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
   if (debug){
     printf("EXP KIND: %i\n", expression->kind);

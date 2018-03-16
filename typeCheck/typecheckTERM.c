@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int atoi (const char* str);
-
+extern int debug;
 int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
   if (debug){
     printf("TERM KIND: %i\n", term->kind);

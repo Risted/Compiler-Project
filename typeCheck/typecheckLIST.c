@@ -3,7 +3,7 @@
 #include "../headers/typecheck.h"
 #include <stdio.h>
 
-
+extern int debug;
 int typeCheckLIST(SymbolTable* symbolTable, LIST* list){
   if (debug){
     printf("LIST kind: %i\n", list->kind);
