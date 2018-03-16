@@ -5,7 +5,9 @@
 
 
 int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
-  // printf("STM KIND: %i\n", statement->kind);
+  if (debug){
+    printf("STM KIND: %i\n", statement->kind);
+  }
   Symbol* symbol;
   SymbolTable* nextsymbolTable;
   int typeCheck = 5;

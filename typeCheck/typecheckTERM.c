@@ -6,8 +6,9 @@
 int atoi (const char* str);
 
 int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
-  // printf("TERM KIND: %i\n", term->kind);
-
+  if (debug){
+    printf("TERM KIND: %i\n", term->kind);
+  }
   int type;
   switch (term->kind) {
     case notK:

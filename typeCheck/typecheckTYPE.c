@@ -45,7 +45,9 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
       //printf("here\n");
       typeCheck = typeCheckTYPE(symbolTable, type->val.var_typeT.variable);
       putSymbol(symbolTable,type->val.var_typeT.id,typeCheck,NULL);
-      // printf("putting id: %s of type: %i\n", type->val.var_typeT.id,typeCheck);
+      if (debug){
+        printf("putting id: %s of type: %i\n", type->val.var_typeT.id,typeCheck);
+      }
       break;
 
     default:

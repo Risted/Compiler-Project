@@ -5,6 +5,9 @@
 
 
 int typeCheckFUNC(SymbolTable* symbolTable, FUNC* func){
+  if (debug){
+    printf("%d\n", func->kind);
+  }
   switch (func->kind) {
     case functionK:
       typeCheckFUNC(symbolTable, func->val.functionF.head);

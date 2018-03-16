@@ -4,7 +4,7 @@
 #include "headers/tree.h"
 #include "headers/typecheck.h"
 int lineno;
-
+int debug;
 void yyparse();
 
 FILE* yyin;
@@ -13,10 +13,14 @@ FUNC* thebody;
 
 int main(){
   lineno = 1;
+  //set debug to 1 to enter debug mode
+  debug = 0;
   SymbolTable* root = initSymbolTable();
   yyin = fopen("test.sk", "r");
   yyparse();
-  //prettyFUNC(thebody);
+  if (debug){
+    prettyFUNC(thebody);
+  }
   int doesItWork = typeCheckFUNC(root, thebody);
   printf("\n");
   fclose(yyin);

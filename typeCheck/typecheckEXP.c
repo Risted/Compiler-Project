@@ -5,7 +5,9 @@
 
 
 int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
-  // printf("EXP KIND: %i\n", expression->kind);
+  if (debug){
+    printf("EXP KIND: %i\n", expression->kind);
+  }
   int x,y;
   switch (expression->kind) {
     case equaltoK:

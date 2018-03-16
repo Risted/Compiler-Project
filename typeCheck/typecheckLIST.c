@@ -5,6 +5,9 @@
 
 
 int typeCheckLIST(SymbolTable* symbolTable, LIST* list){
+  if (debug){
+    printf("LIST kind: %i\n", list->kind);
+  }
   switch (list->kind) {
     case parK:
       // printf("par\n");
