@@ -8,10 +8,15 @@ int typeCheckTYPE(SymbolTable* symbolTable, TYPE* type){
   int error;
   int typeCheck;
   Symbol* symbol;
-  // printf("TYPE KIND: %i\n", type->kind);
+  if(debug){
+     printf("TYPE KIND: %i\n", type->kind);
+  }
   switch (type->kind) {
     case idK:
       symbol = getSymbol(symbolTable, type->val.idT);
+      if(debug){
+        printf("got symbol %s of type %i\n", symbol->name,symbol->type);
+      }
       return symbol->type;
       break;
 

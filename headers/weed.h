@@ -1,9 +1,12 @@
 #ifndef __weed_h
 #define __weed_h
+#include "tree.h"
 
-checkForDevideByZero(EXP exp);
 
-checkForTautaulogy(STM stm);
+void* checkForDevideByZero(EXP* exp);
+void* checkForTautaulogy(STM* stm);
+void* checkForReturns(FUNC* func);
+int EXPtautology(EXP *e);
 //statements that always return true
 
 #endif

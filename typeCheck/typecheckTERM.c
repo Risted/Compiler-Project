@@ -38,7 +38,7 @@ int typeCheckTERM(SymbolTable* symbolTable, TERM* term){
       break;
 
     case variableK:
-      typeCheckTYPE(symbolTable, term->val.variableT);
+      return typeCheckTYPE(symbolTable, term->val.variableT);
       break;
 
     case act_listK:

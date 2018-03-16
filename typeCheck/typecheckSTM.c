@@ -42,7 +42,7 @@ int typeCheckSTM(SymbolTable* symbolTable, STM* statement){
       if (symbol->type == typeCheck){
         return symbol->type;
       }else{
-        printf("cant assign type %i to type %i\n", symbol->type, typeCheck);
+        printf("TYPE ERROR: cant assign type %i to type %i\n", symbol->type, typeCheck);
       }
       break;
 

@@ -13,10 +13,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case equaltoK:
       x = typeCheckEXP(symbolTable, expression->val.equaltoE.left);
       y = typeCheckEXP(symbolTable, expression->val.equaltoE.right);
-      if (x == y ){
+      if (x == y){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '==' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -27,7 +27,7 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
       if (x == y){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '!=' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -35,10 +35,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case andK:
       x = typeCheckEXP(symbolTable, expression->val.andE.left);
       y = typeCheckEXP(symbolTable, expression->val.andE.right);
-      if (x == y == BOOLEAN){
+      if (x == y && x == BOOLEAN){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '&&' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -46,10 +46,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case smallerK:
       x = typeCheckEXP(symbolTable, expression->val.smallerE.left);
       y = typeCheckEXP(symbolTable, expression->val.smallerE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '<' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -57,10 +57,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case biggerK:
       x = typeCheckEXP(symbolTable, expression->val.biggerE.left);
       y = typeCheckEXP(symbolTable, expression->val.biggerE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '>' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -68,10 +68,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case smalequalK:
       x = typeCheckEXP(symbolTable, expression->val.smalequalE.left);
       y = typeCheckEXP(symbolTable, expression->val.smalequalE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '<=' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -79,10 +79,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case bigequalK:
       x = typeCheckEXP(symbolTable, expression->val.bigequalE.left);
       y = typeCheckEXP(symbolTable, expression->val.bigequalE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '>=' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -90,10 +90,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case moduloK:
       x = typeCheckEXP(symbolTable, expression->val.moduloE.left);
       y = typeCheckEXP(symbolTable, expression->val.moduloE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error 'mod' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -101,10 +101,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case timesK:
       x = typeCheckEXP(symbolTable, expression->val.timesE.left);
       y = typeCheckEXP(symbolTable, expression->val.timesE.right);
-      if (x == y == INTEGER){
+      if (x == y && x ==INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '*' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -112,10 +112,10 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case divK:
       x = typeCheckEXP(symbolTable, expression->val.divE.left);
       y = typeCheckEXP(symbolTable, expression->val.divE.right);
-      if (x == y == INTEGER){
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '/' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -123,10 +123,11 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case plusK:
       x = typeCheckEXP(symbolTable, expression->val.plusE.left);
       y = typeCheckEXP(symbolTable, expression->val.plusE.right);
-      if (x == y == INTEGER){
+      // printf("x = %i y =%i\n",x,y );
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '+' on line %i\n",expression->lineno);
         return -1;
       }
       break;
@@ -134,25 +135,30 @@ int typeCheckEXP(SymbolTable* symbolTable, EXP* expression){
     case minusK:
       x = typeCheckEXP(symbolTable, expression->val.minusE.left);
       y = typeCheckEXP(symbolTable, expression->val.minusE.right);
-      if (x == y == INTEGER){
+      //printf("x = %i y =%i\n",x,y );
+      if (x == y && x == INTEGER){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '-' on line %i\n",expression->lineno);
         return -1;
       }
       break;
 
     case termK:
-      return typeCheckTERM(symbolTable, expression->val.termE);
+      x=typeCheckTERM(symbolTable, expression->val.termE);
+      if(debug){
+        printf("%i\n", x);
+      }
+      return x;
       break;
 
     case orK:
       x = typeCheckEXP(symbolTable, expression->val.orE.left);
       y = typeCheckEXP(symbolTable, expression->val.orE.right);
-      if (x == y == BOOLEAN){
+      if (x == y && x == BOOLEAN){
         return x;
       }else{
-        printf("ERROR\n");
+        printf("type-error '||' on line %i\n",expression->lineno);
         return -1;
       }
       break;

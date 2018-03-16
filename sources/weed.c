@@ -1,34 +1,60 @@
-#include "weed.h"
-#include "tree.h"
+#include <stdio.h>
+#include "../headers/weed.h"
+#include "../headers/tree.h"
 
-checkForDevideByZero(EXP expression){
-  int i;
+void* checkForFaultyFunction(FUNC* func){
+  if (func->val.functionF.head->val.headF.id != func->val.functionF.tail->val.tailF){
+    printf("function incorrectly structured- end does not match beginning.  %d\n",func->lineno);
+  }else{
+
+  }
+}
+void* checkForReturns(FUNC* func){
+  int countingReturns = 1;
+  LIST* listcopy = func->val.functionF.body->val.bodyF.statement_list;
+  while(listcopy){
+    if(listcopy->val.statelistL.statement->kind == ifthenK || listcopy->val.statelistL.statement->kind == ifelseK){
+      countingReturns++;
+    }
+      if(listcopy->val.statelistL.statement->kind == returnK){
+        countingReturns--;
+      }
+      listcopy = listcopy->val.statelistL.statement_list;
+
+  }
+  if (countingReturns !=0){
+    printf("missing Return statements in function. %d\n",func->lineno);
+  }
+}
+
+void* checkForDevideByZero(EXP* expression){
+  int i =0;
   //dives into an expression tree and checks for aby division by zero
-  expression = findDevision(expression);
+  //expression = findDevision(expression);
   if(expression != NULL){
-    i =evaluateDevident(expression);
+    //i =evaluateDevident(expression);
     if (i == 0){
       printf("ERROR DEVISION BY ZERO %d\n",expression->lineno);
     }
   }
 }
 
-checkForTautaulogy(STM stm){
+void* checkForTautaulogy(STM* stm){
   //like we saw in the lecture, if we see "something || true" we just compile
   //as if it was just "true" (or false)
-  switch (s->kind) {
+  switch (stm->kind) {
     case ifthenK:
-          EXPtautology(s->val.ifthenS.ifState);
+          EXPtautology(stm->val.ifthenS.ifState);
           break;
     case ifelseK:
-          EXPtautology(s->val.ifelseS.ifState);
+          EXPtautology(stm->val.ifelseS.ifState);
           break;
   }
 }
 int EXPtautology(EXP *e){
   switch (e->kind) {
       case termK:
-           evalTERM(e->val.termE);
+           //evalTERM(e->val.termE);
            break;
       case timesK:
            EXPtautology(e->val.timesE.left);
@@ -85,15 +111,15 @@ int EXPtautology(EXP *e){
     }
 }
 
-int evaluateDevident(EXP expression){
+int evaluateDevident(EXP* expression){
   //auxillary function for the devide by zero check
   //here we evaluate the expression to see if its expression evaluate to ZERO
   //if it does we return an error since that is not a defined expression
 
 }
 
-EXP findDevision(EXP expression){
-  switch (e->kind) {
+EXP* findDevision(EXP* expression){
+  /*switch (e->kind) {
       case termK:
            return NULL;
            //findDevision(e->val.termE);
@@ -151,5 +177,6 @@ EXP findDevision(EXP expression){
             return findDevision(e->val.smalequalE.right);
             break;
       return NULL;
-    }
+    }*/
+    return NULL;
 }

@@ -10,6 +10,7 @@ DEPS += headers/pretty.h
 DEPS += headers/tree.h
 DEPS += headers/symbol.h
 DEPS += headers/typecheck.h
+DEPS += headers/weed.h
 
 OBJ  = y.tab.o
 OBJ += lex.yy.o
@@ -41,6 +42,7 @@ OBJ += typeCheck/typecheckTYPE.o
 
 OBJ += sources/symbol.o
 OBJ += sources/memory.o
+OBJ += sources/weed.o
 
 
 main:             $(DEPS) $(OBJ)

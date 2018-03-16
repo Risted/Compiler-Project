@@ -3,6 +3,7 @@
 #include "headers/pretty.h"
 #include "headers/tree.h"
 #include "headers/typecheck.h"
+#include "headers/weed.h"
 int lineno;
 int debug;
 void yyparse();
